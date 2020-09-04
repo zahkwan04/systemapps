@@ -1,0 +1,1092 @@
+﻿<Window x:Class="systemapps.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign ="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:local="clr-namespace:systemapps"        
+        mc:Ignorable="d" Height="768" Width="1366" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStyle="None">
+
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF761371" Offset="0"/>
+                <GradientStop Color="White" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1366"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <Grid x:Name="GridToolbar" Background="#FF020202" MouseDown="GridToolbar_MouseDown"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+
+
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" x:Name="AppsInfoButton" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="AppsInfoButton_Click">
+                <materialDesign:PackIcon Kind="Information"/>
+
+            </Button>
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" x:Name="AppsMinimizeButton"  Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="AppsMinimizeButton_Click">
+                <materialDesign:PackIcon Kind="WindowMinimize"/>
+
+            </Button>
+
+            <Button Style="{StaticResource MaterialDesignFloatingActionAccentButton}" x:Name="AppsPowerButton" Width="25" Height="25" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="AppsPowerButton_Click">
+                <materialDesign:PackIcon Kind="Power"/>
+
+            </Button>
+
+
+        </StackPanel>
+
+        <Grid Grid.Row="1" Margin="0,77,0,0" Background="Purple">
+            <TabControl x:Name="biggesttabinthisapps" Margin="0,-77,0,0" Background="White">
+                <TabControl.Resources>
+                    <Style TargetType="TabItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="TabItem">
+                                    <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                        <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TabControl.Resources>
+
+                <TabItem Height="70" VerticalAlignment="Top" >
+                    <TabItem.Header>
+                        <Grid Height="70" Width="60" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="43*"/>
+                                <RowDefinition Height="27*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:PackIcon Kind="MonitorDashboard" Margin="10,0,0,0" Height="50" Width="40" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="1" Text="DASHBOARD" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid>
+
+                        <Grid Background="Black" Margin="0,0,-0.2,615">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="MIMOS MI-TRAFFIC DASHBOARD" Foreground="#FFF0F0F0" Margin="599,8,458,10" FontSize="20" Width="304" />
+                            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource MIMOSLOGO}"  Height="45" Width="45" Margin="549,0,767,0"/>
+
+
+                        </Grid>
+
+
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle" Margin="862,116,368.8,519" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="Underline" FontWeight="Bold"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="862,235,354.8,399" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="Underline" FontWeight="Bold"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="862,347,376.8,288" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="Underline" FontWeight="Bold"/>
+
+
+                        <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1207,623,18.8,5" Click="refreshcart_Click"/>
+                        <Button IsEnabled="False" Content="Pause" x:Name="pause" Margin="889,623,336.8,5" Click="pause_Click"/>
+                        <Button IsEnabled="False" Content="Auto Refresh" x:Name="autoref" Margin="1049,626,176.8,2" Click="autoref_Click"/>
+
+                        <TextBlock x:Name="Connectionstatus" Text="Data Not Connected" Margin="302,639,935.8,1"/>
+
+                        <TextBlock  Text="Last Update:" Margin="4,639,1287.8,0" FontStyle="Italic"/>
+                        <TextBlock x:Name="lastupdateinfotext"  Text="" Margin="73,638,1097.8,0" FontStyle="Italic"/>
+
+
+                        <materialDesign:PackIcon x:Name="dashboardsignalstatus" Foreground="Red" Kind="RssFeed" Margin="273,637,0,0" Height="20" Width="29" >
+                            <materialDesign:PackIcon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </materialDesign:PackIcon.RenderTransform>
+                        </materialDesign:PackIcon>
+
+                        <Grid>
+                            <lvc:CartesianChart x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Margin="10,457,517.8,10" >
+                                <lvc:CartesianChart.AxisY>
+                                    <lvc:Axis Title="Average Gap (Meter)" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisY>
+                                <lvc:CartesianChart.AxisX>
+                                    <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
+                                </lvc:CartesianChart.AxisX>
+                            </lvc:CartesianChart>
+                        </Grid>
+
+
+                        <Grid>
+
+                            <lvc:PieChart x:Name="pieChart1" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Margin="843,442,-0.2,36">
+
+                            </lvc:PieChart>
+                        </Grid>
+
+                        <Grid Margin="842,54,516.8,0" Background="Black">
+
+                        </Grid>
+
+
+
+
+                    </Grid>
+
+
+                </TabItem>
+
+                <TabItem Height="70" VerticalAlignment="Top" >
+                    <TabItem.Header>
+                        <Grid Height="70" Width="60">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="43*"/>
+                                <RowDefinition Height="27*"/>
+                            </Grid.RowDefinitions>
+
+                            <materialDesign:PackIcon Foreground="Red" x:Name="packicondbconnectionstatus" Kind="DatabaseRemove" Margin="10,0,0,0" Height="50" Width="40" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="1" Text="DB CONNECT" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48*"/>
+                            <ColumnDefinition Width="1313*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="TEST DATABASE CONNECTION" FontSize="20" TextDecorations="Underline" Height="42" Margin="0,36,981.8,582" FontFamily="Microsoft JhengHei UI" FontWeight="Bold"/>
+
+                        <Label Grid.Column="1" Content="Database IP Address" FontSize="16" Margin="0,92,1138.8,537" FontFamily="Microsoft JhengHei" />
+                        <TextBox x:Name="Dbipaddresstestconn" Grid.Column="1" Background="#FFDCD3D3" TextChanged="Dbipaddresstestconn_TextChanged" Margin="0,123,1017.8,507" FontSize="16" FontFamily="Consolas"/>
+
+                        <Label Grid.Column="1" Content="Database Name" FontSize="16" Margin="0,165,1017.8,465" FontFamily="Microsoft JhengHei UI" />
+                        <TextBox x:Name="Dbnametestconn" Grid.Column="1" Background="#FFDCD3D3" TextChanged="Dbipaddresstestconn_TextChanged" Margin="0,195,1017.8,437" FontSize="16" FontFamily="Consolas"/>
+
+                        <Label Grid.Column="1" Content="Database Username" FontSize="16" Margin="0,239,1017.8,390" FontFamily="Microsoft JhengHei UI" />
+                        <TextBox x:Name="Dbusernametestconn" Grid.Column="1" Background="#FFDCD3D3" LostFocus="DBConnect_TextChanged" TextChanged="Dbipaddresstestconn_TextChanged" Margin="0,270,1017.8,362" FontSize="16" FontFamily="Consolas"/>
+
+                        <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="0,315,1017.8,310" FontFamily="Microsoft JhengHei UI" />
+                        <PasswordBox x:Name="Dbpasswordtestconn" Grid.Column="1" Background="#FFDCD3D3" LostFocus="DBConnect_TextChanged" Margin="0,350,1017.8,282" FontSize="16" FontFamily="Consolas"/>
+
+                        <Button x:Name="TestConnButton" Content="Test Connection" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,123,712.8,496" Click="TestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+
+                        <Button x:Name="SaveTestDbConnButton" Content="Save" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,189,712.8,430" Click="SaveTestDbConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+
+                        <Button x:Name="disconnectandreset"  Content="Disconnect" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="645,123,529.8,496" Click="disconnectandreset_Click" Height="41" FontFamily="Yu Gothic UI" />
+
+                        <Button x:Name="ResetTestConnButton" Content="Reset All Fields" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,262,712.8,357" Click="ResetTestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+
+
+
+
+                    </Grid>
+
+
+                </TabItem>
+
+                <TabItem Visibility="Collapsed"   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                    <TabItem.Header>
+                        <Grid Height="70" Width="65" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="43*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="14*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:PackIcon Kind="Gear" Margin="10,0,0,0" Height="50" Width="40" Grid.RowSpan="2"/>
+                            <TextBlock Text="CONFIGURE" Grid.RowSpan="3" FontSize="10" Margin="2,41,-2,2"/>
+                            <TextBlock Grid.Row="1" Text="PARAMETER" Grid.RowSpan="2" FontSize="10" Margin="2,11,-2,2"/>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid>
+
+                        <TabControl IsEnabled='False' x:Name="tabcontrolparameter">
+                            <TabControl.Resources>
+                                <Style TargetType="TabItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TabItem">
+                                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="1,0">
+                                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TabControl.Resources>
+
+                            <TabItem Header="SERVER INFO" FontSize="14">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="PARAMETER FOR SERVER INFO" VerticalAlignment="Center" FontSize="20" TextDecorations="Underline" Margin="21,47,1013.2,556.6" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" />
+
+                                    <Label Content="ID:" Height="30" Margin="21,97,1229.2,502.6" FontSize="16" FontFamily="Microsoft JhengHei UI"/>
+                                    <TextBox IsReadOnly="True" x:Name="serverinfoidtextbox" Background="#FFE6CECE" Margin="126,97,1172.2,502.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="IP Address:" Width="100" Margin="22,143,1233.2,452.6" FontSize="16" FontFamily="Microsoft JhengHei UI"/>
+                                    <TextBox x:Name="serverinfoiptextbox" Background="#FFE6CECE" Margin="127,147,1034.2,450.6" RenderTransformOrigin="0.519,1.228" FontFamily="Consolas" FontSize="16">
+                                        <TextBox.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform/>
+                                                <SkewTransform/>
+                                                <RotateTransform Angle="-0.085"/>
+                                                <TranslateTransform X="0.027" Y="-0.006"/>
+                                            </TransformGroup>
+                                        </TextBox.RenderTransform>
+                                    </TextBox>
+
+                                    <Button x:Name="resetallfieldbuttonparameterbuttong" Content="Reset All Fields" Margin="21,213,1172.2,380.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="16"/>
+
+                                    <DataGrid ItemsSource="{Binding Path=server_info}" AutoGenerateColumns="False" x:Name="serverinfodatagrid" IsReadOnly="True" Grid.Row="0" BorderThickness="2" SelectionChanged="serverinfodatagrid_SelectionChanged" Margin="606,0,0.2,-0.4" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Path=id}" Header="ID" Width="50" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=ip_address}" Header="IP ADDRESS" Width="100" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+
+                                    </DataGrid>
+
+                                    <Button x:Name="datagridaddserverinfobutton" Height="28" HorizontalAlignment="Left"  Background="#FFEAD9D9" VerticalAlignment="Center" Margin="515,19,0,582.6" Width="86" Click="datagridaddrowbutton_Click" FontFamily="Yu Gothic UI" FontSize="16">
+                                        <Grid >
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,3,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button x:Name="updatedatabasebutton"  Height="28" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,54,754.2,547.6" Width="86" Click="updatedatabasebutton_Click" FontSize="16" FontFamily="Yu Gothic UI">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-19,1" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-19,-1,-8,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button x:Name="deleterowbuttondb" Height="24" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,97,754.2,508.6" Width="86" Click="deleterowbuttondb_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-16,1" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,0,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="CAMERA" FontSize="14">
+
+                                <Grid x:Name="cameragrid" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock  Text="PARAMETER FOR CAMERA" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="21,47,1044.2,556.6" Height="26"  Foreground="Black" FontFamily="Microsoft JhengHei UI" />
+
+
+
+
+                                    <Button  Height="27" HorizontalAlignment="Left"  Background="#FFEAD9D9" VerticalAlignment="Center" Margin="508,23,0,579.6" Width="83" Click="datagridaddrowbutton_Click" FontFamily="Yu Gothic UI" FontSize="16">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,3,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button  Height="27" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,56,764.2,546.6" Width="83" Click="updatedatabasebutton_Click" FontSize="16" FontFamily="Yu Gothic UI">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-19,1" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-19,-1,-8,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button  Height="28" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,97,764.2,504.6" Width="83" Click="deleterowbuttondb_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-16,1" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,0,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+                                    <Label Content="ID:" Margin="21,97,1271.2,502.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox x:Name="cameraidtxtbox" IsReadOnly="True" Background="#FFE6CECE"   FontFamily="Consolas" FontSize="16" Margin="153,97,1130.2,504.6"/>
+                                    <Label Content="Source Option:" Margin="21,145,1218.2,457.6" FontFamily="Microsoft JhengHei UI" FontSize="16"  />
+                                    <ComboBox x:Name="comboboxsourceoption" VerticalAlignment="Top"  Background="#FFE8DCDC" IsEditable='True' Text="--Select Source--" Height="28" SelectionChanged="ComboBox_SelectionChanged" Margin="154,144,1018.2,0" FontFamily="Consolas" FontSize="16"  >
+
+                                        <ComboBoxItem x:Name="comboboximage" Selected="comboboximage_Selected">Image</ComboBoxItem>
+                                        <ComboBoxItem x:Name="comboboxvideo" Selected="comboboxvideo_Selected">Video</ComboBoxItem>
+                                        <ComboBoxItem x:Name="comboboxcamera" Selected="comboboxcamera_Selected">Camera</ComboBoxItem>
+
+                                    </ComboBox>
+
+                                    <Label  Content="Images Folder:" Margin="19,200,1194.2,401.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox x:Name="imgfoldertxtbox" IsReadOnly="True"  VerticalAlignment="Top" Height="28" Background="#FFF9EEEE" Margin="153,200,927.2,0" FontFamily="Consolas" FontSize="16" RenderTransformOrigin="0.503,0.928" />
+                                    <Button x:Name="browseimagefolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browseimagefolderbutton_Click" FontSize="16" Margin="433,198,786.2,0" Width="136" FontFamily="Yu Gothic UI"/>
+
+                                    <Label  Content="Video Folder:" Margin="21,254,1201.2,347.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox x:Name="videofoldertxtbox" IsReadOnly="True"  VerticalAlignment="Top" Height="28" Background="#FFF9EEEE" Margin="154,254,927.2,0" FontFamily="Consolas" FontSize="16" />
+                                    <Button x:Name="browsevideofolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browsevideofolderbutton_Click" Margin="433,251,786.2,0" FontSize="16" Width="136" FontFamily="Yu Gothic UI"/>
+
+                                    <Label  Content="Files Extension:" Margin="19,307,1207.2,294.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox  x:Name="filesextensiontxtbox" VerticalAlignment="Top" Height="28" Background="#FFF9EEEE" Margin="153,307,939.4,0" FontFamily="Consolas" FontSize="16" />
+                                    <Label  Content="Example: .mp4 or.jpeg" FontSize="12" VerticalAlignment="Top" Margin="416,300,757.2,0" FontStyle="Italic" Height="24" FontFamily="Consolas" />
+                                    <Label  Content="or.png etc." FontSize="12" VerticalAlignment="Bottom" Margin="416,0,771.2,283.6" FontStyle="Italic" Height="22" FontFamily="Consolas" />
+
+                                    <Label  Content="Camera URL:" Margin="19,365,1207.2,235.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox x:Name="cameraurltxtbox" IsReadOnly="True" VerticalAlignment="Top" Height="28" Background="#FFF9EEEE" Margin="153,361,886.2,0" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label  Content="Camera Mask:" Margin="20,441,1207.2,160.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox IsReadOnly="True" x:Name="cameramasktxtbox" VerticalAlignment="Top" Height="28" Background="#FFF9EEEE" Margin="153,441,886.2,0" FontFamily="Consolas" FontSize="16" />
+                                    <Button x:Name="drawroibutton" IsEnabled="False" Height="28" VerticalAlignment="Top" Content="Draw ROI" HorizontalAlignment="Center" Margin="466,441,764.4,0" Click="Button_Click" Width="108" FontSize="16" FontFamily="Yu Gothic UI"/>
+
+                                    <Button x:Name="ResetAllFieldcamera" Height="30" VerticalAlignment="Top" Content="Reset All Fields" HorizontalAlignment="Center" Margin="21,497,1184.4,0"  FontSize="16" Width="133" Click="ResetAllField_Click" FontFamily="Yu Gothic UI" />
+
+                                    <Button x:Name="checkcam"  IsEnabled="False" Height="29" VerticalAlignment="Top" Content="Check Cam" HorizontalAlignment="Center" Margin="474,361,765.2,0" Width="116" FontSize="16" Click="checkcam_Click" FontFamily="Yu Gothic UI"/>
+
+                                    <!--
+                                        <Button Visibility="Collapsed"  x:Name="nextimgeprevbuttton" VerticalAlignment="Top" Content="Next Image" Grid.Row="10" Grid.Column="5" Background="#FF631E83" Click="nextimgeprevbuttton_Click" Margin="63,37,74,0" Grid.ColumnSpan="3" />
+                                        <Button Visibility="Collapsed"  x:Name="previousimgbutton" VerticalAlignment="Center" Content="Previous Image" Grid.Row="10" Grid.Column="5" Background="#FF631E83" FontSize="11" Margin="63,79,74,41" Click="previousimgbutton_Click" Grid.ColumnSpan="3" />
+
+                                        <Button Visibility="Collapsed" x:Name="playvideobutton" VerticalAlignment="Top" Content="Play" Grid.Row="10" Grid.Column="5" Background="#FF631E83" Click="playvideobutton_Click" Margin="77,18,103,0" Height="24" Grid.ColumnSpan="3" />
+                                        <Button Visibility="Collapsed" x:Name="pausevideobutton" VerticalAlignment="Center" Content="Pause" Grid.Row="10" Grid.Column="5" Background="#FF631E83" FontSize="14" Margin="77,45,91,84" Click="pausevideobutton_Click" Height="23" Grid.ColumnSpan="3" />
+                                        <Button Visibility="Collapsed" x:Name="StopVideobutton"  VerticalAlignment="Center" Content="Stop" Grid.Row="10" Grid.Column="5" Background="#FF631E83" FontSize="14" Margin="77,73,110,54" Click="StopVideobutton_Click" Grid.ColumnSpan="3" Height="25" />
+                                        <Button Visibility="Collapsed" x:Name="Takesnapshotvideo" VerticalAlignment="Center" Content="Take Snapshot" Grid.Row="10" Grid.Column="3" Background="#FF631E83" FontSize="11" Margin="119,99,75,21" Click="Takesnapshotvideo_Click" Grid.ColumnSpan="3" />
+                                        <Button Visibility="Collapsed" x:Name="nextvideobutton"  VerticalAlignment="Center" Content="Next Video" Grid.Row="10" Grid.Column="3" Background="#FF631E83" FontSize="12" Margin="119,52,75,68" Click="nextvideobutton_Click" Grid.ColumnSpan="3"  />
+                                        <Button Visibility="Collapsed" x:Name="prevvideobutton"  VerticalAlignment="Center" Content="Prev Video" Grid.Row="10" Grid.Column="3" Background="#FF631E83" FontSize="12" Margin="119,18,75,102" Click="prevvideobutton_Click" Grid.ColumnSpan="3"/>
+
+                                        -->
+
+                                    <DataGrid ScrollViewer.CanContentScroll="True" IsReadOnly="True" x:Name="cameradatagrid" ItemsSource="{Binding Path=camera}" AutoGenerateColumns="False" Grid.Row="0" BorderThickness="2" Margin="599,0,0.2,375.6" SelectionChanged="cameradatagrid_SelectionChanged" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="50" Header="ID" IsReadOnly="True" Binding="{Binding Path=cam_id}"/>
+                                            <DataGridTextColumn Width="120" IsReadOnly="True" Header="INPUT SOURCE" Binding="{Binding Path=cam_source}"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Header="CAM URL" Binding="{Binding Path=cam_url}"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Header="CAM MASK" Binding="{Binding Path=cam_mask}"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Header="EXTENSION" Binding="{Binding Path=cam_ext}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Border BorderThickness="2" Margin="737,254,122.2,31.6"  >
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0"/>
+                                                <GradientStop Color="White" Offset="0.547"/>
+                                                <GradientStop Color="#FF040000" Offset="0.861"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <Image x:Name="imageprevbox" Visibility="Collapsed"  />
+
+                                    </Border>
+                                    <Border BorderThickness="2" Margin="737,254,122.2,31.6"  >
+                                        <Border.BorderBrush>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0"/>
+                                                <GradientStop Color="White" Offset="0.547"/>
+                                                <GradientStop Color="#FF040000" Offset="0.861"/>
+                                            </LinearGradientBrush>
+                                        </Border.BorderBrush>
+                                        <MediaElement IsMuted="True" LoadedBehavior="Manual" UnloadedBehavior="Stop" x:Name="videocameratab" Visibility="Collapsed" Stretch="Fill"/>
+
+                                    </Border>
+
+                                    <TextBox x:Name="DirectoryPathbelowprevbox" IsReadOnly="True" Background="#FFF9EEEE" Margin="766,598,137.2,-0.4" FontSize="12" FontFamily="Microsoft YaHei UI" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2"  />
+                                    <TextBox Text="Example: Rtsp://admin:analyt!k@10.8.11.123/live" IsReadOnly="True" VerticalAlignment="Top" Height="26"  Margin="153,390,880.2,0" FontSize="12" FontStyle="Italic" FontFamily="Consolas" />
+                                    <Label x:Name="notecam1" Visibility="Collapsed"  Content="Note: Please wait until the image is loaded on the box  " Margin="250,482,618.2,121.6" />
+                                    <Label x:Name="notecam2" Visibility="Collapsed"  Content="before using Draw ROI.  " Margin="293,508,765.2,93.6" />
+
+
+
+                                </Grid>
+
+
+                            </TabItem>
+
+                            <TabItem Header="INPUT SOURCE" FontSize="14">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="304*"/>
+                                        <RowDefinition Height="9*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock  Text="PARAMETER FOR INPUT SOURCE" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="21,47,997.2,538.2" FontFamily="Microsoft JhengHei UI" />
+
+                                    <Label Content="ID:" Width="100" Height="30" Margin="21,106,1234.2,475.2" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox IsReadOnly="True" x:Name="inputsourceidtextbox" Background="#FFE6CECE" Width="100" Height="25" Margin="148,108,1107.2,478.2" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Source Name:" Height="30" Margin="21,150,1213.2,431.2" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox  x:Name="inputsourcesourcetextbox" Background="#FFE6CECE" Height="25" Margin="148,154,1048.2,432.2" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Button Content="Reset All Fields" Margin="21,213,1213.2,362.2" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click"/>
+
+
+                                    <Button Visibility="Collapsed" Height="20" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,23,762.2,568.2" Width="71" Click="datagridaddrowbutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="11" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,8,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Visibility="Collapsed" Height="20" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,179,762.2,412.2" Width="71" Click="updatedatabasebutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="10" RenderTransformOrigin="0.6,0.583" Margin="-15,-1,3,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Visibility="Collapsed" Height="20" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,213,762.2,378.2" Width="71" Click="deleterowbuttondb_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="10" RenderTransformOrigin="0.6,0.583" Margin="-12,-1,0,1"/>
+
+                                        </Grid>
+
+                                    </Button>
+                                    <DataGrid x:Name="inputsourcedatagrid" ItemsSource="{Binding Path= input_source}" AutoGenerateColumns="False" IsReadOnly="True" Grid.RowSpan="2" Grid.Row="0" BorderThickness="2" SelectionChanged="inputsourcedatagrid_SelectionChanged" Margin="606,0,0.2,-0.4" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="ID" Binding="{Binding Path=id}" Width="50" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="SOURCE" Binding="{Binding Path=source}" Width="100" IsReadOnly="True"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="ANALYTICS" FontSize="14">
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="34*"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Text="PARAMETER FOR ANALYTICS" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="21,47,1046.2,540" FontFamily="Microsoft JhengHei UI" />
+
+                                    <Label Content="ID:" Height="30" Margin="21,100,1276.2,482" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="analyticsidtxtbox" Background="#FFE6CECE" Height="25" Margin="159,105,1115.2,482" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Confidence:" Margin="21,138,1196.2,445" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Slider  x:Name="det_confSlider" Margin="159,142,1076.2,443"
+                                     Minimum="0" Maximum="1" 
+                                     TickFrequency="0.1" IsSnapToTickEnabled="True"/>
+
+                                    <TextBlock x:Name="det_conftxtblock" Text="{Binding Value, ElementName=det_confSlider}"
+                                    Margin="289,141,1046.2,445" RenderTransformOrigin="0.49,0.5"/>
+
+
+                                    <Button Height="26" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,20,762.2,566" Width="71" Click="datagridaddrowbutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-14,-0.6" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,8,-1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Height="27" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,51,762.2,534" Width="72" Click="updatedatabasebutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-1,-16,0.4" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-20,-1,-2,-0.6" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Height="23" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,90,762.2,499" Width="71" Click="deleterowbuttondb_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-16,0.2" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,-6,1.2" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Path=analytic}" x:Name="analyticdatagrid" Grid.Row="0" BorderThickness="2" Margin="606,0,10.2,0" SelectionChanged="analyticdatagrid_SelectionChanged" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="ID" Binding="{Binding Path=id}" Width="50" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Det_Conf" Binding="{Binding Path=det_conf}" Width="80" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Det_Id" Binding="{Binding Path=det_device_id}" Width="70" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Pred_Id" Binding="{Binding Path=pred_device_id}" Width="70" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Skip Outer" Binding="{Binding Path=skip_outer}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Skip Inner" Binding="{Binding Path=skip_inner}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Init" Binding="{Binding Path=init}" Width="70" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Last" Binding="{Binding Path=last}" Width="70" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="InitVid" Binding="{Binding Path=initVideo}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="LastVid" Binding="{Binding Path=lastVideo}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Proc_Dur" Binding="{Binding Path=processDuration}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Det_Model" Binding="{Binding Path=det_model_id}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Pred_Model" Binding="{Binding Path=pred_model_id}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Server ID" Binding="{Binding Path=server_id}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Cam_ID" Binding="{Binding Path=camera_id}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Det_Dbg" Binding="{Binding Path=det_debug}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Trk_Dbg" Binding="{Binding Path=trk_debug}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Pred_Enable" Binding="{Binding Path=pred_enable}" Width="100" IsReadOnly="True"/>
+                                            <DataGridTextColumn Header="Status" Binding="{Binding Path=status}" Width="70" IsReadOnly="True"/>
+
+                                        </DataGrid.Columns>
+
+
+                                    </DataGrid>
+
+                                    <Label Content="Det. Device ID:" Height="30" Margin="21,179,1201.2,403" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detdevidtxtbox" Background="#FFE6CECE" Height="25" Margin="159,179,1096.2,408" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Device ID:" Height="30" Margin="20,221,1201.2,361" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="preddevidtxtbox" Background="#FFE6CECE" Height="25" Margin="159,221,1096.2,366" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Skip Outer:" Width="100" Height="30" Margin="21,260,1234.2,322" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="skipoutertxtbox" Background="#FFE6CECE" Margin="159,265,1096.2,322" RenderTransformOrigin="0.438,0.576" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Skip Inner:" Width="100" Margin="21,308,1234.2,276" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="skipinnertxtbox" Background="#FFE6CECE" Width="100" Height="25" Margin="159,308,1096.2,279" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Start:" Margin="20,350,1284.2,237" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="inittxtbox" Background="#FFE6CECE" Width="100" Height="25" Margin="159,350,1096.2,237" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Stop:" Margin="21,387,1275.2,197" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="lasttxtbox" Background="#FFE6CECE" Width="100" Height="25" Margin="159,390,1096.2,197" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Process Duration:" Height="30" Margin="20,430,1169.2,152" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="procdurtxtbox" Background="#FFE6CECE" Height="25" Margin="159,430,1096.2,157" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Initial Video:" Width="100" Margin="329,138,926.2,447" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="initvidtxtbox" Background="#FFE6CECE" Width="100" Height="25" Margin="480,138,775.2,449" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Last Video:" Width="100" Margin="329,179,926.2,406" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="lastvidtxtbox" Background="#FFE6CECE" Width="100" Height="25" Margin="480,179,775.2,408" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="*Det. Model ID:" Margin="329,225,888.2,357" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+
+                                    <ComboBox x:Name="cbbdetmodelid" IsReadOnly="True" Background="#FFE6CECE" Height="25" Margin="480,227,775.2,360" FontFamily="Consolas" FontSize="16"/>
+                                    <ComboBox x:Name="cbbpredmodelid" IsReadOnly="True" Background="#FFE6CECE" Height="30" Margin="480,266,775.2,316" FontFamily="Consolas" FontSize="16"/>
+
+
+                                    <Label Content="*Pred. Model ID:" Margin="329,267,888.2,315" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+
+                                    <Label Content="*Server ID:" Margin="329,307,926.2,275" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+
+                                    <Label Content="Det. Debug:" Margin="26,475,1229.2,109" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <RadioButton x:Name="det_debugtrue" GroupName="det_debug" Content="True" Margin="159,478,1145.2,113"/>
+                                    <RadioButton x:Name="det_debugfalse" GroupName="det_debug" Content="False" Margin="233,478,1069.2,113"/>
+
+                                    <Label Content="Trk. Debug:" Height="30" Margin="26,503,1234.2,79" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <RadioButton x:Name="trkdebugtrue" GroupName="Trk_debug" Content="True" Margin="159,507,1145.2,86"/>
+                                    <RadioButton x:Name="trkdebugfalse" GroupName="Trk_debug" Content="False" Margin="233,507,1069.2,86" RenderTransformOrigin="0.491,0.42"/>
+
+                                    <Label Content="Pred. Enable:" Margin="26,532,1217.2,54" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <RadioButton x:Name="predenabletrue" GroupName="Pred_Enable" Content="True" Margin="159,535,1145.2,56"/>
+                                    <RadioButton x:Name="predenablefalse" GroupName="Pred_Enable" Content="False" Margin="234,535,1068.2,56"/>
+
+                                    <Label Content="Status:" Margin="26,558,1263.2,28" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <RadioButton x:Name="statustrue" GroupName="status" Content="True" Margin="159,562,1144.2,31"/>
+                                    <RadioButton x:Name="statusfalse" GroupName="status" Content="False" Margin="234,563,1067.2,29"/>
+
+                                    <Label Content="*Camera ID:" Margin="329,343,910.2,240" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+
+
+                                    <Button Content="Reset All Fields" Margin="447,427,775.2,151" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI"/>
+                                    <ComboBox x:Name="cbbserverid" IsReadOnly="True" Background="#FFE6CECE" Height="25" Margin="480,310,775.2,277" FontFamily="Consolas" FontSize="16"/>
+                                    <ComboBox x:Name="cbbcameraid" IsReadOnly="True" Background="#FFE6CECE" Height="23" Margin="480,349,775.2,240" FontFamily="Consolas" FontSize="16"/>
+                                    <Label Content="* =  Required " Width="100" Margin="329,388,926.2,194" FontStyle="Italic" FontWeight="Bold"/>
+                                    <Label Content="Minutes" Margin="263,434,1046.2,156" FontSize="11" FontStyle="Italic"/>
+                                    <Button x:Name="Exportscriptbutton" Content="Export script" Margin="447,491,775.2,81" Height="Auto" Click="Exportscriptbutton_Click" FontFamily="Yu Gothic UI" />
+                                    <Button x:Name="exportandrunscript"  Content="Export and Run" Margin="447,548,775.2,24" Height="Auto" FontFamily="Yu Gothic UI" Click="exportandrunscript_Click" Background="#FF351966" />
+
+                                    <Button Visibility="Collapsed" x:Name="cmdtestbutton"   Content="cmdtest" Margin="792,532,430.2,40" Height="Auto" FontFamily="Yu Gothic UI" Click="cmdtestbutton_Click" />
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="STATISTICS" FontSize="14">
+
+                                <Grid MouseEnter="Grid_MouseEnter">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="21*"/>
+                                        <ColumnDefinition Width="1334*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock  Text="PARAMETER FOR STATISTICS" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,47,1043.2,557.6" FontFamily="Microsoft JhengHei UI" Grid.Column="1" />
+
+                                    <Label Content="ID:" Grid.Column="1" Margin="0.2,103,1281.2,501.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox IsReadOnly="True" x:Name="statisticsidtxtbox" Background="#FFE6CECE" Grid.Column="1" Width="100" Height="25" Margin="115.2,103,1119.2,501.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Analytic ID:" Grid.Column="1" Margin="0.2,141,1234.2,460.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <ComboBox IsReadOnly="True" Background="#FFE6CECE" x:Name="comboboxanalyticidstat" Height="28"  Margin="115.2,141,1119.2,460.6" FontFamily="Consolas" FontSize="16" Grid.Column="1" />
+                                    <ComboBox IsReadOnly="True" Background="#FFE6CECE" x:Name="comboboxcameraidstatt" Height="28"  Grid.Column="1" Margin="115.2,309,1089.2,292.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Button Height="24" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,20,757.2,585.6" Width="71" Click="datagridaddrowbutton_Click" Grid.Column="1">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-9,-2,8,-1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Height="31" HorizontalAlignment="Right"  Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,49,757.2,549.6" Width="71" Click="updatedatabasebutton_Click" Grid.Column="1">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-18,-1" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-19,-2,-5,-1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button Height="26" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,94,757.2,509.6" Width="71" Click="deleterowbuttondb_Click" Grid.Column="1">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-17,-1" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,0,-1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <DataGrid ItemsSource="{Binding Path=statistics}" AutoGenerateColumns="False" IsReadOnly="True" x:Name="statisticdatagrid" Grid.Row="0" Grid.Column="1" BorderThickness="2" SelectionChanged="statisticdatagrid_SelectionChanged" Margin="585.2,0,0.2,-0.4" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Width="50" IsReadOnly="True" Binding="{Binding Path=id}" Header="ID"/>
+                                            <DataGridTextColumn Width="105" IsReadOnly="True" Binding="{Binding Path=analytic_id}" Header="ANALYTIC ID"/>
+                                            <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=date}" Header="DATE"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=time}" Header="TIME"/>
+                                            <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=counter}" Header="COUNTER"/>
+                                            <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=camera_id}" Header="CAM ID"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=total_vehicle}" Header="TOTAL VEHICLE"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_1}" Header="VEHI.1"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_2}" Header="VEHI.2"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_3}" Header="VEHI.3"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_4}" Header="VEHI.4"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_5}" Header="VEHI.5"/>
+                                            <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_6}" Header="VEH.6"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=avg_vehicle_speed}" Header="AVG SPEED"/>
+                                            <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=avg_vehicle_gap}" Header="AVG GAP"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+
+                                    <Label Content="Date:"  Margin="0.2,184,1248.2,420.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
+                                    <TextBox IsReadOnly="True" x:Name="statsdatetxtbox" Background="#FFE6CECE" Height="25" Margin="115.2,184,1041.2,420.6" Grid.Column="1" />
+
+                                    <Label Content="Time:" Grid.Column="1" Width="100" Margin="0.2,222,1234.2,381.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox IsReadOnly="True" x:Name="timestatstxtbox" Background="#FFE6CECE" Grid.Column="1" Width="100" Margin="115.2,222,1119.2,381.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Counter:" Margin="0.2,265,1258.2,335.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
+                                    <TextBox x:Name="counterstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Width="100" Margin="115.2,265,1119.2,335.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Camera ID:" Grid.Column="1" Margin="0.2,309,1242.2,292.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+
+
+
+                                    <Label Content="Total Vehicle:" Grid.Column="1" Height="30" Margin="0.2,349,1224.2,250.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" IsReadOnly="True" x:Name="totalvehiclestatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,352,1149.2,252.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Content="Avg. Gap:" Grid.Column="1" Width="100" Height="30" Margin="0.2,390,1234.2,209.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="avggapstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Margin="115.2,390,1127.2,211.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput"/>
+
+                                    <Label Content="Avg. Speed:" Grid.Column="1" Width="100" Height="30" Margin="0.2,428,1234.2,171.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="avgspeedstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,434,1132.2,170.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Vehicle 1:" Grid.Column="1" Height="30" Margin="333.2,182,915.2,417.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi1stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,186,823.2,418.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
+
+                                    <Label Content="Vehicle 2:" Grid.Column="1" Height="30" Margin="333.2,217,915.2,382.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi2stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,219,823.2,385.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
+
+                                    <Label Content="Vehicle 3:" Grid.Column="1" Height="30" Margin="333.2,253,915.2,346.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi3stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,255,823.2,349.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
+
+                                    <Label Content="Vehicle 4:" Grid.Column="1" Height="30" Margin="333.2,287,915.2,312.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi4stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,290,823.2,314.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
+
+                                    <Label Content="Vehicle 5:" Grid.Column="1" Height="30" Margin="333.2,321,915.2,278.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi5stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,324,823.2,280.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
+
+                                    <Label Content="Vehicle 6:" Grid.Column="1" Height="30" Margin="333.2,356,915.2,243.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="vehi6stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,359,823.2,245.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16" />
+
+                                    <Button Content="Reset All Fields"  Margin="0.2,485,1220.2,116.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Grid.Column="1" FontFamily="Yu Gothic UI" FontSize="12"/>
+                                    <Label Content="Metre" Grid.Column="1" Margin="207.2,396,1086.2,210.6" FontSize="11"/>
+                                    <Label Content="KM/H" Grid.Column="1" Margin="202.2,434,1094.2,170.6" FontSize="11"/>
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="PREDICTION MODULE" FontSize="14">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="21*"/>
+                                        <ColumnDefinition Width="1334*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Text="PARAMETER FOR PREDICTION MODULE" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,48,935.2,556.6" FontFamily="Microsoft JhengHei UI" Grid.Column="1" />
+
+                                    <Label Content="Pred. ID:" Grid.Column="1" Width="100" Height="30" Margin="2.2,102,1232.2,497.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox IsReadOnly="True" x:Name="predidtxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,103,1091.2,501.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Framework:" Height="30" Margin="2.2,141,1184.2,458.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
+                                    <TextBox x:Name="predframeworktxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,144,977.2,460.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Source:" Grid.Column="1" Height="30" Margin="2.2,181,1215.2,418.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="predsourcetxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,186,935.2,418.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Size:" Grid.Column="1" Height="30" Margin="2.2,221,1242.2,378.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="predsizetxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,226,898.2,378.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Model:" Grid.Column="1" Width="100" Height="30" Margin="2.2,262,1232.2,337.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="predmodeltxbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,267,859.2,337.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Label:" Grid.Column="1" Width="100" Height="30" Margin="2.2,301,1232.2,298.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="predlabeltxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,306,840.2,298.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Pred. Label Mapper:" Grid.Column="1" Height="30" Margin="2.2,340,1172.2,259.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="predlabelmappertxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="167.2,345,817.2,259.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="10.2,399,1210.2,194.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12"/>
+
+                                    <DataGrid x:Name="predictionmoduledatagrid" ItemsSource="{Binding Path=prediction}" AutoGenerateColumns="False"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="2" SelectionChanged="predictionmoduledatagrid_SelectionChanged" Margin="585.2,0,0.2,-0.4" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Path=pred_id}" Header="ID" Width="50" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_framework}" Header="FRAMEWORK" Width="110" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_source}" Header="SOURCE" Width="80" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_size}" Header="SIZE" Width="60" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_model}" Header="MODEL" Width="90" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_label}" Header="LABEL" Width="80" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=pred_labelmap}" Header="LABELMAP" Width="80" IsReadOnly="True" />
+
+                                        </DataGrid.Columns>
+
+                                    </DataGrid>
+
+                                    <Button  Height="25" HorizontalAlignment="Left" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="506.2,22,0,582.6" Width="74" Click="datagridaddrowbutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,8,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button   Height="25" HorizontalAlignment="Right" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,52,754.2,552.6" Width="74" Click="updatedatabasebutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-19,1" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,-2,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button  Height="24" HorizontalAlignment="Right" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,88,754.2,517.6" Width="74" Click="deleterowbuttondb_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,-17,1" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-18,-1,1,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="DETECTION MODULE" FontSize="14">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="21*"/>
+                                        <ColumnDefinition Width="1334*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="PARAMETER FOR DETECTION MODULE" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,48,944.2,556.6" FontFamily="Microsoft JhengHei UI" />
+
+                                    <Label Content="Det. ID:" Grid.Column="1" Width="100" Height="30" Margin="0.2,101,1234.2,498.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detidtxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,98,1075.2,506.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Framework:" Grid.Column="1" Width="100" Height="30" Margin="0.2,135,1234.2,464.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detframeworktxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,132,981.2,472.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Source:" Grid.Column="1" Width="100" Height="30" Margin="0.2,169,1234.2,430.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detsourcetxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,167,944.2,437.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Size:" Grid.Column="1" Width="100" Height="30" Margin="0.2,204,1234.2,395.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detsizetxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,202,912.2,402.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Model:" Grid.Column="1" Width="100" Height="30" Margin="0.2,240,1234.2,359.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detmodeltxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,238,890.2,366.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Label:" Grid.Column="1" Width="100" Height="30" Margin="0.2,274,1234.2,325.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detlabeltxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,272,862.2,332.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Label Content="Det. Label Mapper:" Grid.Column="1" Height="30" Margin="0.2,307,1146.2,292.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox x:Name="detlabelmappertxtbox"  Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="154.2,307,835.2,297.6" FontFamily="Consolas" FontSize="16"/>
+
+                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="304.2,543,835.2,27.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12"/>
+
+                                    <DataGrid x:Name="detectionmoduledatagrid" ItemsSource="{Binding Path=detection}" AutoGenerateColumns="False"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="2" SelectionChanged="detectionmoduledatagrid_SelectionChanged" Margin="585.2,0,0.2,-0.4" >
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Binding="{Binding Path=det_id}" Header="ID" Width="50" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_framework}" Header="FRAMEWORK" Width="110" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_source}" Header="SOURCE" Width="80" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_model}" Header="MODEL" Width="80" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_size}" Header="SIZE" Width="55" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_label}" Header="LABEL" Width="65" IsReadOnly="True" />
+                                            <DataGridTextColumn Binding="{Binding Path=det_labelmap}" Header="LABELMAP" Width="100" IsReadOnly="True" />
+
+                                        </DataGrid.Columns>
+
+                                    </DataGrid>
+
+                                    <Button  Height="24" HorizontalAlignment="Left" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="509.2,28,0,577.6" Width="71" Click="datagridaddrowbutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Add" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-2,-13,-1" Height="15"  />
+                                            <TextBlock Text="ADD" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-8,-1,8,1" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button   Height="24" HorizontalAlignment="Right" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,58,754.2,547.6" Width="71" Click="updatedatabasebutton_Click">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Update" Foreground="Green"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-1,-16,0.4" Height="15"  />
+                                            <TextBlock Text="UPDATE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-20,-1,0,1.4" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                    <Button  Height="22" HorizontalAlignment="Right" Grid.Column="1" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,95,754.2,512.6" Width="71" Click="deleterowbuttondb_Click" FontSize="12">
+                                        <Grid Width="25">
+                                            <materialDesign:PackIcon Kind="Delete" Foreground="Red"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,-1,-16,0.4" Height="15"  />
+                                            <TextBlock Text="DELETE" Foreground="Black" FontSize="12" RenderTransformOrigin="0.6,0.583" Margin="-20,-1,0,0.4" FontFamily="Yu Gothic UI"/>
+
+                                        </Grid>
+
+                                    </Button>
+
+                                </Grid>
+
+                            </TabItem>
+
+
+
+                        </TabControl>
+
+                    </Grid>
+
+
+                </TabItem>
+
+                <TabItem Height="70" VerticalAlignment="Top" >
+                    <TabItem.Header>
+                        <Grid Height="70" Width="60">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="43*"/>
+                                <RowDefinition Height="27*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:PackIcon Kind="Tools" Margin="10,0,0,0" Height="50" Width="40" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="1" Text="DB TOOLS" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid>
+                        <TabControl>
+                            <TabControl.Resources>
+                                <Style TargetType="TabItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TabItem">
+                                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="1,0">
+                                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsSelected" Value="True">
+                                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsSelected" Value="False">
+                                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TabControl.Resources>
+
+                            <TabItem Header="ADD DATABASE" FontSize="14" >
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35*"/>
+                                        <ColumnDefinition Width="293*"/>
+                                        <ColumnDefinition Width="82*"/>
+                                        <ColumnDefinition Width="123*"/>
+                                        <ColumnDefinition Width="461*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="ADD NEW DATABASE" FontSize="20" TextDecorations="Underline" Height="41" Margin="0,41,111.2,550" FontFamily="Microsoft JhengHei UI" FontWeight="Bold" Grid.ColumnSpan="2"/>
+
+                                    <Label Grid.Column="1" Content="Database IP Address" FontSize="16" Margin="0,87,0.2,503" FontFamily="Microsoft JhengHei UI" />
+                                    <TextBox x:Name="newdbip" Grid.Column="1" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="0,124,111.2,473.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Grid.Column="1" Content="Database Name" FontSize="16" Margin="0,173,0.2,419.6" FontFamily="Microsoft JhengHei UI" />
+                                    <TextBox x:Name="newdbname" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="47,210,0.2,385.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Content="Database Username" FontSize="16" Margin="47,269,0.2,322.6" FontFamily="Microsoft JhengHei UI" Grid.ColumnSpan="2" />
+                                    <TextBox x:Name="newdbusername" Grid.Column="1" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="0,307,111.2,290.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="2,367,109.2,224.6" FontFamily="Microsoft JhengHei UI" Grid.ColumnSpan="2" />
+                                    <PasswordBox x:Name="newdbpassword" Background="#FFDCD3D3" Margin="1,405,111.2,188.6" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" Grid.Column="1" />
+
+                                    <Button x:Name="createnewdbbutton"  Content="CREATE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,124,0.4,473.6" Click="createnewdbbutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI"  />
+
+                                    <Button x:Name="resetnewdbfields"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,186,0.4,410.6" Click="resetnewdbfields_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="33" />
+                                    <Label Grid.Column="4" Content="Note: Creating new database may take some times." FontSize="16" Margin="39.6,125,214.2,445.6" />
+
+                                </Grid>
+
+                            </TabItem>
+
+                            <TabItem Header="DELETE DATABASE" FontSize="14" >
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="35*"/>
+                                        <ColumnDefinition Width="293*"/>
+                                        <ColumnDefinition Width="82*"/>
+                                        <ColumnDefinition Width="123*"/>
+                                        <ColumnDefinition Width="461*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock VerticalAlignment="Center" Grid.Column="1" Text="DROP A DATABASE" FontSize="20" TextDecorations="Underline" FontWeight="Bold" Height="41" Margin="0,41,111.2,550" Grid.ColumnSpan="2" FontFamily="Microsoft JhengHei UI"/>
+
+                                    <Label Grid.Column="1" Content="Database IP Address" FontSize="16" Margin="0,87,0.2,505.6" FontFamily="Microsoft JhengHei UI" />
+                                    <TextBox x:Name="dropdbip" Grid.Column="1" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="0,124,111.2,470.6" FontSize="16" FontFamily="Consolas" />
+
+                                    <Label Grid.Column="1" Content="Database Name" FontSize="16" Margin="0,176,0.2,415.6" FontFamily="Microsoft JhengHei UI" />
+                                    <TextBox x:Name="dropdbname" Grid.Column="1" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="0,214,111.2,383.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Grid.Column="1" Content="Database Username" FontSize="16" Margin="0,271,0.2,321.6" FontFamily="Microsoft JhengHei UI" />
+                                    <TextBox x:Name="dropdbusername" Grid.Column="1" Background="#FFDCD3D3" Grid.ColumnSpan="2" Margin="0,308,111.2,286.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="0,366,0.2,229.6" FontFamily="Microsoft JhengHei UI" />
+                                    <PasswordBox x:Name="dropdbpassword" Grid.Column="1" Background="#FFDCD3D3" Margin="0,400,0.2,192.6" FontFamily="Consolas" FontSize="16" />
+
+                                    <Button x:Name="dropdbdeletebutton"  Content="DELETE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,128,0.4,466.6" Click="dropdbdeletebutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="35"  />
+
+                                    <Button x:Name="resetdropdbbutton"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,191,2.4,406.6" Click="resetdropdbbutton_Click" FontFamily="Yu Gothic UI" Grid.ColumnSpan="2" />
+
+                                </Grid>
+
+                            </TabItem>
+                        </TabControl>
+
+                    </Grid>
+
+
+                </TabItem>
+
+                <TabItem Height="70" VerticalAlignment="Top" >
+                    <TabItem.Header>
+                        <Grid Height="70" Width="60">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="43*"/>
+                                <RowDefinition Height="27*"/>
+                            </Grid.RowDefinitions>
+                            <materialDesign:PackIcon Kind="Help" Margin="10,0,0,0" Height="50" Width="40" Grid.RowSpan="2"/>
+                            <TextBlock Grid.Row="1" Text="HELP" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                    </TabItem.Header>
+                    <Grid>
+                        <TextBlock Text=" Contact us at 012356789 " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="Consolas"/>
+
+
+
+
+
+                    </Grid>
+
+
+                </TabItem>
+
+
+            </TabControl>
+        </Grid>
+
+
+    </Grid>
+</Window>

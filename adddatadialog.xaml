@@ -1,0 +1,18 @@
+﻿<Window x:Class="systemapps.adddatadialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:systemapps"
+        mc:Ignorable="d"
+        Title="adddatadialog" Height="250" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Name" Margin="37,31,248,165"/>
+        <Label Content="Description" Margin="37,99,238,98"/>
+        <TextBox x:Name="newdataname" Background="AliceBlue" HorizontalAlignment="Left" Height="23" Margin="37,56,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="242"/>
+        <TextBox x:Name="newdatadescription" Background="AliceBlue" HorizontalAlignment="Left" Height="23" Margin="37,123,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="242"/>
+        <Button x:Name="newdataokbutton" Content="OK" HorizontalAlignment="Left" Margin="52,162,0,0" VerticalAlignment="Top" Width="75" Click="newdataokbutton_Click"/>
+        <Button x:Name="newdatacancelbutton" Content="Cancel" HorizontalAlignment="Left" Margin="161,162,0,0" VerticalAlignment="Top" Width="75" Click="newdatacancelbutton_Click"/>
+
+    </Grid>
+</Window>
