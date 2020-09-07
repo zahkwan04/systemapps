@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -56,7 +57,7 @@ namespace systemapps
         string detdebug;
         string trkdebug;
         string predenable;
-
+        private double _value;
         private bool isConnectionTested = false;
         enum Operation
         {
@@ -74,6 +75,7 @@ namespace systemapps
             InitializeComponent();
             init();
             piechartinit();
+            
 
             dt.Interval = TimeSpan.FromSeconds(5);
             dt.Tick += Dt_Tick;
@@ -108,6 +110,12 @@ namespace systemapps
 
         }
 
+        //angular gauge
+
+     
+
+        //angular gauge//
+
         private void cartchartinit()
         {
 
@@ -115,7 +123,8 @@ namespace systemapps
             {
                 new LineSeries
                 {
-                    Title = "Average Vehicles Gap",
+                   Title = "Gap",
+                    LineSmoothness = 1,
                     Values = null
                 },
               
@@ -128,34 +137,27 @@ namespace systemapps
 
         }
 
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
+
         private void cartinit2()
         {
             SeriesCollection2 = new SeriesCollection
             {
                 new LineSeries
                 {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
+                    Title = "Speed",
+                    Stroke = Brushes.Red,                               
+                    Values = null
                 },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
-                }
+           
             };
 
-            Labels2 = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter2 = value => value.ToString("C");
+            Labels2 =null;
+            YFormatter2 = value => value.ToString("");
 
-            //modifying the series collection will animate and update the chart
-            SeriesCollection2.Add(new LineSeries
-            {
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection2[2].Values.Add(5d);
+       
         }
 
         public SeriesCollection SeriesCollection2 { get; set; }
@@ -4047,10 +4049,7 @@ namespace systemapps
 
         }
 
-        //graph1 for gap avg
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> YFormatter { get; set; }
+
 
       
         private void refreshcart_Click(object sender, RoutedEventArgs e)
@@ -4074,9 +4073,11 @@ namespace systemapps
                 getvalueforgraphing();
 
                 // SeriesCollection[0].Values.Clear();
-                SeriesCollection[0].Values = arraygapavg.AsChartValues();
-              
+                SeriesCollection[0].Values = arraygapavg.AsChartValues();              
                 Labels = datearray;
+
+                SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
+                Labels2 = datearray;
 
                 DataContext = this;
              

@@ -124,6 +124,9 @@
     <Compile Include="adddatadialog.xaml.cs">
       <DependentUpon>adddatadialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="charttest.xaml.cs">
+      <DependentUpon>charttest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="custonipaddress.xaml.cs">
       <DependentUpon>custonipaddress.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,10 @@
     <Page Include="adddatadialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="charttest.xaml">
+      <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="custonipaddress.xaml">
       <SubType>Designer</SubType>

@@ -48,7 +48,7 @@
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,77,0,0" Background="Purple">
-            <TabControl x:Name="biggesttabinthisapps" Margin="0,-77,0,0" Background="White">
+            <TabControl x:Name="biggesttabinthisapps" Margin="0,-80,0.4,2.6" Background="White">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -94,23 +94,42 @@
 
 
                         </Grid>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap" Margin="406,438,914.8,196" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="365,432,863.8,202" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed" Margin="384,258,914.8,377" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="302,67,782.8,568" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="343,246,863.8,389" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="154"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="302,49,782.8,586" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
 
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle" Margin="867,87,363.8,547" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle" Margin="867,95,363.8,539" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="867,209,349.8,426" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,278,288.8,366"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,278,56.8,366"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,278,158.8,366"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="867,329,371.8,306" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,406,288.8,238"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,406,56.8,238"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,406,158.8,238"/>
+                        <Grid Margin="998,210,134.8,273.8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Margin="10" Click="ChangeValueOnClick">Update</Button>
+                            <lvc:AngularGauge Grid.Row="1" Value="{Binding ValueAngular}" FromValue="50" ToValue="250" 
+                          LabelsStep="50" TicksStep="25" Wedge="300"
+                          TicksForeground="White" Foreground="White" 
+                          FontWeight="Bold" FontSize="10"
+                          SectionsInnerRadius=".5">
+                                <lvc:AngularGauge.Sections>
+                                    <lvc:AngularSection FromValue="50" ToValue="200" Fill="#F8A725"/>
+                                    <lvc:AngularSection FromValue="200" ToValue="250" Fill="#FF3939"/>
+                                </lvc:AngularGauge.Sections>
+                            </lvc:AngularGauge>
+                        </Grid>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="867,224,349.8,410.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,297,288.8,347.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,297,56.8,347.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,297,158.8,347.8"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="867,361,371.8,273.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,432,288.8,212.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,432,56.8,212.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,432,158.8,212.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Daily Class Distribution" Margin="1117,464,-0.2,170" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="244"/>
 
 
                         <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1207,623,18.8,5" Click="refreshcart_Click"/>
@@ -136,7 +155,7 @@
                         <Canvas>
                             <lvc:CartesianChart x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Height="191" Width="844" Canvas.Top="459"  >
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Average Gap (Meter)" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                    <lvc:Axis Title="Gap (Meter)" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
@@ -145,20 +164,21 @@
                         </Canvas>
 
                         <Canvas>
-                            <lvc:CartesianChart Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="10" Canvas.Top="274" Height="184" Width="829" >
+                            <lvc:CartesianChart Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="10" Canvas.Top="262" Height="184" Width="829" >
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter2}"></lvc:Axis>
+                                    <lvc:Axis Title="Speed (KM/H)" LabelFormatter="{Binding YFormatter2}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
                                     <lvc:Axis Title="Month" Labels="{Binding Labels2}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
+
                         </Canvas>
 
 
                         <Canvas>
 
-                            <lvc:PieChart x:Name="pieChart1" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="853" Canvas.Top="437" Height="190" Width="498" >
+                            <lvc:PieChart x:Name="pieChart1" LegendLocation="Bottom" Hoverable="False" DataTooltip="{x:Null}" Canvas.Left="829" Canvas.Top="465" Height="162" Width="379" >
 
                             </lvc:PieChart>
                         </Canvas>
@@ -166,9 +186,22 @@
                         <Grid Margin="842,54,516.8,0" Background="Black">
 
                         </Grid>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,145,288.8,499"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,145,56.8,499"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,145,158.8,499"/>
+
+                        <Grid Margin="849,454,-0.2,205" Background="Black">
+
+                        </Grid>
+
+                        <Grid Margin="849,325,-0.2,333.8" Background="Black">
+
+                        </Grid>
+
+                        <Grid Margin="849,184,-0.2,475" Background="Black">
+
+                        </Grid>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1049,159,288.8,485"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1278,159,56.8,485"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1152,159,158.8,485"/>
 
 
 
