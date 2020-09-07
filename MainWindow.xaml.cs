@@ -118,46 +118,50 @@ namespace systemapps
                     Title = "Average Vehicles Gap",
                     Values = null
                 },
-               /* new LineSeries
-                {
-                    Title = "Avg Gap (Metre)",
-                    Values = null
-
-
-
-                },*/
-
-                /*new LineSeries
-                {
-                    Title = "Series 3",
-                    Values = new ChartValues<double> { 4,2,7,2,7 },
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
-                }*/
+              
             };
 
             Labels = null;
             YFormatter = value => value.ToString("");
 
-            //modifying the series collection will animate and update the chart
-            /*SeriesCollection.Add(new LineSeries
-            {
-                Title = "Series 4",
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0, //0: straight lines, 1: really smooth lines
-                PointGeometry = Geometry.Parse("m 25 70.36218 20 -28 -20 22 -8 -6 z"),
-                PointGeometrySize = 50,
-                PointForeground = Brushes.Gray
-            });*/
-
-            //modifying any series values will also animate and update the chart
-            // SeriesCollection[3].Values.Add(5d);
-
-            DataContext = this;
+      
 
         }
 
-       
+        private void cartinit2()
+        {
+            SeriesCollection2 = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Series 1",
+                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
+                }
+            };
+
+            Labels2 = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
+            YFormatter2 = value => value.ToString("C");
+
+            //modifying the series collection will animate and update the chart
+            SeriesCollection2.Add(new LineSeries
+            {
+                Values = new ChartValues<double> { 5, 3, 2, 4 },
+                LineSmoothness = 0 //straight lines, 1 really smooth lines
+            });
+
+            //modifying any series values will also animate and update the chart
+            SeriesCollection2[2].Values.Add(5d);
+        }
+
+        public SeriesCollection SeriesCollection2 { get; set; }
+        public string[] Labels2 { get; set; }
+        public Func<double, string> YFormatter2 { get; set; }
+
 
         private void piechartinit()
         {
@@ -365,10 +369,10 @@ namespace systemapps
 
                     updatealldatagrid();
                     cartchartinit();
-                    
+                    cartinit2();
 
                     dothis();
-
+                    
 
                 }
                 else
@@ -1332,7 +1336,22 @@ namespace systemapps
 
                                     }
 
+                                   try
+                                    {
+                                        // Check if file exists with its full path    
+                                        if (File.Exists("Roi Points.txt"))
+                                        {
+                                            // If file found, delete it    
+                                            File.Delete("Roi Points.txt");
 
+                                        }
+                                        else Debug.WriteLine("Roi Points.txt not found");
+                                        
+                                    }
+                                    catch (IOException ioExp)
+                                    {
+                                        MessageBox.Show(ioExp.Message);
+                                    }
 
                                 }
                                 break;
@@ -2859,6 +2878,23 @@ namespace systemapps
                                             MessageBox.Show("Select a row first");
                                         }
 
+                                        try
+                                        {
+                                            // Check if file exists with its full path    
+                                            if (File.Exists("Roi Points.txt"))
+                                            {
+                                                // If file found, delete it    
+                                                File.Delete("Roi Points.txt");
+
+                                            }
+                                            else Debug.WriteLine("Roi Points.txt not found");
+
+                                        }
+                                        catch (IOException ioExp)
+                                        {
+                                            MessageBox.Show(ioExp.Message);
+                                        }
+
 
 
                                         //this.AUDserverinfo(sqlstatement, 1);
@@ -3497,10 +3533,7 @@ namespace systemapps
             e.Handled = !regex.IsMatch((sender as TextBox).Text.Insert((sender as TextBox).SelectionStart, e.Text));
         }
 
-        private void ScrollViewer_MouseMove(object sender, MouseEventArgs e)
-        {
-            refremask();
-        }
+   
 
         private void Exportscriptbutton_Click(object sender, RoutedEventArgs e)
         {
@@ -4044,6 +4077,8 @@ namespace systemapps
                 SeriesCollection[0].Values = arraygapavg.AsChartValues();
               
                 Labels = datearray;
+
+                DataContext = this;
              
             }
             catch (Exception ex)
@@ -4231,7 +4266,10 @@ namespace systemapps
 
         }
 
-     
+        private void gridcamera_MouseMove(object sender, MouseEventArgs e)
+        {
+            refremask();
+        }
     }
 
 }

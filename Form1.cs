@@ -616,7 +616,9 @@ namespace systemapps
 
                 //string thumb = openFileDialog1.FileName;
                 Image oriimage = Image.FromFile(readimgpath);
-                newimage = new Bitmap(oriimage, 352, 288);
+               // newimage = new Bitmap(oriimage, 352, 288);
+                newimage = new Bitmap(oriimage, 465, 350);
+
 
 
                 if (oriimage.Width <= 800 && oriimage.Height <= 600)
@@ -671,6 +673,11 @@ namespace systemapps
         }
 
         private void Form1_VisibleChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
         }

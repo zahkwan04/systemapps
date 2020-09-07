@@ -109,8 +109,6 @@ C:\Zahkwan\systemapps\obj\Debug\DrawROI.g.cs
 C:\Zahkwan\systemapps\obj\Debug\ErrorDialog.g.cs
 C:\Zahkwan\systemapps\obj\Debug\MainWindow.g.cs
 C:\Zahkwan\systemapps\obj\Debug\Ok_Cancel_Dialog.g.cs
-C:\Zahkwan\systemapps\obj\Debug\test1.g.cs
-C:\Zahkwan\systemapps\obj\Debug\test2.g.cs
 C:\Zahkwan\systemapps\obj\Debug\videoscreenshot.g.cs
 C:\Zahkwan\systemapps\obj\Debug\vlcwpf.g.cs
 C:\Zahkwan\systemapps\obj\Debug\App.g.cs
@@ -123,8 +121,6 @@ C:\Zahkwan\systemapps\obj\Debug\DrawROI.baml
 C:\Zahkwan\systemapps\obj\Debug\ErrorDialog.baml
 C:\Zahkwan\systemapps\obj\Debug\MainWindow.baml
 C:\Zahkwan\systemapps\obj\Debug\Ok_Cancel_Dialog.baml
-C:\Zahkwan\systemapps\obj\Debug\test1.baml
-C:\Zahkwan\systemapps\obj\Debug\test2.baml
 C:\Zahkwan\systemapps\obj\Debug\videoscreenshot.baml
 C:\Zahkwan\systemapps\obj\Debug\vlcwpf.baml
 C:\Zahkwan\systemapps\obj\Debug\systemapps.g.resources
@@ -140,8 +136,6 @@ C:\Zahkwan\systemapps\bin\Debug\Highcharts.dll
 C:\Zahkwan\systemapps\bin\Debug\Newtonsoft.Json.dll
 C:\Zahkwan\systemapps\bin\Debug\Newtonsoft.Json.pdb
 C:\Zahkwan\systemapps\bin\Debug\Newtonsoft.Json.xml
-C:\Zahkwan\systemapps\obj\Debug\charttest.g.cs
-C:\Zahkwan\systemapps\obj\Debug\charttest.baml
 C:\Zahkwan\systemapps\bin\Debug\Xceed.Wpf.AvalonDock.dll
 C:\Zahkwan\systemapps\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Aero.dll
 C:\Zahkwan\systemapps\bin\Debug\Xceed.Wpf.AvalonDock.Themes.Metro.dll
@@ -191,3 +185,7 @@ C:\Zahkwan\systemapps\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 \\10.1.39.123\systemapps\obj\Debug\vlcwpf.baml
 \\10.1.39.123\systemapps\obj\Debug\systemapps.g.resources
 \\10.1.39.123\systemapps\obj\Debug\systemapps.pdb
+C:\Zahkwan\systemapps\obj\Debug\datatemplatetest.g.cs
+C:\Zahkwan\systemapps\obj\Debug\datatemplatetest.baml
+C:\Zahkwan\systemapps\obj\Debug\2instancecharttest.g.cs
+C:\Zahkwan\systemapps\obj\Debug\2instancecharttest.baml
