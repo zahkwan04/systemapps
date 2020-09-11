@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using System.Windows.Threading;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace systemapps
 {
@@ -21,87 +24,45 @@ namespace systemapps
     /// </summary>
     public partial class _2instancecharttest : Window
     {
+        int counter;
+        private double _value;
+        DispatcherTimer dt = new DispatcherTimer();
         public _2instancecharttest()
         {
             InitializeComponent();
-            cartinit();
-            cartinit2();
+            
 
-         
-
-            DataContext = this;
-        }
-
-        private void cartinit()
-        {
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
-                }
-            };
-
-            Labels = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection[2].Values.Add(5d);
+            dt.Interval = TimeSpan.FromSeconds(0.25);
+            dt.Tick += Dt_Tick;
+            dt.Start();
 
             DataContext = this;
         }
 
-        private void cartinit2()
+        private void Dt_Tick(object sender, EventArgs e)
         {
-            SeriesCollection2 = new SeriesCollection
+
+            if (counter <= 100)
             {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
-                }
-            };
-
-            Labels2 = new[] { "Jan", "Feb", "Mar", "Apr", "May" };
-            YFormatter2 = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection2.Add(new LineSeries
+                counter++;
+               gauge1.Value = counter;
+                textblock1.Text = counter.ToString();
+            }
+            else
             {
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
+                counter = 0;
+               gauge1.Value = counter;
+                textblock1.Text = counter.ToString();
 
-            //modifying any series values will also animate and update the chart
-            SeriesCollection2[2].Values.Add(5d);
+            }
+
         }
 
-        public SeriesCollection SeriesCollection2 { get; set; }
-        public string[] Labels2 { get; set; }
-        public Func<double, string> YFormatter2 { get; set; }
+        
 
 
 
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> YFormatter { get; set; }
+
+
     }
 }

@@ -20,20 +20,38 @@ namespace systemapps
     public partial class datatemplatetest : Window
     {
 
-        public datatemplatetesttt PersonTest { get; set; }
         public datatemplatetest()
         {
             InitializeComponent();
 
-            PersonTest = new datatemplatetesttt();
-            PersonTest.Gender = Gender.Male;
-            PersonTest.Age = 24;
-            PersonTest.Firstname = "Razak";
-            PersonTest.lastname = "Karim";
-
-            this.DataContext = this;
+           
         }
+
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+        }
+
+     
     }
 
   
 }
+
+
+/*  <ContentControl >
+       <ContentControl.ContentTemplate>
+           <DataTemplate>
+               <Grid>
+                   <TextBlock Text="{Binding Firstname}" FontSize="15" Margin="427,134,43.6,253"/>
+               </Grid>
+           </DataTemplate>
+       </ContentControl.ContentTemplate>
+   </ContentControl>*/

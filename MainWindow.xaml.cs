@@ -107,6 +107,7 @@ namespace systemapps
             avgspeedstatstxtbox.Text = "0";
             avggapstatstxtbox.Text = "0";
 
+            biggesttabinthisapps.SelectedIndex = 1;
 
         }
 
@@ -197,6 +198,18 @@ namespace systemapps
                     Title = "Vehicle 4",
                     Values = new ChartValues<double> {4},
                     DataLabels = true
+                },
+                   new PieSeries
+                {
+                    Title = "Vehicle 5",
+                    Values = new ChartValues<double> {16},
+                    DataLabels = true
+                },
+                      new PieSeries
+                {
+                    Title = "Vehicle 6",
+                    Values = new ChartValues<double> {20},
+                    DataLabels = true
                 }
 
 
@@ -221,13 +234,7 @@ namespace systemapps
 
 
                 },
-                /*new LineSeries
-                {
-                    Title = "Series 3",
-                    Values = new ChartValues<double> { 4,2,7,2,7 },
-                    PointGeometry = DefaultGeometries.Square,
-                    PointGeometrySize = 15
-                }*/
+              
             };
 
             Labels = datearray;
@@ -337,6 +344,10 @@ namespace systemapps
             Connectionstatus.Text = "Data Connected";
             packicondbconnectionstatus.Kind = PackIconKind.DatabaseCheck;
             packicondbconnectionstatus.Foreground = new SolidColorBrush(Colors.Green);
+
+            cartchartdb.Visibility = Visibility.Visible;
+            speedchartcart.Visibility = Visibility.Visible;
+
         }
         private void TestConnButton_Click(object sender, RoutedEventArgs e)
         {
@@ -356,9 +367,7 @@ namespace systemapps
                 {
                     stuffchangewhendbcontrue();
 
-                    cartchartdb.Visibility = Visibility.Visible;
-                  
-
+                   
                     dt.Start();
                     getvalueforgraphing();
                     isConnectionTested = true;
@@ -2295,7 +2304,8 @@ namespace systemapps
 
 
                             string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
-                            string time = DateTime.Now.ToString("HH:mm:ss tt");
+                            
+                            string time = DateTime.Now.ToString("hh:mm:ss tt");
                             cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
                             cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = date;
                             cmd.Parameters.Add("time", MySqlDbType.VarChar).Value = time;
@@ -2328,7 +2338,7 @@ namespace systemapps
 
                         msg = "Row Updated";
                         string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
-                        string time = DateTime.Now.ToString("HH:mm:ss tt");
+                        string time = DateTime.Now.ToString("hh:mm:ss tt");
                         cmd.Parameters.Add("id", MySqlDbType.Int32, 6).Value = Int32.Parse(statisticsidtxtbox.Text);
                         cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
                         cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = date;
@@ -3823,7 +3833,7 @@ namespace systemapps
             // SqlConnection connection = new SqlConnection("Your Connection String Here");
             MySqlConnection connection = new MySqlConnection(myConnectionString);
             // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
-            MySqlCommand command = new MySqlCommand("SELECT date FROM statistics ORDER BY date ASC", connection);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics ORDER BY date ASC", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4044,7 +4054,7 @@ namespace systemapps
             isConnectionTested = false;
             resetallfieldparameter();
             cartchartdb.Visibility = Visibility.Hidden;
-     
+            speedchartcart.Visibility = Visibility.Hidden;
             dt.Stop();
 
         }
@@ -4057,12 +4067,14 @@ namespace systemapps
             getvalueforgraphing();
 
             // SeriesCollection[0].Values.Clear();
-            SeriesCollection[0].Values = arrayspeedavg.AsChartValues();
-       
+            SeriesCollection[0].Values = arrayspeedavg.AsChartValues();       
             Labels = datearray;
-            
+
+            SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
+            Labels2 = datearray;
+
             cartchartdb.Update(true, true);
-           
+            speedchartcart.Update(true, true);
 
         }
 
@@ -4072,7 +4084,7 @@ namespace systemapps
             {
                 getvalueforgraphing();
 
-                // SeriesCollection[0].Values.Clear();
+               
                 SeriesCollection[0].Values = arraygapavg.AsChartValues();              
                 Labels = datearray;
 
@@ -4270,6 +4282,20 @@ namespace systemapps
         private void gridcamera_MouseMove(object sender, MouseEventArgs e)
         {
             refremask();
+        }
+
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+            searchfiltertext.Visibility = Visibility.Visible;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+            searchfiltertext.Visibility = Visibility.Collapsed;
         }
     }
 
