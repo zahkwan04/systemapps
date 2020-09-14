@@ -78,7 +78,7 @@ namespace systemapps
             
 
             dt.Interval = TimeSpan.FromSeconds(5);
-            dt.Tick += Dt_Tick;
+           // dt.Tick += Dt_Tick;
 
             //Debug.WriteLine(GetLocalIPAddress());
             // Debug.WriteLine(Directory.GetCurrentDirectory());
@@ -368,7 +368,7 @@ namespace systemapps
                     stuffchangewhendbcontrue();
 
                    
-                    dt.Start();
+                   // dt.Start();
                     getvalueforgraphing();
                     isConnectionTested = true;
                     ErrorDialog obj = new ErrorDialog();
@@ -379,10 +379,10 @@ namespace systemapps
 
 
                     updatealldatagrid();
-                    cartchartinit();
-                    cartinit2();
+                    //cartchartinit();
+                    //cartinit2();
 
-                    dothis();
+                    //dothis();
                     
 
                 }
@@ -403,9 +403,9 @@ namespace systemapps
                 {
                     tabcontrolparameter.IsEnabled = true;
 
-                    dothis();
+                    //dothis();
 
-                    dt.Start();
+                   // dt.Start();
                 }
                 else
                 {
@@ -1702,6 +1702,7 @@ namespace systemapps
                 " FROM detection", detectionmoduledatagrid, "detection");
 
             bindcomboboxanalyticidstatistic();
+            bindcomboboxanalyticidstatistic(cbbanalyticfiltersearch);
             bindcomboboxcamidstat();
             bindcbbdetmodelidanalytics();
             bindcbbserveridanalytics();
@@ -2303,7 +2304,7 @@ namespace systemapps
                             msg = "New Row Inserted";
 
 
-                            string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                            string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
                             
                             string time = DateTime.Now.ToString("hh:mm:ss tt");
                             cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
@@ -2337,7 +2338,7 @@ namespace systemapps
                     {
 
                         msg = "Row Updated";
-                        string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
+                        string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
                         string time = DateTime.Now.ToString("hh:mm:ss tt");
                         cmd.Parameters.Add("id", MySqlDbType.Int32, 6).Value = Int32.Parse(statisticsidtxtbox.Text);
                         cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
@@ -3412,6 +3413,31 @@ namespace systemapps
             }
         }
 
+        public void bindcomboboxanalyticidstatistic(ComboBox cbb)
+        {
+
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+
+            try
+            {
+                MySqlConnection con = new MySqlConnection(myConnectionString);
+                MySqlCommand cmd = new MySqlCommand("select * from analytic", con);
+                con.Open();
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                cbb.ItemsSource = dt.DefaultView;
+                cbb.DisplayMemberPath = "id";
+                cbb.SelectedValuePath = "id";
+                cmd.Dispose();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         public void bindcomboboxcamidstat()
         {
 
@@ -4296,6 +4322,12 @@ namespace systemapps
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
             searchfiltertext.Visibility = Visibility.Collapsed;
+        }
+
+        private void applyfiltersetting_Click(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine(datesearchfilter.Text + " " + timerangefrom.Text +" " +timerangeto.Text +" ") ;
+            datedatafilterdashboardtext.Text = datesearchfilter.Text;
         }
     }
 

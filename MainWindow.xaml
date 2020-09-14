@@ -108,7 +108,13 @@
                             <TextBlock Grid.Row="1" Text="DASHBOARD" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </TabItem.Header>
-                    <Grid>
+                    <Grid >
+                        <Grid.Background>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="Black" Offset="1"/>
+                                <GradientStop Color="#FFE2E2E2" Offset="0.971"/>
+                            </LinearGradientBrush>
+                        </Grid.Background>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -117,74 +123,75 @@
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="MIMOS MI-TRAFFIC DASHBOARD" Foreground="#FFF0F0F0" Margin="461,0,218,2" FontSize="35" Width="682" FontFamily="Verdana" />
                             <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource MIMOSLOGO}"  Height="45" Width="52" Margin="395,0,914,0.8"/>
 
+                            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Center" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="18" Width="103" FontFamily="Verdana" Margin="0,12" />
+
 
                         </Grid>
 
-                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FFCECECE" Margin="794,51,6.8,503.8"/>
-                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FFCECECE" Margin="796,340,6.8,208.8"/>
+                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FF7E32B9" Margin="794,51,6.8,470.8"/>
+                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FF7E32B9" Margin="794,320,6.8,208.8"/>
 
-                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FFDAD8D8" Margin="30,440,578.8,26.8"/>
-                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FFDDDDDD" Margin="28,50,578.8,416.8"/>
-
-
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="323,440,905.8,194.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132"/>
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="303,247,903.8,387.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="154"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="237,50,847.8,584.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold"/>
+                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FF7E32B9" Margin="30,440,578.8,26.8"/>
+                        <Rectangle RadiusX="10" RadiusY="10" Fill="#FF7E32B9" Margin="28,50,578.8,416.8"/>
 
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle:" Margin="798,80,423.8,554.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="139"/>
-                        <lvc:Gauge HighFontSize="20" GaugeActiveFill="Blue" Value="30" Margin="942,47,308.8,518.8" From="0" To="100" />
-                        <lvc:Gauge HighFontSize="20" GaugeActiveFill="Green"  Value="30" Margin="1068,41,152.8,518.8" From="0" To="200" />
-                        <lvc:Gauge HighFontSize="20" GaugeActiveFill="Red" Value="90" Margin="1226,47,9.8,518.8" From="0" To="300" />
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter)" Margin="339,440,889.8,194.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132" Foreground="#FFEBE1E1"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H)" Margin="331,247,875.8,387.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="154"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="257,50,827.8,584.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Foreground="White"/>
+
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle:" Margin="798,99,423.8,535.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="139" Foreground="White"/>
 
 
 
 
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H):" Margin="797,226,407.8,408.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="156"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="998,316,339.8,328.8"/>
-                        <TextBlock  Text="90" FontFamily="Segoe UI Black" Margin="996,293,328.8,344.8" FontSize="20"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1280,316,54.8,328.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="200"  Width="37" FontFamily="Segoe UI Black" Margin="1275,293,48.8,344.8" FontSize="20" Height="23"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H):" Margin="795,238,409.8,396.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="156"/>
+                        <lvc:Gauge x:Name="speedchartmin" HighFontSize="20" GaugeActiveFill="DeepSkyBlue" Value="30" Margin="944,194,297.8,369.8" From="0" To="100" />
+                        <lvc:Gauge x:Name="speedchartavg" HighFontSize="30" GaugeActiveFill="LightGreen"  Value="30" Margin="1071,188,149.8,371.8" From="0" To="200" />
+                        <lvc:Gauge x:Name="speedchartmax" HighFontSize="20" GaugeActiveFill="IndianRed" Value="91" Margin="1220,193,9.8,369.8" From="0" To="300" />
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1130,316,180.8,328.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="130"  Width="40" FontFamily="Segoe UI Black" Margin="1135,293,185.8,344.8" FontSize="20" Height="23"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="990,291,347.8,353.8"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1272,291,62.8,353.8"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1113,291,197.8,353.8"/>
 
 
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter):" Margin="796,373,432.8,261.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="983,436,354.8,208.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1276,436,58.8,208.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1115,436,195.8,208.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter):" Margin="796,370,432.8,264.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132" Foreground="White"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="983,431,354.8,213.8" Foreground="White"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1274,431,60.8,213.8" Foreground="White"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1115,431,195.8,213.8" Foreground="White"/>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Daily Class Distribution" Margin="1079,461,37.8,173.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="244"/>
-                        <lvc:Gauge  Margin="928,340,299.8,223.8"
+                        <lvc:Gauge x:Name="gapchartmin"  Margin="928,336,297.8,227.8"
                    Uses360Mode="False"
                    From="0" To="100" Value="40"
-                   HighFontSize="30" Foreground="#424242"
+                   HighFontSize="30" Foreground="White"
                    FromColor="White" ToColor="Blue"
                    InnerRadius="0" GaugeBackground="Gray"/>
 
-                        <lvc:Gauge  Margin="1065,340,137.8,236.8"
+                        <lvc:Gauge x:Name="gapchartavg"  Margin="1068,339,142.8,237.8"
                    Uses360Mode="False"
                    From="0" To="200" Value="150"
-                   HighFontSize="30" Foreground="#424242"
+                   HighFontSize="30" Foreground="White"
                    FromColor="White" ToColor="Green"
                    InnerRadius="0" GaugeBackground="Gray"/>
 
-                        <lvc:Gauge  Margin="1226,342,7.8,221.8"
+                        <lvc:Gauge x:Name="gapchartmax"  Margin="1223,340,12.8,225.8"
                    Uses360Mode="False"
                    From="0" To="300" Value="229"
-                   HighFontSize="30" Foreground="#424242"
+                   HighFontSize="30" Foreground="White"
                    FromColor="White" ToColor="OrangeRed"
                    InnerRadius="0" GaugeBackground="Gray"/>
 
 
-                        <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1207,626,18.8,2.8" Click="refreshcart_Click"/>
-                        <Button IsEnabled="False" Content="Pause" x:Name="pause" Margin="889,626,336.8,2.8" Click="pause_Click"/>
-                        <Button IsEnabled="False" Content="Auto Refresh" x:Name="autoref" Margin="1049,626,176.8,2.8" Click="autoref_Click"/>
+                        <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1275,636,9.8,0.8" Click="refreshcart_Click" FontSize="12" Height="Auto"/>
+                        <Button IsEnabled="False" Content="Pause" x:Name="pause" Margin="1093,636,199.8,0.8" Click="pause_Click" Height="Auto" FontSize="12"/>
+                        <Button IsEnabled="False" Content="Auto Refresh" x:Name="autoref" Margin="1166,636,90.8,0.8" Click="autoref_Click" Height="Auto" FontSize="12"/>
 
                         <TextBlock x:Name="Connectionstatus" Text="Data Not Connected" Margin="302,639,935.8,0.8"/>
 
@@ -203,23 +210,23 @@
                         </materialDesign:PackIcon>
 
                         <Canvas Margin="0,0,-0.2,-0.2">
-                            <lvc:CartesianChart x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Height="179" Width="732" Canvas.Top="471" Canvas.Left="31"  >
+                            <lvc:CartesianChart Foreground="White" x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Height="178" Width="732" Canvas.Top="462" Canvas.Left="31"  >
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Gap (Meter)" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
+                                    <lvc:Axis Title="Gap (Meter)" Foreground="White" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Time" Labels="{Binding Labels}"></lvc:Axis>
+                                    <lvc:Axis Title="Time" Foreground="White" Labels="{Binding Labels}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
                         </Canvas>
 
                         <Canvas Margin="0,0,-0.2,-0.2">
-                            <lvc:CartesianChart x:Name="speedchartcart" Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="32" Canvas.Top="269" Height="173" Width="745" >
+                            <lvc:CartesianChart Foreground="Black" x:Name="speedchartcart" Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="30" Canvas.Top="259" Height="173" Width="745" >
                                 <lvc:CartesianChart.AxisY>
-                                    <lvc:Axis Title="Speed (KM/H)" LabelFormatter="{Binding YFormatter2}"></lvc:Axis>
+                                    <lvc:Axis Title="Speed (KM/H)" Foreground="Black" LabelFormatter="{Binding YFormatter2}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
                                 <lvc:CartesianChart.AxisX>
-                                    <lvc:Axis Title="Month" Labels="{Binding Labels2}"></lvc:Axis>
+                                    <lvc:Axis Title="Time" Foreground="Black" Labels="{Binding Labels2}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisX>
                             </lvc:CartesianChart>
 
@@ -234,16 +241,33 @@
                         </Canvas>
 
                         <Rectangle Fill="#FF060505" Margin="787,51,571.8,9.8"/>
-                        <Rectangle Fill="#FF060505" Margin="790,162,6.8,497.8"/>
-                        <Rectangle Fill="#FF060505" Margin="796,457,9.8,202.8"/>
-                        <Rectangle Fill="#FF060505" Margin="797,334,6.8,325.8"/>
+                        <Rectangle Fill="#FF060505" Margin="798,195,6.8,464.8"/>
+                        <Rectangle Fill="#FF060505" Margin="798,457,9.8,202.8"/>
+                        <Rectangle Fill="#FF060505" Margin="802,314,6.8,345.8"/>
 
+                        <lvc:Gauge x:Name="totalvehiclechartmin" Grid.Column="0" Margin="937,65,266.8,494.8"
+                   Uses360Mode="True"
+                   From="0" To="100" Value="20"
+                   HighFontSize="60" Foreground="White"
+                   InnerRadius="0" GaugeBackground="#BE54A3E9"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="986,140,351.8,504.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1276,139,58.8,505.8"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1114,140,196.8,504.8"/>
+                        <lvc:Gauge x:Name="totalvehiclechartavg" Grid.Column="0" Margin="1076,53,135.8,493.8"
+                   Uses360Mode="True"
+                   From="0" To="100" Value="20"
+                   HighFontSize="60" Foreground="White"
+                   InnerRadius="0" GaugeBackground="#BE54A3E9"/>
 
-                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="White" Margin="0,0,0,-0.2">
+                        <lvc:Gauge x:Name="totalvehiclechartmax" Grid.Column="0" Margin="1222,60,5.8,494.8"
+                   Uses360Mode="True"
+                   From="0" To="100" Value="20"
+                   HighFontSize="60" Foreground="White"
+                   InnerRadius="0" GaugeBackground="#BE54A3E9"/>
+
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1003,173,334.8,471.8" Foreground="White"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1275,172,59.8,472.8" Foreground="White"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1127,173,183.8,471.8" Foreground="White"/>
+
+                        <Grid x:Name="GridMenu" Width="200" HorizontalAlignment="Left" Background="White" Margin="0,0,0,-0.2">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="AntiqueWhite"/>
                             </Grid.Effect>
@@ -264,20 +288,35 @@
                                         <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
                                     </Button>
 
-                                    <Rectangle RadiusX="5" RadiusY="5" Fill="#FF292929" Margin="8,57,9.2,-289" />
+                                    <Rectangle RadiusX="5" RadiusY="5" Margin="8,57,9.2,-448" >
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                                <GradientStop Color="Black" Offset="0.942"/>
+                                                <GradientStop Color="#FF9C9696" Offset="0.21"/>
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
 
 
                                     <TextBlock x:Name="searchfiltertext" Visibility="Collapsed" Text="Search Filter" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
 
-                                    <TextBlock FontSize="15" Text="Date" Margin="48,73,50.2,-48" Foreground="White"/>
-                                    <DatePicker Background="LightGray" HorizontalAlignment="Left" Margin="48,93,0,-73" VerticalAlignment="Top" Width="102" Height="25"/>
+                                    <TextBlock FontSize="15" Text="Date" Margin="50,79,49.2,-54" Foreground="White"/>
+                                    <DatePicker  x:Name="datesearchfilter" Background="LightGray" HorizontalAlignment="Left" Margin="50,99,0,-79" VerticalAlignment="Top" Width="100" Height="25"/>
 
-                                    <TextBlock Text="Time Range" FontSize="15" Margin="48,149,52.2,-122" Foreground="#FFF0F0F0"/>
-                                    <materialDesign:TimePicker Text="From" Background="LightGray" Height="27" Width="100" Margin="48,167,52.2,-149"/>
-                                    <materialDesign:TimePicker Text="To" Background="LightGray" Height="27" Width="100" Margin="48,199,52.2,-181"/>
+                                    <TextBlock Text="Time Range" FontSize="15" Margin="50,136,50.2,-112" Foreground="#FFF0F0F0"/>
+                                    <materialDesign:TimePicker x:Name="timerangefrom" Text="From" Background="LightGray" Height="27" Width="100" Margin="50,157,50.2,-139"/>
+                                    <materialDesign:TimePicker x:Name="timerangeto" Text="To" Background="LightGray" Height="27" Width="100" Margin="50,189,50.2,-171"/>
 
-                                    <TextBlock Text="Analytic ID" FontSize="15" Margin="48,251,52.2,-224" Foreground="White"/>
-                                    <TextBox Background="#FFCBBDBD" Margin="48,269,52.2,-248"/>
+                                    <TextBlock Text="Analytic ID" FontSize="15" Margin="51,234,74.2,-210" Foreground="White"/>
+                                    <ComboBox x:Name="cbbanalyticfiltersearch" Margin="50,255,68.2,-234" Background="LightGray" Height="24"/>
+                                    <Button x:Name="applyfiltersetting" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Apply"  Margin="61,375,74.2,-357" Height="Auto" FontSize="11" Background="#FF6610FF" Click="applyfiltersetting_Click" />
+
+                                    <TextBlock Text="Analysis Period" FontSize="15" Margin="51,294,35.2,-270" Foreground="White"/>
+                                    <ComboBox x:Name="cbbanalysisperiod" Margin="51,316,68.2,-299" Background="LightGray" Height="28">
+                                        <ComboBoxItem Content="15"/>
+                                        <ComboBoxItem Content="30"/>
+                                        <ComboBoxItem Content="60"/>
+                                    </ComboBox>
 
                                 </Grid>
 
@@ -339,7 +378,7 @@
 
                 </TabItem>
 
-                <TabItem Visibility="Collapsed"   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
