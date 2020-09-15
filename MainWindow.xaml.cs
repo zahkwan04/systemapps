@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -44,6 +45,8 @@ namespace systemapps
         List<string> imgfilepath = new List<string>();
         List<string> vidfilepath = new List<string>();
 
+        
+
         string urlfoldercam;
         string[] predmodelitems = new string[7];
         string[] detmodelitems = new string[7];
@@ -53,6 +56,9 @@ namespace systemapps
         string[] datearray = new string[] { };
         double[] arrayspeedavg = new double[] { };
         double[] arraygapavg = new double[] { };
+        string[] timespeedstatsarray = new string[] { };
+
+      
 
         string detdebug;
         string trkdebug;
@@ -72,30 +78,37 @@ namespace systemapps
         public MainWindow()
         {
 
+
+
             InitializeComponent();
             init();
             piechartinit();
             
+            dt.Interval = TimeSpan.FromSeconds(10);
+            dt.Tick += Dt_Tick;
 
-            dt.Interval = TimeSpan.FromSeconds(5);
-           // dt.Tick += Dt_Tick;
-
+                     
             //Debug.WriteLine(GetLocalIPAddress());
             // Debug.WriteLine(Directory.GetCurrentDirectory());
 
 
-        }
+            }
 
         private void init()
         {
+
+            CultureInfo ci = CultureInfo.CreateSpecificCulture(CultureInfo.CurrentCulture.Name);
+            ci.DateTimeFormat.ShortDatePattern = "dd-MMM-yyyy";
+            Thread.CurrentThread.CurrentCulture = ci;
+
             Dbipaddresstestconn.Text = Settings.Default.dbipaddresstestconn;
             Dbnametestconn.Text = Settings.Default.dbnametestconn;
             Dbusernametestconn.Text = Settings.Default.dbusernametestconn;
             Dbpasswordtestconn.Password = Settings.Default.dbpasswordtestconn;
             imagefolderdir = null;
             counterimg = 0;
-            string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
-            string time = DateTime.Now.ToString("HH:mm:ss tt");
+            string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
+            string time = DateTime.Now.ToString("hh:mm:ss tt");
             Debug.WriteLine(time + "" + date);
             totalvehiclestatstxtbox.Text = "0";
             vehi1stats.Text = "0";
@@ -308,6 +321,7 @@ namespace systemapps
                 dashboardsignalstatus.Foreground = new SolidColorBrush(Colors.Green);
                 Connectionstatus.Text = "Data Connected";
                 getvaluedatestats();
+                getvaluetimespeedstats();
                 getvaluegapstats();
                 getvaluespeedstats();
                
@@ -368,7 +382,7 @@ namespace systemapps
                     stuffchangewhendbcontrue();
 
                    
-                   // dt.Start();
+                    dt.Start();
                     getvalueforgraphing();
                     isConnectionTested = true;
                     ErrorDialog obj = new ErrorDialog();
@@ -379,10 +393,10 @@ namespace systemapps
 
 
                     updatealldatagrid();
-                    //cartchartinit();
-                    //cartinit2();
+                    cartchartinit();
+                    cartinit2();
 
-                    //dothis();
+                    dothis();
                     
 
                 }
@@ -403,9 +417,9 @@ namespace systemapps
                 {
                     tabcontrolparameter.IsEnabled = true;
 
-                    //dothis();
+                    dothis();
 
-                   // dt.Start();
+                    dt.Start();
                 }
                 else
                 {
@@ -1473,16 +1487,16 @@ namespace systemapps
                                         try
                                         {
 
-                                            if (comboboxanalyticidstat.Text == "" || comboboxcameraidstatt.Text == "")
+                                            if (comboboxanalyticidstat.Text == "" )
                                             {
                                                 MessageBox.Show("Please choose the analytic id and camera id first");
                                             }
                                             else
                                             {
                                                 cn.Open();
-                                                string date = DateTime.UtcNow.ToString("MM-dd-yyyy");
-                                                string time = DateTime.Now.ToString("HH:mm:ss tt");
-                                                string sqlstatement = "INSERT INTO statistics (analytic_id,date,time,counter,camera_id,total_vehicle,vehi_1,vehi_2,vehi_3,vehi_4, vehi_5, vehi_6, avg_vehicle_speed, avg_vehicle_gap) VALUES (@analytic_id,@date,@time,@counter, @camera_id, @total_vehicle,@vehi_1,@vehi_2,@vehi_3,@vehi_4, @vehi_5, @vehi_6,@avg_vehicle_speed, @avg_vehicle_gap);";
+                                                string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
+                                                string time = DateTime.Now.ToString("hh:mm:ss tt");
+                                                string sqlstatement = "INSERT INTO statistics (analytic_id,date,time,total_vehicle,vehi_1,vehi_2,vehi_3,vehi_4, vehi_5, vehi_6, avg_vehicle_speed, avg_vehicle_gap) VALUES (@analytic_id,@date,@time, @total_vehicle,@vehi_1,@vehi_2,@vehi_3,@vehi_4, @vehi_5, @vehi_6,@avg_vehicle_speed, @avg_vehicle_gap);";
                                                 this.AUDstatistics(sqlstatement, 0);
 
 
@@ -1689,7 +1703,7 @@ namespace systemapps
             FillGrid("SELECT id,ip_address FROM server_info", serverinfodatagrid, "server_info");
             FillGrid("SELECT cam_id,cam_source,cam_url,cam_mask,cam_ext FROM camera", cameradatagrid, "camera");
             FillGrid("SELECT id,source FROM input_source", inputsourcedatagrid, "input_source");
-            FillGrid("SELECT id,analytic_id,date,time,counter,camera_id,total_vehicle,vehi_1,vehi_2," +
+            FillGrid("SELECT id,analytic_id,date,time,total_vehicle,vehi_1,vehi_2," +
                 "vehi_3,vehi_4,vehi_5,vehi_6,avg_vehicle_speed," +
                 "avg_vehicle_gap FROM statistics", statisticdatagrid, "statistics");
             FillGrid("SELECT id,det_conf,det_debug,trk_debug," +
@@ -1703,7 +1717,7 @@ namespace systemapps
 
             bindcomboboxanalyticidstatistic();
             bindcomboboxanalyticidstatistic(cbbanalyticfiltersearch);
-            bindcomboboxcamidstat();
+            //bindcomboboxcamidstat();
             bindcbbdetmodelidanalytics();
             bindcbbserveridanalytics();
             bindcbbcamidanalytics();
@@ -2304,14 +2318,12 @@ namespace systemapps
                             msg = "New Row Inserted";
 
 
-                            string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
+                            string date = DateTime.UtcNow.ToString("dd-MMM-yyyy");
                             
                             string time = DateTime.Now.ToString("hh:mm:ss tt");
                             cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
                             cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = date;
                             cmd.Parameters.Add("time", MySqlDbType.VarChar).Value = time;
-                            cmd.Parameters.Add("counter", MySqlDbType.VarChar).Value = counterstatstxtbox.Text;
-                            cmd.Parameters.Add("camera_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxcameraidstatt.Text);
 
                             cmd.Parameters.Add("total_vehicle", MySqlDbType.Int32, 6).Value = Int32.Parse(totalvehiclestatstxtbox.Text);
                             cmd.Parameters.Add("vehi_1", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi1stats.Text);
@@ -2321,8 +2333,8 @@ namespace systemapps
                             cmd.Parameters.Add("vehi_5", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi5stats.Text);
                             cmd.Parameters.Add("vehi_6", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi6stats.Text);
 
-                            cmd.Parameters.Add("avg_vehicle_speed", MySqlDbType.Decimal).Value = Decimal.Parse(avggapstatstxtbox.Text);
-                            cmd.Parameters.Add("avg_vehicle_gap", MySqlDbType.Decimal).Value = Decimal.Parse(avgspeedstatstxtbox.Text);
+                            cmd.Parameters.Add("avg_vehicle_gap", MySqlDbType.Decimal).Value = Decimal.Parse(avggapstatstxtbox.Text);
+                            cmd.Parameters.Add("avg_vehicle_speed", MySqlDbType.Decimal).Value = Decimal.Parse(avgspeedstatstxtbox.Text);
 
                         }
 
@@ -2338,15 +2350,13 @@ namespace systemapps
                     {
 
                         msg = "Row Updated";
-                        string date = DateTime.UtcNow.ToString("dd-MM-yyyy");
+                        string date = DateTime.UtcNow.ToString("dd-MMM-yyyy");
                         string time = DateTime.Now.ToString("hh:mm:ss tt");
                         cmd.Parameters.Add("id", MySqlDbType.Int32, 6).Value = Int32.Parse(statisticsidtxtbox.Text);
                         cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
                         cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = date;
                         cmd.Parameters.Add("time", MySqlDbType.VarChar).Value = time;
-                        cmd.Parameters.Add("counter", MySqlDbType.VarChar).Value = counterstatstxtbox.Text;
-                        cmd.Parameters.Add("camera_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxcameraidstatt.Text);
-
+                    
                         cmd.Parameters.Add("total_vehicle", MySqlDbType.Int32, 6).Value = Int32.Parse(totalvehiclestatstxtbox.Text);
                         cmd.Parameters.Add("vehi_1", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi1stats.Text);
                         cmd.Parameters.Add("vehi_2", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi2stats.Text);
@@ -2355,8 +2365,8 @@ namespace systemapps
                         cmd.Parameters.Add("vehi_5", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi5stats.Text);
                         cmd.Parameters.Add("vehi_6", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi6stats.Text);
 
-                        cmd.Parameters.Add("avg_vehicle_speed", MySqlDbType.Decimal).Value = Decimal.Parse(avggapstatstxtbox.Text);
-                        cmd.Parameters.Add("avg_vehicle_gap", MySqlDbType.Decimal).Value = Decimal.Parse(avgspeedstatstxtbox.Text);
+                        cmd.Parameters.Add("avg_vehicle_gap", MySqlDbType.Decimal).Value = Decimal.Parse(avggapstatstxtbox.Text);
+                        cmd.Parameters.Add("avg_vehicle_speed", MySqlDbType.Decimal).Value = Decimal.Parse(avgspeedstatstxtbox.Text);
 
 
 
@@ -2626,21 +2636,13 @@ namespace systemapps
                     comboboxanalyticidstat.Text = analyticid;
                 }
 
-                if (camid == "")
-                {
-                    comboboxcameraidstatt.Text = "";
-
-                }
-                else
-                {
-                    comboboxcameraidstatt.Text = camid;
-                }
+              
 
                 statisticsidtxtbox.Text = drv["id"].ToString();
                 //analyticidstatstxtbox.Text = drv["analytic_id"].ToString();
                 statsdatetxtbox.Text = drv["date"].ToString();
                 timestatstxtbox.Text = drv["time"].ToString();
-                counterstatstxtbox.Text = drv["counter"].ToString();
+               
                 // camerastatstxtbox.Text = drv["camera_id"].ToString();
                 totalvehiclestatstxtbox.Text = drv["total_vehicle"].ToString();
                 vehi1stats.Text = drv["vehi_1"].ToString();
@@ -2975,7 +2977,7 @@ namespace systemapps
 
                                         try
                                         {
-                                            string sqlstatement = "UPDATE statistics SET analytic_id = @analytic_id, date=@date, time=@time, counter=@counter, camera_id=@camera_id,total_vehicle=@total_vehicle, vehi_1=@vehi_1, vehi_2 =@vehi_2, vehi_3 =@vehi_3, vehi_4 =@vehi_4, vehi_5 =@vehi_5, vehi_6 =@vehi_6, avg_vehicle_speed =@avg_vehicle_speed, avg_vehicle_gap=@avg_vehicle_gap   WHERE id=@id";
+                                            string sqlstatement = "UPDATE statistics SET analytic_id = @analytic_id, date=@date, time=@time,total_vehicle=@total_vehicle, vehi_1=@vehi_1, vehi_2 =@vehi_2, vehi_3 =@vehi_3, vehi_4 =@vehi_4, vehi_5 =@vehi_5, vehi_6 =@vehi_6, avg_vehicle_speed =@avg_vehicle_speed, avg_vehicle_gap=@avg_vehicle_gap   WHERE id=@id";
 
                                             this.AUDstatistics(sqlstatement, 1);
                                         }
@@ -3287,7 +3289,7 @@ namespace systemapps
             //analyticidstatstxtbox.Text = "";
             statsdatetxtbox.Text = "";
             timestatstxtbox.Text = "";
-            counterstatstxtbox.Text = "";
+         
             //camerastatstxtbox.Text = "";
             totalvehiclestatstxtbox.Text = "0";
             vehi1stats.Text = "0";
@@ -3337,7 +3339,7 @@ namespace systemapps
             cbbpredmodelid.Text = "";
             cbbserverid.Text = "";
             comboboxanalyticidstat.Text = "";
-            comboboxcameraidstatt.Text = "";
+            
             det_confSlider.Value = 0;
             cameraidtxtbox.Text = "";
             comboboxsourceoption.Text = "--Select Source--";
@@ -3438,7 +3440,7 @@ namespace systemapps
             }
         }
 
-        public void bindcomboboxcamidstat()
+     /*   public void bindcomboboxcamidstat()
         {
 
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
@@ -3461,7 +3463,7 @@ namespace systemapps
             {
                 MessageBox.Show(ex.Message);
             }
-        }
+        }*/
 
         public void bindcbbdetmodelidanalytics()
         {
@@ -3742,7 +3744,7 @@ namespace systemapps
         {
             string longchar;
 
-
+            
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             // SqlConnection connection = new SqlConnection("Your Connection String Here");
             MySqlConnection connection = new MySqlConnection(myConnectionString);
@@ -3898,8 +3900,57 @@ namespace systemapps
             connection.Close();
         }
 
-        private void getvaluespeedstats()
+        private void getvaluetimespeedstats()
         {
+            string longchar;
+
+
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            // SqlConnection connection = new SqlConnection("Your Connection String Here");
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MM-yyyy") + "' and analytic_id = 1 order by time ASC;", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                }
+
+                ListOfColumns = ListOfColumns + System.Environment.NewLine;
+            }
+            //Debug.WriteLine(ListOfColumns);
+            longchar = ListOfColumns;
+
+            string[] exampleArray = longchar.Split('\n');
+
+            for (int i = 0; i < exampleArray.Length; i++)
+            {
+                exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+            }
+
+            timespeedstatsarray = exampleArray;
+
+            foreach (string value in datearray)
+            {
+                Debug.WriteLine(value);
+            }
+
+
+
+
+
+
+            connection.Close();
+        }
+
+        private void getvaluetimespeedstats(string date, int analyticid, string timefrom, string timeto)
+        {
+
             try
             {
                 string longchar;
@@ -3909,7 +3960,7 @@ namespace systemapps
                 // SqlConnection connection = new SqlConnection("Your Connection String Here");
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
                 // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics ORDER BY date ASC", connection);
+                MySqlCommand command = new MySqlCommand("SELECT time FROM systemapps.statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + " and time>='" + timefrom + "' and time<'" + timeto + "';", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -3927,7 +3978,67 @@ namespace systemapps
                 longchar = ListOfColumns;
 
                 string[] exampleArray = longchar.Split('\n');
-                double[] valuegap = new double[exampleArray.Length - 1];
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+                timespeedstatsarray = exampleArray;
+
+                foreach (string value in datearray)
+                {
+                    Debug.WriteLine(value);
+                }
+
+
+
+
+
+
+                connection.Close();
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //default today data speed
+        private void getvaluespeedstats()
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                // SqlConnection connection = new SqlConnection("Your Connection String Here");
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM systemapps.statistics WHERE date= '"+ DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by time ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                //Debug.WriteLine(ListOfColumns);
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
                 Debug.WriteLine(exampleArray.Length);
 
 
@@ -3940,7 +4051,7 @@ namespace systemapps
 
                 for (int i = 0; i < exampleArray.Length - 1; i++)
                 {
-                    valuegap[i] = double.Parse(exampleArray[i]);
+                    valuespeed[i] = double.Parse(exampleArray[i]);
                 }
 
 
@@ -3949,12 +4060,83 @@ namespace systemapps
                     Debug.WriteLine(value);
                 }
 
-                foreach (double value in valuegap)
+                foreach (double value in valuespeed)
                 {
                     Debug.WriteLine(value);
                 }
 
-                arrayspeedavg = valuegap;
+                arrayspeedavg = valuespeed;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluespeedstats(string date, int analyticid,string timefrom,string timeto)
+        {
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                // SqlConnection connection = new SqlConnection("Your Connection String Here");
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM systemapps.statistics WHERE date= '"+date+"' and analytic_id ="+analyticid+" and time>='"+timefrom+"' and time<'"+timeto+"'; ", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                //Debug.WriteLine(ListOfColumns);
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+                foreach (string value in exampleArray)
+                {
+                    Debug.WriteLine(value);
+                }
+
+                foreach (double value in valuespeed)
+                {
+                    Debug.WriteLine(value);
+                }
+
+                arrayspeedavg = valuespeed;
 
 
 
@@ -4041,7 +4223,6 @@ namespace systemapps
 
         }
 
-
         private void totalvehiclestatstxtbox_LostFocus(object sender, RoutedEventArgs e)
         {
             if (vehi1stats.Text == "" || vehi2stats.Text == "" || vehi3stats.Text == "" || vehi4stats.Text == "" || vehi5stats.Text == "" || vehi6stats.Text == "")
@@ -4071,7 +4252,6 @@ namespace systemapps
         }
 
 
-
         private void Dbipaddresstestconn_TextChanged(object sender, TextChangedEventArgs e)
         {
             tabcontrolparameter.IsEnabled = false;
@@ -4085,19 +4265,17 @@ namespace systemapps
 
         }
 
-
-
       
         private void refreshcart_Click(object sender, RoutedEventArgs e)
         {
             getvalueforgraphing();
 
             // SeriesCollection[0].Values.Clear();
-            SeriesCollection[0].Values = arrayspeedavg.AsChartValues();       
-            Labels = datearray;
+            SeriesCollection[0].Values = arraygapavg.AsChartValues();       
+            Labels = timespeedstatsarray;
 
             SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
-            Labels2 = datearray;
+            Labels2 = timespeedstatsarray;
 
             cartchartdb.Update(true, true);
             speedchartcart.Update(true, true);
@@ -4108,14 +4286,14 @@ namespace systemapps
         {
             try
             {
-                getvalueforgraphing();
+                
 
                
                 SeriesCollection[0].Values = arraygapavg.AsChartValues();              
-                Labels = datearray;
+                Labels = timespeedstatsarray;
 
                 SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
-                Labels2 = datearray;
+                Labels2 = timespeedstatsarray;
 
                 DataContext = this;
              
@@ -4135,6 +4313,7 @@ namespace systemapps
 
         private void Dt_Tick(object sender, EventArgs e)
         {
+            Debug.WriteLine(DateTime.UtcNow.ToString("dd-MMM-yyyy"));
             dothis();
         }
 
@@ -4326,8 +4505,23 @@ namespace systemapps
 
         private void applyfiltersetting_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine(datesearchfilter.Text + " " + timerangefrom.Text +" " +timerangeto.Text +" ") ;
-            datedatafilterdashboardtext.Text = datesearchfilter.Text;
+            try
+            {
+                
+
+                getvaluespeedstats(datesearchfilter.Text.Replace('/', '-'), Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluetimespeedstats(datesearchfilter.Text.Replace('/', '-'), Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                dothis();
+                Debug.WriteLine(datesearchfilter.Text.Replace('/', '-') + " " + timerangefrom.Text + " " + timerangeto.Text + " " + cbbanalyticfiltersearch.Text);
+                datedatafilterdashboardtext.Text = datesearchfilter.Text;
+
+            }
+
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 

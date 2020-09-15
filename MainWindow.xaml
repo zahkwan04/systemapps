@@ -8,6 +8,8 @@
         xmlns:local="clr-namespace:systemapps"        
         mc:Ignorable="d" Height="768" Width="1366" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" ResizeMode="NoResize" WindowStyle="None">
 
+
+
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -123,7 +125,9 @@
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="MIMOS MI-TRAFFIC DASHBOARD" Foreground="#FFF0F0F0" Margin="461,0,218,2" FontSize="35" Width="682" FontFamily="Verdana" />
                             <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource MIMOSLOGO}"  Height="45" Width="52" Margin="395,0,914,0.8"/>
 
-                            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Center" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="18" Width="103" FontFamily="Verdana" Margin="0,12" />
+                            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="18" Width="126" FontFamily="Verdana"  />
+                            <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="18" Width="27" FontFamily="Verdana" />
+                            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="18" Width="135" FontFamily="Verdana" />
 
 
                         </Grid>
@@ -210,7 +214,7 @@
                         </materialDesign:PackIcon>
 
                         <Canvas Margin="0,0,-0.2,-0.2">
-                            <lvc:CartesianChart Foreground="White" x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Height="178" Width="732" Canvas.Top="462" Canvas.Left="31"  >
+                            <lvc:CartesianChart  Foreground="White" x:Name="cartchartdb" Series="{Binding SeriesCollection}" LegendLocation="Right" Height="178" Width="732" Canvas.Top="462" Canvas.Left="31"  >
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Gap (Meter)" Foreground="White" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
@@ -300,19 +304,20 @@
 
                                     <TextBlock x:Name="searchfiltertext" Visibility="Collapsed" Text="Search Filter" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
 
-                                    <TextBlock FontSize="15" Text="Date" Margin="50,79,49.2,-54" Foreground="White"/>
-                                    <DatePicker  x:Name="datesearchfilter" Background="LightGray" HorizontalAlignment="Left" Margin="50,99,0,-79" VerticalAlignment="Top" Width="100" Height="25"/>
 
+
+                                    <TextBlock FontSize="15" Text="Date" Margin="50,79,49.2,-54" Foreground="White"/>
+                                    <DatePicker SelectedDateFormat="Short"  x:Name="datesearchfilter" Background="LightGray" HorizontalAlignment="Left" Margin="50,99,0,-79" VerticalAlignment="Top" Width="100" Height="25"/>
                                     <TextBlock Text="Time Range" FontSize="15" Margin="50,136,50.2,-112" Foreground="#FFF0F0F0"/>
                                     <materialDesign:TimePicker x:Name="timerangefrom" Text="From" Background="LightGray" Height="27" Width="100" Margin="50,157,50.2,-139"/>
                                     <materialDesign:TimePicker x:Name="timerangeto" Text="To" Background="LightGray" Height="27" Width="100" Margin="50,189,50.2,-171"/>
 
                                     <TextBlock Text="Analytic ID" FontSize="15" Margin="51,234,74.2,-210" Foreground="White"/>
-                                    <ComboBox x:Name="cbbanalyticfiltersearch" Margin="50,255,68.2,-234" Background="LightGray" Height="24"/>
+                                    <ComboBox x:Name="cbbanalyticfiltersearch" Margin="50,255,68.2,-236" Background="LightGray" Height="26"/>
                                     <Button x:Name="applyfiltersetting" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Apply"  Margin="61,375,74.2,-357" Height="Auto" FontSize="11" Background="#FF6610FF" Click="applyfiltersetting_Click" />
 
                                     <TextBlock Text="Analysis Period" FontSize="15" Margin="51,294,35.2,-270" Foreground="White"/>
-                                    <ComboBox x:Name="cbbanalysisperiod" Margin="51,316,68.2,-299" Background="LightGray" Height="28">
+                                    <ComboBox x:Name="cbbanalysisperiod" Margin="51,316,68.2,-300" Background="LightGray" Height="29">
                                         <ComboBoxItem Content="15"/>
                                         <ComboBoxItem Content="30"/>
                                         <ComboBoxItem Content="60"/>
@@ -378,7 +383,7 @@
 
                 </TabItem>
 
-                <TabItem   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem    x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -849,7 +854,6 @@
 
                                     <Label Content="Analytic ID:" Grid.Column="1" Margin="0.2,141,1234.2,460.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <ComboBox IsReadOnly="True" Background="#FFE6CECE" x:Name="comboboxanalyticidstat" Height="28"  Margin="115.2,141,1119.2,460.6" FontFamily="Consolas" FontSize="16" Grid.Column="1" />
-                                    <ComboBox IsReadOnly="True" Background="#FFE6CECE" x:Name="comboboxcameraidstatt" Height="28"  Grid.Column="1" Margin="115.2,309,1089.2,292.6" FontFamily="Consolas" FontSize="16"/>
 
                                     <Button Height="24" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,20,757.2,585.6" Width="71" Click="datagridaddrowbutton_Click" Grid.Column="1">
                                         <Grid Width="25">
@@ -884,8 +888,6 @@
                                             <DataGridTextColumn Width="105" IsReadOnly="True" Binding="{Binding Path=analytic_id}" Header="ANALYTIC ID"/>
                                             <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=date}" Header="DATE"/>
                                             <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=time}" Header="TIME"/>
-                                            <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=counter}" Header="COUNTER"/>
-                                            <DataGridTextColumn Width="90" IsReadOnly="True" Binding="{Binding Path=camera_id}" Header="CAM ID"/>
                                             <DataGridTextColumn Width="100" IsReadOnly="True" Binding="{Binding Path=total_vehicle}" Header="TOTAL VEHICLE"/>
                                             <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_1}" Header="VEHI.1"/>
                                             <DataGridTextColumn Width="70" IsReadOnly="True" Binding="{Binding Path=vehi_2}" Header="VEHI.2"/>
@@ -904,21 +906,19 @@
                                     <Label Content="Time:" Grid.Column="1" Width="100" Margin="0.2,222,1234.2,381.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox IsReadOnly="True" x:Name="timestatstxtbox" Background="#FFE6CECE" Grid.Column="1" Width="100" Margin="115.2,222,1119.2,381.6" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Counter:" Margin="0.2,265,1258.2,335.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
-                                    <TextBox x:Name="counterstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Width="100" Margin="115.2,265,1119.2,335.6" FontFamily="Consolas" FontSize="16"/>
-
-                                    <Label Content="Camera ID:" Grid.Column="1" Margin="0.2,309,1242.2,292.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 
 
 
-                                    <Label Content="Total Vehicle:" Grid.Column="1" Height="30" Margin="0.2,349,1224.2,250.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox Text="0" IsReadOnly="True" x:Name="totalvehiclestatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,352,1149.2,252.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16" />
 
-                                    <Label Content="Avg. Gap:" Grid.Column="1" Width="100" Height="30" Margin="0.2,390,1234.2,209.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox Text="0" x:Name="avggapstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Margin="115.2,390,1127.2,211.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput"/>
 
-                                    <Label Content="Avg. Speed:" Grid.Column="1" Width="100" Height="30" Margin="0.2,428,1234.2,171.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox Text="0" x:Name="avgspeedstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,434,1132.2,170.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
+                                    <Label Content="Total Vehicle:" Grid.Column="1" Height="30" Margin="0.2,255,1224.2,345.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" IsReadOnly="True" x:Name="totalvehiclestatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,258,1149.2,347.4" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16" />
+
+                                    <Label Content="Avg. Gap:" Grid.Column="1" Width="100" Height="30" Margin="0.2,296,1234.2,304.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="avggapstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Margin="115.2,296,1127.2,305.4" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput"/>
+
+                                    <Label Content="Avg. Speed:" Grid.Column="1" Width="100" Height="30" Margin="0.2,334,1234.2,266.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <TextBox Text="0" x:Name="avgspeedstatstxtbox" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="115.2,340,1132.2,265.4" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Vehicle 1:" Grid.Column="1" Height="30" Margin="333.2,182,915.2,417.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox Text="0" x:Name="vehi1stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,186,823.2,418.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" LostFocus="totalvehiclestatstxtbox_LostFocus" FontFamily="Consolas" FontSize="16"  />
@@ -938,9 +938,9 @@
                                     <Label Content="Vehicle 6:" Grid.Column="1" Height="30" Margin="333.2,356,915.2,243.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox Text="0" x:Name="vehi6stats" Background="#FFE6CECE" Grid.Column="1" Height="25" Margin="424.2,359,823.2,245.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16" />
 
-                                    <Button Content="Reset All Fields"  Margin="0.2,485,1220.2,116.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Grid.Column="1" FontFamily="Yu Gothic UI" FontSize="12"/>
-                                    <Label Content="Metre" Grid.Column="1" Margin="207.2,396,1086.2,210.6" FontSize="11"/>
-                                    <Label Content="KM/H" Grid.Column="1" Margin="202.2,434,1094.2,170.6" FontSize="11"/>
+                                    <Button Content="Reset All Fields"  Margin="0.2,391,1220.2,210.4" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Grid.Column="1" FontFamily="Yu Gothic UI" FontSize="12"/>
+                                    <Label Content="Metre" Grid.Column="1" Margin="207.2,302,1086.2,304.4" FontSize="11"/>
+                                    <Label Content="KM/H" Grid.Column="1" Margin="202.2,340,1094.2,264.4" FontSize="11"/>
 
                                 </Grid>
 
