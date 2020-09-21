@@ -418,8 +418,6 @@ CREATE TABLE `statistics` (
   `analytic_id` int DEFAULT NULL,
   `date` VARCHAR(100) ,
   `time` VARCHAR(100) ,
-  `counter` varchar(100) DEFAULT NULL,
-  `camera_id` int NOT NULL,
   `total_vehicle` int DEFAULT 0,
   `vehi_1` int DEFAULT 0,
   `vehi_2` int DEFAULT 0,
@@ -430,10 +428,8 @@ CREATE TABLE `statistics` (
   `avg_vehicle_speed` decimal(10,2) DEFAULT 0,
   `avg_vehicle_gap` decimal(10,2) DEFAULT 0,
   PRIMARY KEY (`id`),
-  KEY `camera_id` (`camera_id`),
   KEY `analytic_id` (`analytic_id`),
-  CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`camera_id`) REFERENCES `camera` (`cam_id`),
-  CONSTRAINT `statistics_ibfk_2` FOREIGN KEY (`analytic_id`) REFERENCES `analytic` (`id`)
+  CONSTRAINT `statistics_ibfk_1` FOREIGN KEY (`analytic_id`) REFERENCES `analytic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

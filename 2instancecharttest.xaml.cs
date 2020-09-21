@@ -31,103 +31,95 @@ namespace systemapps
         {
             InitializeComponent();
 
-            var r = new Random();
+            cartinit();
 
-            Values = new ChartValues<HeatPoint>
+        }
+
+        private void cartinit()
+        {
+            SeriesCollection = new SeriesCollection
             {
-                //X means sales man
-                //Y is the day
-
-                //"Jeremy Swanson"
-                new HeatPoint(0, 0, r.Next(0, 10)),
-                new HeatPoint(0, 1, r.Next(0, 10)),
-                new HeatPoint(0, 2, r.Next(0, 10)),
-                new HeatPoint(0, 3, r.Next(0, 10)),
-                new HeatPoint(0, 4, r.Next(0, 10)),
-                new HeatPoint(0, 5, r.Next(0, 10)),
-                new HeatPoint(0, 6, r.Next(0, 10)),
-
-                //"Lorena Hoffman"
-                new HeatPoint(1, 0, r.Next(0, 10)),
-                new HeatPoint(1, 1, r.Next(0, 10)),
-                new HeatPoint(1, 2, r.Next(0, 10)),
-                new HeatPoint(1, 3, r.Next(0, 10)),
-                new HeatPoint(1, 4, r.Next(0, 10)),
-                new HeatPoint(1, 5, r.Next(0, 10)),
-                new HeatPoint(1, 6, r.Next(0, 10)),
-
-                //"Robyn Williamson"
-                new HeatPoint(2, 0, r.Next(0, 10)),
-                new HeatPoint(2, 1, r.Next(0, 10)),
-                new HeatPoint(2, 2, r.Next(0, 10)),
-                new HeatPoint(2, 3, r.Next(0, 10)),
-                new HeatPoint(2, 4, r.Next(0, 10)),
-                new HeatPoint(2, 5, r.Next(0, 10)),
-                new HeatPoint(2, 6, r.Next(0, 10)),
-
-                //"Carole Haynes"
-                new HeatPoint(3, 0, r.Next(0, 10)),
-                new HeatPoint(3, 1, r.Next(0, 10)),
-                new HeatPoint(3, 2, r.Next(0, 10)),
-                new HeatPoint(3, 3, r.Next(0, 10)),
-                new HeatPoint(3, 4, r.Next(0, 10)),
-                new HeatPoint(3, 5, r.Next(0, 10)),
-                new HeatPoint(3, 6, r.Next(0, 10)),
-
-                //"Essie Nelson"
-                new HeatPoint(4, 0, r.Next(0, 10)),
-                new HeatPoint(4, 1, r.Next(0, 10)),
-                new HeatPoint(4, 2, r.Next(0, 10)),
-                new HeatPoint(4, 3, r.Next(0, 10)),
-                new HeatPoint(4, 4, r.Next(0, 10)),
-                new HeatPoint(4, 5, r.Next(0, 10)),
-                new HeatPoint(4, 6, r.Next(0, 10))
+                new LineSeries
+                {
+                    Title = "Series 1",
+                    Values = new ChartValues<double> { 1,2,3,4,2,4,5,5,4,3,2,3,4,4,2,3,55,5,5,5,5,5,3,4,5 }
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
+                }
             };
 
-            Days = new[]
-            {
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-            };
+            Labels = new[] { "0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00","21:00", "22:00","23:00"};
+            YFormatter = value => value.ToString("C");
 
-            SalesMan = new[]
+            //modifying the series collection will animate and update the chart
+            SeriesCollection.Add(new LineSeries
             {
-                "Jeremy Swanson",
-                "Lorena Hoffman",
-                "Robyn Williamson",
-                "Carole Haynes",
-                "Essie Nelson"
-            };
+                Values = new ChartValues<double> { 5, 3, 2, 4 },
+                LineSmoothness = 0 //straight lines, 1 really smooth lines
+            });
+
+            //modifying any series values will also animate and update the chart
+            SeriesCollection[2].Values.Add(5d);
 
             DataContext = this;
-
         }
 
-        public ChartValues<HeatPoint> Values { get; set; }
-        public string[] Days { get; set; }
-        public string[] SalesMan { get; set; }
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void cartinit(string[] lol)
         {
-            var r = new Random();
-            foreach (var chartValue in Values)
+            SeriesCollection = new SeriesCollection
             {
-                chartValue.Weight = r.Next(0, 10);
-            }
+                new LineSeries
+                {
+                    Title = "Series 1",
+                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
+                }
+            };
+
+            Labels = lol;
+            YFormatter = value => value.ToString("C");
+
+            //modifying the series collection will animate and update the chart
+            SeriesCollection.Add(new LineSeries
+            {
+                Values = new ChartValues<double> { 5, 3, 2, 4 },
+                LineSmoothness = 0 //straight lines, 1 really smooth lines
+            });
+
+            //modifying any series values will also animate and update the chart
+            SeriesCollection[2].Values.Add(5d);
+
+            DataContext = this;
         }
 
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> YFormatter { get; set; }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (SeriesCollection != null)
+                {
+                    SeriesCollection.Clear();
 
 
-
-
-
-
-
-
+                }
+                
+                cartinit(new[] { "Jan22", "Feb22", "M22ar", "Ap22r", "Ma22y" });
+                DataContext = Labels;
+                DataContext = this;
+                cartchart.Update(true, true); 
+            }
+            catch { }
+        }
     }
 }

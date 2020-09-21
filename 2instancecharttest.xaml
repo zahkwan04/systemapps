@@ -8,40 +8,16 @@
         mc:Ignorable="d"
         Title="_2instancecharttest" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-
-        <Button Grid.Row="0" Click="ButtonBase_OnClick" Margin="10">Randomize</Button>
-        <lvc:CartesianChart Grid.Row="1" DataTooltip="{x:Null}">
-            <lvc:CartesianChart.Series>
-                <lvc:HeatSeries Values="{Binding Values}" DataLabels="True">
-
-                    <!--
-                    The GradientStopCollection is optional to define a custom gradient
-                    If this property is not specified, LiveCharts will set a gradient
-                    -->
-
-                    <lvc:HeatSeries.GradientStopCollection>
-                        <GradientStop Offset="0" Color="#99FFFF00"></GradientStop>
-                        <GradientStop Offset=".25" Color="#FFFFFF00"></GradientStop>
-                        <GradientStop Offset=".50" Color="#990000FF"></GradientStop>
-                        <GradientStop Offset=".75" Color="#FF0000FF"></GradientStop>
-                        <GradientStop Offset="1" Color="#50505050"></GradientStop>
-                    </lvc:HeatSeries.GradientStopCollection>
-                </lvc:HeatSeries>
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisX >
-                <lvc:Axis Labels="{Binding SalesMan}" LabelsRotation="-15">
-                    <lvc:Axis.Separator>
-                        <lvc:Separator Step="1"></lvc:Separator>
-                    </lvc:Axis.Separator>
-                </lvc:Axis>
-            </lvc:CartesianChart.AxisX>
+        <lvc:CartesianChart x:Name="cartchart" Series="{Binding SeriesCollection}" LegendLocation="Right" Margin="0,0,-0.4,60.8" >
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Labels="{Binding Days}"></lvc:Axis>
+                <lvc:Axis Title="Sales" LabelFormatter="{Binding YFormatter}"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Month" Labels="{Binding Labels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
+
+
+        <Button Content="somebutton" Margin="120,379,538.6,9.8" Click="Button_Click"/>
     </Grid>
 </Window>
