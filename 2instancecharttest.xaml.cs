@@ -17,7 +17,7 @@ using System.Windows.Threading;
 using System.Diagnostics;
 using System.ComponentModel;
 using LiveCharts.Defaults;
-
+using System.Windows.Media.Animation;
 
 namespace systemapps
 {
@@ -31,95 +31,35 @@ namespace systemapps
         {
             InitializeComponent();
 
-            cartinit();
+            
 
         }
 
-        private void cartinit()
+        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
         {
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 1,2,3,4,2,4,5,5,4,3,2,3,4,4,2,3,55,5,5,5,5,5,3,4,5 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
-                }
-            };
-
-            Labels = new[] { "0:00", "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00","21:00", "22:00","23:00"};
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection[2].Values.Add(5d);
-
-            DataContext = this;
+            Grid sp = sender as Grid;
+            DoubleAnimation db = new DoubleAnimation();
+            //db.From = 12;
+            db.To = 150;
+            db.Duration = TimeSpan.FromSeconds(0.5);
+            db.AutoReverse = false;
+            db.RepeatBehavior = new RepeatBehavior(1);
+            sp.BeginAnimation(Grid.HeightProperty, db);
+            button.Height = 40;
         }
 
-        private void cartinit(string[] lol)
+        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
         {
-            SeriesCollection = new SeriesCollection
-            {
-                new LineSeries
-                {
-                    Title = "Series 1",
-                    Values = new ChartValues<double> { 4, 6, 5, 2 ,7 }
-                },
-                new LineSeries
-                {
-                    Title = "Series 2",
-                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 }
-                }
-            };
-
-            Labels = lol;
-            YFormatter = value => value.ToString("C");
-
-            //modifying the series collection will animate and update the chart
-            SeriesCollection.Add(new LineSeries
-            {
-                Values = new ChartValues<double> { 5, 3, 2, 4 },
-                LineSmoothness = 0 //straight lines, 1 really smooth lines
-            });
-
-            //modifying any series values will also animate and update the chart
-            SeriesCollection[2].Values.Add(5d);
-
-            DataContext = this;
-        }
-
-        public SeriesCollection SeriesCollection { get; set; }
-        public string[] Labels { get; set; }
-        public Func<double, string> YFormatter { get; set; }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (SeriesCollection != null)
-                {
-                    SeriesCollection.Clear();
-
-
-                }
-                
-                cartinit(new[] { "Jan22", "Feb22", "M22ar", "Ap22r", "Ma22y" });
-                DataContext = Labels;
-                DataContext = this;
-                cartchart.Update(true, true); 
-            }
-            catch { }
+            Grid sp = sender as Grid;
+            DoubleAnimation db = new DoubleAnimation();
+            //db.From = 12;
+            db.To = 12;
+            db.Duration = TimeSpan.FromSeconds(0.5);
+            db.AutoReverse = false;
+            db.RepeatBehavior = new RepeatBehavior(1);
+            sp.BeginAnimation(Grid.HeightProperty, db);
+            button.Height =300;
         }
     }
 }
+

@@ -26,6 +26,7 @@ using System.Windows.Threading;
 using systemapps.DBops;
 using systemapps.Properties;
 using Winforms = System.Windows.Forms;
+using Microsoft.Win32;
 
 
 
@@ -40,6 +41,8 @@ namespace systemapps
         #region  //variables declaration region
         string currentscriptname;
         string scriptpath;
+       
+
         string imagefolderdir;
         string vidfolderdir;
         int counterimg;
@@ -98,7 +101,7 @@ namespace systemapps
             init();
             piechartinit();
             
-            dt.Interval = TimeSpan.FromSeconds(10);
+            dt.Interval = TimeSpan.FromSeconds(900);
             dt.Tick += Dt_Tick;
 
 
@@ -152,7 +155,8 @@ namespace systemapps
                    Title = "Gap",
                     LineSmoothness = 1,
                     Values = null,
-                    
+                    Stroke = Brushes.DeepSkyBlue
+
                 },
               
             };
@@ -181,7 +185,7 @@ namespace systemapps
                 new LineSeries
                 {
                     Title = "Speed",
-                    Stroke = Brushes.Red,                               
+                    Stroke = Brushes.DarkBlue,                      
                     Values = null
                 },
            
@@ -209,6 +213,7 @@ namespace systemapps
                     Title = "Vehicle 1",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(8) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                     
                 },
@@ -217,6 +222,7 @@ namespace systemapps
                     Title = "Vehicle 2",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(6) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
@@ -224,6 +230,7 @@ namespace systemapps
                     Title = "Vehicle 3",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
@@ -231,6 +238,7 @@ namespace systemapps
                     Title = "Vehicle 4",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                 },
 
@@ -239,6 +247,7 @@ namespace systemapps
                     Title = "Vehicle 5",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                 },
 
@@ -247,6 +256,7 @@ namespace systemapps
                     Title = "Vehicle 6",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                    StrokeThickness = 0,
                     PushOut = 0
                 }
             };
@@ -2490,7 +2500,7 @@ namespace systemapps
 
         private void cameradatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            resetallfieldparameter();
+          //  resetallfieldparameter();
             string sourceoption;
             DataGrid dg = sender as DataGrid;
             DataRowView drv = dg.SelectedItem as DataRowView;
@@ -2557,7 +2567,7 @@ namespace systemapps
 
         private void statisticdatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            resetallfieldparameter();
+         //   resetallfieldparameter();
             DataGrid dg = sender as DataGrid;
             DataRowView drv = dg.SelectedItem as DataRowView;
             if (drv != null)
@@ -2602,7 +2612,7 @@ namespace systemapps
 
         private void analyticdatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            resetallfieldparameter();
+           // resetallfieldparameter();
             string radio1 = "False";
             string radio2 = "False";
             string radio3 = "False";
@@ -2757,7 +2767,7 @@ namespace systemapps
 
         private void predictionmoduledatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            resetallfieldparameter();
+            //resetallfieldparameter();
             DataGrid dg = sender as DataGrid;
             DataRowView drv = dg.SelectedItem as DataRowView;
             if (drv != null)
@@ -2777,7 +2787,7 @@ namespace systemapps
 
         private void detectionmoduledatagrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            resetallfieldparameter();
+            //resetallfieldparameter();
             DataGrid dg = sender as DataGrid;
             DataRowView drv = dg.SelectedItem as DataRowView;
             if (drv != null)
@@ -3542,35 +3552,51 @@ namespace systemapps
                                 string newmask = camitems[2];
                                 newmask = newmask.Replace("\r\n", "");
 
-                                string path = newmask + ".txt";
+                                string trimmedmask = newmask + ".txt";
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
-                                path = path.Replace("\r\n", string.Empty);
-
-
-
+                                trimmedmask = trimmedmask.Replace("\r\n", string.Empty);
 
                                 string roiscript;
 
                                 if (camitems[0] == "1")
                                 {
-                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else if (camitems[0] == "2")
                                 {
-                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else
                                 {
 
-                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
+                                }
+                                
+                                SaveFileDialog sfd = new SaveFileDialog();
+                                sfd.InitialDirectory = @"C:\";
+                                sfd.RestoreDirectory = true;
+                                sfd.FileName = "*.cmd";
+                                sfd.DefaultExt = "cmd";
+                                sfd.Filter = "cmd files (*.cmd)|*.cmd";
+
+                                if(sfd.ShowDialog() == true)
+                                {
+                                    File.WriteAllText(sfd.FileName, roiscript);
+                                    
                                 }
 
 
+                                string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
+
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask);
+                                writer.Write(text2write);
+                                writer.Close();
+                                /*
                                 Winforms.FolderBrowserDialog FolderDialog = new Winforms.FolderBrowserDialog();
                                 FolderDialog.ShowNewFolderButton = false;
                                 FolderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -3603,20 +3629,20 @@ namespace systemapps
 
                                         File.WriteAllText(fpath + "\\demoscript-" + name, roiscript);
 
-                                        System.IO.StreamWriter writer = new System.IO.StreamWriter(fpath + "\\" + path);
+                                        System.IO.StreamWriter writer = new System.IO.StreamWriter(fpath + "\\" + trimmedmask);
                                         writer.Write(text2write);
                                         writer.Close();
 
+
                                         MessageBox.Show("Succesfully export script: demoscript-" + name + " and mask .txt file to target path");
-
-
-
 
 
                                     }
 
 
-                                }
+                                }*/
+                                MessageBox.Show("Succesfully export script");
+
                             }
                         }
                         break;
@@ -4242,6 +4268,16 @@ namespace systemapps
                 totalvehiclechartavg.Value = totalvehicleavg;
                 totalvehiclechartmax.Value = totalvehiclemax;
 
+                speedchartmin.Value = speedmin;
+                speedchartavg.Value = speedavg;
+                speedchartmax.Value = speedmax;
+
+                gapchartmin.Value = gapmin;
+                gapchartmax.Value = gapmax;
+                gapchartavg.Value = gapavg;
+
+
+
 
                 DataContext = this;
 
@@ -4255,7 +4291,7 @@ namespace systemapps
 
         private void Dt_Tick(object sender, EventArgs e)
         {
-          //  Debug.WriteLine(DateTime.UtcNow.ToString("dd-MMM-yyyy"));
+         
             dothis();
         }
 
@@ -4265,42 +4301,6 @@ namespace systemapps
             dothisafterfilter();
         }
 
-        /*private void getvaluefromanalytics()
-        {
-            string longchar;
-
-
-            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-            // SqlConnection connection = new SqlConnection("Your Connection String Here");
-            MySqlConnection connection = new MySqlConnection(myConnectionString);
-            // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
-            MySqlCommand command = new MySqlCommand("SELECT total_vehicle, FROM statistics WHERE pred_id=" + Int32.Parse(cbbpredmodelid.Text) + ";", connection);
-            connection.Open();
-            MySqlDataReader datareader = command.ExecuteReader();
-            int ColumnCount = datareader.FieldCount;
-            string ListOfColumns = string.Empty;
-            while (datareader.Read())
-            {
-                for (int i = 0; i <= ColumnCount - 1; i++)
-                {
-                    ListOfColumns = ListOfColumns + datareader[i].ToString() + "|";
-                }
-
-                ListOfColumns = ListOfColumns + System.Environment.NewLine;
-            }
-            Debug.WriteLine(ListOfColumns);
-            longchar = ListOfColumns;
-            Debug.WriteLine(longchar);
-
-
-            string[] longcharsplit = longchar.Split('|');
-            for (int i = 0; i < longcharsplit.Length; i++)
-            {
-                predmodelitems[i] = longcharsplit[i];
-
-            }
-            connection.Close();
-        }*/
 
         private void pause_Click(object sender, RoutedEventArgs e)
         {
@@ -4355,10 +4355,10 @@ namespace systemapps
                                 getvaluefrompred();
                                 geturlfromcam();
 
-                                string newmask = camitems[2];
-                                newmask = newmask.Replace("\r\n", "");
+                                string trimmedmask = camitems[2];
+                                trimmedmask = trimmedmask.Replace("\r\n", "");
 
-                                string path = newmask + ".txt";
+                                string path = trimmedmask + ".txt";
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -4387,7 +4387,40 @@ namespace systemapps
 
                                 }
 
+                                
 
+                                SaveFileDialog sfd = new SaveFileDialog();
+                                sfd.InitialDirectory = @"C:\";
+                                sfd.RestoreDirectory = true;
+                                sfd.FileName = "*.cmd";
+                                sfd.DefaultExt = "cmd";
+                                sfd.Filter = "cmd files (*.cmd)|*.cmd";
+
+                                if (sfd.ShowDialog() == true)
+                                {
+                                    File.WriteAllText(sfd.FileName, roiscript);
+                                    FileInfo fi = new FileInfo(sfd.FileName);
+                                    currentscriptname = fi.Name;
+
+                                }
+                                string savedfile = sfd.FileName;
+                                string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
+
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory + "\\" + trimmedmask);
+                                writer.Write(text2write);
+                                writer.Close();
+
+                                MessageBox.Show("Running script "+ currentscriptname);
+
+                                //runscript previous generated script in command prompt
+
+                               string strCmdText;
+                               // strCmdText = "/K cd " + scriptpath + " & cd  & " + currentscriptname + " &  Echo Running Script.........  & timeout 10 & exit";
+                                strCmdText = "/K cd " + savedirectory + " & cd  & " + currentscriptname + " &  timeout 10 & exit";
+
+                                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+
+                                /*
                                 Winforms.FolderBrowserDialog FolderDialog = new Winforms.FolderBrowserDialog();
                                 FolderDialog.ShowNewFolderButton = false;
                                 FolderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
@@ -4435,13 +4468,10 @@ namespace systemapps
                                         System.Diagnostics.Process.Start("CMD.exe", strCmdText);
 
 
-
-
-
                                     }
 
 
-                                }
+                                }*/
                             }
                         }
                         break;
@@ -4487,7 +4517,7 @@ namespace systemapps
                 getvalueafterfilter();
                 dothisafterfilter();
 
-                dt2.Interval = TimeSpan.FromSeconds(10);
+                dt2.Interval = TimeSpan.FromSeconds(900);
                 dt2.Tick += Dt2_Tick;
                 
                 dt2.Start();
@@ -4566,6 +4596,14 @@ namespace systemapps
                 getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluetotalvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                getvaluespeedvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluespeedvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluespeedvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
 
 
             }
@@ -4773,6 +4811,33 @@ namespace systemapps
 
         }
 
+        private void getvaluespeedvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out speedmax);
+
+            connection.Close();
+
+        }
+
         private void getvaluespeedvehiclemin()
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
@@ -4800,11 +4865,65 @@ namespace systemapps
 
         }
 
+        private void getvaluespeedvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out speedmin);
+
+            connection.Close();
+
+        }
+
         private void getvaluespeedvehicleavg()
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
             MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE analytic_id = 1 and date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' ;", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out speedavg);
+
+            connection.Close();
+
+        }
+
+        private void getvaluespeedvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4860,11 +4979,65 @@ namespace systemapps
 
         }
 
+        private void getvaluegapvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out gapmin);
+
+            connection.Close();
+
+        }
+
         private void getvaluegapvehicleavg()
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
             MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE analytic_id = 1 and date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' ;", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out gapavg);
+
+            connection.Close();
+
+        }
+
+        private void getvaluegapvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4914,13 +5087,40 @@ namespace systemapps
 
         }
 
+        private void getvaluegapvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        {
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(ListOfColumns);
+
+            Double.TryParse(ListOfColumns, out gapmax);
+
+            connection.Close();
+
+        }
+
 
         #endregion
         //end region for gap vehicle min avg max for chart
 
 
         #region //region for daily distribution
-       
+
         private void getvaluevehicledailydis(int index)
         {
 
@@ -4954,6 +5154,8 @@ namespace systemapps
         #endregion
 
         //end region for daily distribution
+
+
     }
 
 }

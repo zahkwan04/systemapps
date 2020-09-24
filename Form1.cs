@@ -465,6 +465,10 @@ namespace systemapps
                             initialpoint = string.Concat(initialpoint, x1init.ToString(), ",", y1init.ToString(), ";");
                         }
 
+                        
+                        // Remove last character from a string  
+                        initialpoint = initialpoint.Remove(initialpoint.Length - 1, 1);
+                        Debug.WriteLine(initialpoint);
                         sw.WriteLine(test + initialpoint);
 
 
@@ -473,36 +477,7 @@ namespace systemapps
                 }
 
                 sw.Close();
-                /*
-                string directorypath = Directory.GetCurrentDirectory();
-                Debug.WriteLine(directorypath);
-                string textroi = System.IO.File.ReadAllText("ROI Points.txt");
-                
-                string oritextroi = textroi;
-                //File.Move("ROI Points.txt", Path.ChangeExtension(myffile, ".jpg"));
-                System.IO.File.Move("ROI Points.txt", textroi);
-                //File.Move(textroi, Path.ChangeExtension(textroi, ".txt"));
-                string contents = File.ReadAllText(@""+directorypath+"\\"+textroi);
-                Debug.WriteLine(contents);
-                
-
-
-                // var str = "My name @is ,Wan.;'; Wan";
-                var charsToRemove = new string[] { "@", ",", ".", ";", "'" };
-                foreach (var c in charsToRemove)
-                {
-                    textroi = textroi.Replace(c, string.Empty);
-                }
-
-                Debug.WriteLine(textroi);
-                */
-
-
-                //newtextroi = textroi.Replace(";", ",");
-
-                //File.WriteAllText(textroi+".txt", oritextroi);
-
-
+              
 
 
                 if (polycoorobj != null)

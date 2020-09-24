@@ -1,1 +1,0 @@
-Rtsp://admin:analyt!k@10.8.11.123/live
