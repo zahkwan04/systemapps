@@ -142,8 +142,109 @@ namespace systemapps
 
         }
 
+        #region //cartesian chart and stacked bar graph
 
-        #region //cartesian chart for GAP
+        private void stackedbarchartcountandclass()
+        {
+
+            SeriesCollectioncountingnclass = new SeriesCollection
+            {
+                new StackedColumnSeries //vehicle1
+                {
+                    Title = "Class 1 & Class 2",
+                    Values = new ChartValues<double> {1322,1662,2001,1823},
+                    Fill = Brushes.IndianRed,
+                    MaxColumnWidth = 25,
+                    StackMode = StackMode.Values,
+                    DataLabels = true,
+                   
+                    
+                   
+                },
+
+                new StackedColumnSeries //vehicle2
+                {
+                    Title = "Class 3 & Class 4",
+                    Fill = Brushes.LightPink,
+                    Values = new ChartValues<double> {324,112,88,423,500},
+                    MaxColumnWidth = 25,
+                    DataLabels = true,
+                    StackMode = StackMode.Values
+                
+
+                },
+
+                 new StackedColumnSeries //vehicle3
+                {
+                    Title = "Class 5 ",
+                    Fill = Brushes.Orange,
+                    Values = new ChartValues<double> {900,80,100,424,69},
+                    MaxColumnWidth = 25,
+                    DataLabels = true,
+                    StackMode = StackMode.Values
+                  
+
+                },
+
+                  new StackedColumnSeries //vehicle4
+                {
+
+                    Title = "Class 6",
+                    Fill = Brushes.RoyalBlue,
+                    Values = new ChartValues<double> {23,42,77,88,99},
+                    MaxColumnWidth = 25,
+                    DataLabels = true,
+                    StackMode = StackMode.Values
+                  
+
+                },
+
+              /*     new StackedColumnSeries //vehicle5
+                {
+                    Title = "Vehicle 5",
+                    Fill = Brushes.PaleGreen,
+                    Values = new ChartValues<double> {12,33,9,6,22},
+                    MaxColumnWidth = 25,
+                    DataLabels = true,
+                    StackMode = StackMode.Values
+                  
+
+                },
+
+                    new StackedColumnSeries //vehicle 6
+                {
+                    Title = "Vehicle 6",
+                    Fill = Brushes.Gray,
+                    Values = new ChartValues<double> {100,32,99,123,78},
+                    MaxColumnWidth = 25,
+                    DataLabels = true,
+                    StackMode = StackMode.Values
+                  
+
+                },*/
+
+              
+
+
+            };
+
+           
+           
+
+            Labelscountingnclass = null;  //time x axis
+            Formattercountingnclass = value => value +"" ; //y axis
+
+            DataContext = this;
+        }
+
+        public SeriesCollection SeriesCollectioncountingnclass { get; set; }
+        public string[] Labelscountingnclass { get; set; }
+        public Func<double, string> Formattercountingnclass { get; set; }
+
+        #endregion
+
+
+       /* #region //cartesian chart for GAP
 
         private void cartchartinit()
         {
@@ -172,7 +273,7 @@ namespace systemapps
         public string[] Labels { get; set; }
         public Func<double, string> YFormatter { get; set; }
 
-        #endregion
+        #endregion*/
         //end region for cartesian chart for GAP
 
 
@@ -185,10 +286,17 @@ namespace systemapps
                 new LineSeries
                 {
                     Title = "Speed",
-                    Stroke = Brushes.DarkBlue,                      
+                    Stroke = Brushes.Orange,                      
                     Values = null
                 },
-           
+
+                 new LineSeries
+                {
+                    Title = "Gap",
+                    Stroke = Brushes.LightPink,
+                    Values = null
+                },
+
             };
 
             Labels2 = timespeedstatsarray;
@@ -207,14 +315,18 @@ namespace systemapps
         private void piechartinit()
         {
             piechart1.Series = new SeriesCollection
-            {
+            { 
                 new PieSeries
                 {
                     Title = "Vehicle 1",
+                   
                     Values = new ChartValues<ObservableValue> { new ObservableValue(8) },
+                    Fill = Brushes.Pink,
                     DataLabels = true,
+                   
                     StrokeThickness = 0,
                     PushOut = 0
+
                     
                 },
                 new PieSeries
@@ -222,6 +334,8 @@ namespace systemapps
                     Title = "Vehicle 2",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(6) },
                     DataLabels = true,
+                    
+                    Fill = Brushes.LightBlue,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
@@ -230,6 +344,8 @@ namespace systemapps
                     Title = "Vehicle 3",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
                     DataLabels = true,
+                    
+                    Fill = Brushes.MediumVioletRed,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
@@ -238,6 +354,8 @@ namespace systemapps
                     Title = "Vehicle 4",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                    
+                    Fill = Brushes.LightGreen,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
@@ -247,6 +365,8 @@ namespace systemapps
                     Title = "Vehicle 5",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                  
+                    Fill = Brushes.LightGoldenrodYellow,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
@@ -256,6 +376,8 @@ namespace systemapps
                     Title = "Vehicle 6",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
+                 
+                    Fill = Brushes.PaleGreen,
                     StrokeThickness = 0,
                     PushOut = 0
                 }
@@ -333,7 +455,7 @@ namespace systemapps
             packicondbconnectionstatus.Foreground = new SolidColorBrush(Colors.Green);
             dasboardtab.Visibility = Visibility.Visible;
 
-            cartchartdb.Visibility = Visibility.Visible;
+           // cartchartdb.Visibility = Visibility.Visible;
             speedchartcart.Visibility = Visibility.Visible;
 
         }
@@ -365,12 +487,13 @@ namespace systemapps
 
 
                     updatealldatagrid();
-                    cartchartinit();
+                   // cartchartinit();
                     cartinit2();
+                    stackedbarchartcountandclass();
 
                     dothis();
                     cbbanalyticfiltersearch.SelectedIndex = 0;
-                    DataContext = Labels;
+                   // DataContext = Labels;
                     DataContext = Labels2;
                     DataContext = this;
 
@@ -4184,7 +4307,7 @@ namespace systemapps
             packicondbconnectionstatus.Foreground = new SolidColorBrush(Colors.Red);
             isConnectionTested = false;
             resetallfieldparameter();
-            cartchartdb.Visibility = Visibility.Hidden;
+            //cartchartdb.Visibility = Visibility.Hidden;
             speedchartcart.Visibility = Visibility.Hidden;
             dt.Stop();
 
@@ -4195,13 +4318,13 @@ namespace systemapps
             getvalueforgraphing();
 
             // SeriesCollection[0].Values.Clear();
-            SeriesCollection[0].Values = arraygapavg.AsChartValues();
-            Labels = timespeedstatsarray;
+            SeriesCollection2[1].Values = arraygapavg.AsChartValues();
+            //Labels = timespeedstatsarray;
 
             SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
             Labels2 = timespeedstatsarray;
 
-            cartchartdb.Update(true, true);
+            //cartchartdb.Update(true, true);
             speedchartcart.Update(true, true);
 
         }
@@ -4211,13 +4334,13 @@ namespace systemapps
             try
             {
           
-                SeriesCollection[0].Values = arraygapavg.AsChartValues();
-                Labels = timespeedstatsarray;
+                SeriesCollection2[1].Values = arraygapavg.AsChartValues();
+                
 
                 SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
                 Labels2 = timespeedstatsarray;
 
-                DataContext = Labels;
+                //DataContext = Labels;
                 DataContext = Labels2;
 
                 totalvehiclechartmin.Value = totalvehiclemin;
@@ -4231,6 +4354,9 @@ namespace systemapps
                 gapchartmin.Value = gapmin;
                 gapchartmax.Value = gapmax;
                 gapchartavg.Value = gapavg;
+
+                Labelscountingnclass = timespeedstatsarray;
+                DataContext = Labelscountingnclass;
 
 
                 for (int i = 0; i < 6; i++)
@@ -4255,13 +4381,13 @@ namespace systemapps
             {
 
 
-                SeriesCollection[0].Values = arraygapavg.AsChartValues();
-                Labels = timespeedstatsarray;
+                SeriesCollection2[1].Values = arraygapavg.AsChartValues();
+                //Labels = timespeedstatsarray;
 
                 SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
                 Labels2 = timespeedstatsarray;
 
-                DataContext = Labels;
+               // DataContext = Labels;
                 DataContext = Labels2;
 
                 totalvehiclechartmin.Value = totalvehiclemin;
@@ -4277,7 +4403,8 @@ namespace systemapps
                 gapchartavg.Value = gapavg;
 
 
-
+                Labelscountingnclass = timespeedstatsarray;
+                DataContext = Labelscountingnclass;
 
                 DataContext = this;
 
@@ -4604,6 +4731,11 @@ namespace systemapps
                 getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                for (int i = 0; i < 6; i++)
+                {
+                    getvaluevehicledailydis(i, datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                }
 
 
             }
@@ -5151,10 +5283,70 @@ namespace systemapps
             connection.Close();
         }
 
+        private void getvaluevehicledailydis(int index, string date, int analyticid, string timefrom, string timeto)
+        {
+
+            int vehiclevalue = index + 1;
+            string vehicleno = vehiclevalue.ToString();
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT SUM(`vehi_" + vehicleno + "`) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+            Debug.WriteLine(index);
+            Int32.TryParse(ListOfColumns, out vehicledistributionarray[index]);
+
+            Debug.WriteLine(vehicledistributionarray[index]);
+
+            connection.Close();
+        }
+
         #endregion
 
         //end region for daily distribution
 
+
+        #region //region for counting and class
+
+        private void getcountandclass()
+        {
+
+          
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+
+                }
+
+            }
+
+       
+
+            connection.Close();
+        }
+
+        #endregion
 
     }
 

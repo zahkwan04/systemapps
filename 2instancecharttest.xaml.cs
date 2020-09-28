@@ -31,35 +31,40 @@ namespace systemapps
         {
             InitializeComponent();
 
-            
+            SeriesCollection = new SeriesCollection
+            {
+                new StackedColumnSeries
+                {
+                    Title = "Vechicle 1",
+                    Values = new ChartValues<double> {4, 5, 6, 8},
+                    StackMode = StackMode.Values, // this is not necessary, values is the default stack mode
+                    DataLabels = true,
+                    
+                    
+                },
+                new StackedColumnSeries
+                {
+                    Title = "Vechicle 2",
+                    Values = new ChartValues<double> {2, 5, 6, 7},
+                    StackMode = StackMode.Values,
+                    DataLabels = true,
+                }
+            };
+
+           
+
+            Labels = new[] { "Chrome", "Mozilla", "Opera", "IE" };
+            Formatter = value => value + "";
+
+            DataContext = this;
 
         }
 
-        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
-        {
-            Grid sp = sender as Grid;
-            DoubleAnimation db = new DoubleAnimation();
-            //db.From = 12;
-            db.To = 150;
-            db.Duration = TimeSpan.FromSeconds(0.5);
-            db.AutoReverse = false;
-            db.RepeatBehavior = new RepeatBehavior(1);
-            sp.BeginAnimation(Grid.HeightProperty, db);
-            button.Height = 40;
-        }
+        public SeriesCollection SeriesCollection { get; set; }
+        public string[] Labels { get; set; }
+        public Func<double, string> Formatter { get; set; }
 
-        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
-        {
-            Grid sp = sender as Grid;
-            DoubleAnimation db = new DoubleAnimation();
-            //db.From = 12;
-            db.To = 12;
-            db.Duration = TimeSpan.FromSeconds(0.5);
-            db.AutoReverse = false;
-            db.RepeatBehavior = new RepeatBehavior(1);
-            sp.BeginAnimation(Grid.HeightProperty, db);
-            button.Height =300;
-        }
+
     }
 }
 

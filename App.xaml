@@ -7,6 +7,15 @@
         <ResourceDictionary>
 
             <BitmapImage x:Key="MIMOSLOGO" UriSource="bin/Debug/icon/MIMOSlogo.png"/>
+            <BitmapImage x:Key="caricon" UriSource="bin/Debug/icon/caricon.png"/>
+            <BitmapImage x:Key="vansicon" UriSource="bin/Debug/icon/4wd.png"/>
+            <BitmapImage x:Key="2axlestruck" UriSource="bin/Debug/icon/truck2 axle.png"/>
+            <BitmapImage x:Key="3axlestruck" UriSource="bin/Debug/icon/2+ axle.png"/>
+            <BitmapImage x:Key="busicon" UriSource="bin/Debug/icon/bus.png"/>
+            <BitmapImage x:Key="motoricon" UriSource="bin/Debug/icon/motorcycle.png"/>
+
+
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />

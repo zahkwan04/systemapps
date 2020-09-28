@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("screen_stats_analytics_icon_148836.ico")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bin/debug/icon/truck2%20axle.png")]
 
 
