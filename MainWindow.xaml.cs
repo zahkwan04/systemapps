@@ -5082,7 +5082,7 @@ namespace systemapps
         //end region for speed min avg max
 
 
-        #region //gap vehicle min avg max for chart
+        #region //gap vehicle min avg max for char
 
         private void getvaluegapvehiclemin()
         {
