@@ -76,6 +76,11 @@ namespace systemapps
         double[] arrayspeedavg = new double[] {};
         double[] arraygapavg = new double[] {};
         string[] timespeedstatsarray = new string[] {};
+
+        double[] valueclass1and2 = new double[] { };
+        double[] valueclass3and4 = new double[] { };
+        double[] valueclass5 = new double[] { };
+        double[] valueclass6 = new double[] { };
  
         string detdebug;
         string trkdebug;
@@ -153,7 +158,7 @@ namespace systemapps
                 new StackedColumnSeries //vehicle1
                 {
                     Title = "Class 1 & Class 2",
-                    Values = new ChartValues<double> {1322,1662,2001,1823},
+                    Values = new ChartValues<double> {0}
                     Fill = Brushes.IndianRed,
                     MaxColumnWidth = 25,
                     StackMode = StackMode.Values,
@@ -167,7 +172,7 @@ namespace systemapps
                 {
                     Title = "Class 3 & Class 4",
                     Fill = Brushes.LightPink,
-                    Values = new ChartValues<double> {324,112,88,423,500},
+                    Values = new ChartValues<double> {0}
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
@@ -179,7 +184,7 @@ namespace systemapps
                 {
                     Title = "Class 5 ",
                     Fill = Brushes.Orange,
-                    Values = new ChartValues<double> {900,80,100,424,69},
+                    Values = new ChartValues<double> {0}
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
@@ -192,40 +197,14 @@ namespace systemapps
 
                     Title = "Class 6",
                     Fill = Brushes.RoyalBlue,
-                    Values = new ChartValues<double> {23,42,77,88,99},
+                    Values = new ChartValues<double> {0}
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
                   
 
                 },
-
-              /*     new StackedColumnSeries //vehicle5
-                {
-                    Title = "Vehicle 5",
-                    Fill = Brushes.PaleGreen,
-                    Values = new ChartValues<double> {12,33,9,6,22},
-                    MaxColumnWidth = 25,
-                    DataLabels = true,
-                    StackMode = StackMode.Values
-                  
-
-                },
-
-                    new StackedColumnSeries //vehicle 6
-                {
-                    Title = "Vehicle 6",
-                    Fill = Brushes.Gray,
-                    Values = new ChartValues<double> {100,32,99,123,78},
-                    MaxColumnWidth = 25,
-                    DataLabels = true,
-                    StackMode = StackMode.Values
-                  
-
-                },*/
-
-              
-
+       
 
             };
 
@@ -488,13 +467,11 @@ namespace systemapps
 
 
                     updatealldatagrid();
-                   // cartchartinit();
                     cartinit2();
                     stackedbarchartcountandclass();
 
                     dothis();
                     cbbanalyticfiltersearch.SelectedIndex = 0;
-                   // DataContext = Labels;
                     DataContext = Labels2;
                     DataContext = this;
 
@@ -3518,31 +3495,6 @@ namespace systemapps
             }
         }
 
-     /*   public void bindcomboboxcamidstat()
-        {
-
-            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-
-            try
-            {
-                MySqlConnection con = new MySqlConnection(myConnectionString);
-                MySqlCommand cmd = new MySqlCommand("select * from camera", con);
-                con.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                comboboxcameraidstatt.ItemsSource = dt.DefaultView;
-                comboboxcameraidstatt.DisplayMemberPath = "cam_id";
-                comboboxcameraidstatt.SelectedValuePath = "cam_id";
-                cmd.Dispose();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }*/
-
         public void bindcbbdetmodelidanalytics()
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
@@ -4557,58 +4509,7 @@ namespace systemapps
 
                                 System.Diagnostics.Process.Start("CMD.exe", strCmdText);
 
-                                /*
-                                Winforms.FolderBrowserDialog FolderDialog = new Winforms.FolderBrowserDialog();
-                                FolderDialog.ShowNewFolderButton = false;
-                                FolderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                                Winforms.DialogResult result = FolderDialog.ShowDialog();
-
-
-                                if (result == Winforms.DialogResult.OK)
-                                {
-                                    string fpath = FolderDialog.SelectedPath;
-                                    scriptpath = fpath;
-                                    DirectoryInfo folder = new DirectoryInfo(fpath);
-
-
-                                    if (folder.Exists)
-                                    {
-
-                                        string chars = "2346789ABCDEFGHJKLMNPQRTUVWXYZabcdefghjkmnpqrtuvwxyz";
-
-                                        // create random generator
-                                        Random rnd = new Random();
-                                        string name;
-
-                                        name = string.Empty;
-                                        while (name.Length < 5)
-                                        {
-                                            name += chars.Substring(rnd.Next(chars.Length), 1);
-                                        }
-
-                                        // add extension
-                                        name += ".cmd";
-                                        currentscriptname = "demoscript-" +name +".cmd";
-
-                                        // check against files in the folder
-                                        File.WriteAllText(fpath + "\\demoscript-" + name, roiscript);
-                                        System.IO.StreamWriter writer = new System.IO.StreamWriter(fpath + "\\" + path);
-                                        writer.Write(text2write);
-                                        writer.Close();
-
-                                        MessageBox.Show("Running demoscript-"+name);
-
-                                        //runscript previous generated script in command prompt
-
-                                        string strCmdText;
-                                        strCmdText = "/K cd " + scriptpath + " & cd  & "+ currentscriptname +" &  Echo Running Script.........  & timeout 10 & exit";
-                                        System.Diagnostics.Process.Start("CMD.exe", strCmdText);
-
-
-                                    }
-
-
-                                }*/
+                               
                             }
                         }
                         break;
@@ -4650,9 +4551,9 @@ namespace systemapps
         {
             try
             {
-                if(cbbanalyticfiltersearch.Text == "")
+                if(cbbanalyticfiltersearch.Text == "" || cbbanalysisperiod.Text =="")
                 {
-                    MessageBox.Show("Please select the analytic ID!");
+                    MessageBox.Show("Please select the analytic ID and analysis period first!");
                 }
 
                 else { 
@@ -4662,11 +4563,8 @@ namespace systemapps
                 dothisafterfilter();
 
                 dt2.Interval = TimeSpan.FromSeconds(900);
-                dt2.Tick += Dt2_Tick;
-                
+                dt2.Tick += Dt2_Tick;  
                 dt2.Start();
-
-                Debug.WriteLine(datesearchfilter.Text.Replace('/', '-') + " " + timerangefrom.Text + " " + timerangeto.Text + " " + cbbanalyticfiltersearch.Text);
 
                 datedatafilterdashboardtext.Text = datesearchfilter.Text;
                 analyticidtextdashboard.Text = cbbanalyticfiltersearch.Text;
@@ -4706,6 +4604,10 @@ namespace systemapps
                 getvaluegapvehiclemax();
                 getvaluegapvehiclemin();
 
+                getcountandclass1and2value();
+
+                
+
                 for(int i = 0; i<6; i++)
                 {
                     getvaluevehicledailydis(i);
@@ -4734,9 +4636,16 @@ namespace systemapps
         {
             try
             {
+
+                lastupdateinfotext.Text = DateTime.Now.ToString();
+                dashboardsignalstatus.Foreground = new SolidColorBrush(Colors.Green);
+                Connectionstatus.Text = "Data Connected";
+
                 getvaluespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluegapstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluetimespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+
 
                 getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
                 getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
@@ -4760,7 +4669,17 @@ namespace systemapps
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                dashboardsignalstatus.Foreground = new SolidColorBrush(Colors.Red);
+                Connectionstatus.Text = "Data Not Connected";
+                refreshcart.IsEnabled = false;
+                pause.IsEnabled = false;
+                autoref.IsEnabled = false;
+                configparameterenabled.Visibility = Visibility.Collapsed;
+
+                dt.Stop();
+                packicondbconnectionstatus.Kind = PackIconKind.DatabaseRemove;
+                packicondbconnectionstatus.Foreground = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Connection to Database lost! Graph will not update");
             }
         }
 
@@ -5338,30 +5257,66 @@ namespace systemapps
 
         #region //region for counting and class
 
-        private void getcountandclassvalue()
+        private void getcountandclass1and2value()
         {
 
-          
-            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-            MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("", connection);
-            connection.Open();
-            MySqlDataReader datareader = command.ExecuteReader();
-            int ColumnCount = datareader.FieldCount;
-            string ListOfColumns = string.Empty;
-            while (datareader.Read())
+            try
             {
-                for (int i = 0; i <= ColumnCount - 1; i++)
-                {
-                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
 
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehicle_1 + vehicle_2 FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+   
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
                 }
 
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+                
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-       
-
-            connection.Close();
         }
 
         #endregion
