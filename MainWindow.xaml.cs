@@ -37,6 +37,7 @@ namespace systemapps
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool checkapplyfilter = false;
 
         #region  //variables declaration region
         string currentscriptname;
@@ -315,15 +316,14 @@ namespace systemapps
         private void piechartinit()
         {
             piechart1.Series = new SeriesCollection
-            { 
+            {
                 new PieSeries
                 {
-                    Title = "Vehicle 1",
-                   
+                    Title = "Class 1",
+                    Foreground = Brushes.Black,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(8) },
                     Fill = Brushes.Pink,
-                    DataLabels = true,
-                   
+                    DataLabels = true,                   
                     StrokeThickness = 0,
                     PushOut = 0
 
@@ -331,30 +331,30 @@ namespace systemapps
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 2",
+                    Title = "Class 2",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(6) },
                     DataLabels = true,
-                    
+                    Foreground = Brushes.Black,
                     Fill = Brushes.LightBlue,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 3",
+                    Title = "Class 3",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
                     DataLabels = true,
-                    
+                    Foreground = Brushes.Black,
                     Fill = Brushes.MediumVioletRed,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 4",
+                    Title = "Class 4",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                    
+                    Foreground = Brushes.Black,
                     Fill = Brushes.LightGreen,
                     StrokeThickness = 0,
                     PushOut = 0
@@ -362,22 +362,23 @@ namespace systemapps
 
                 new PieSeries
                 {
-                    Title = "Vehicle 5",
+                    Title = "Class 5",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                  
-                    Fill = Brushes.LightGoldenrodYellow,
+                    
+                    Foreground = Brushes.Black,
+                    Fill = Brushes.Yellow,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
 
                 new PieSeries
                 {
-                    Title = "Vehicle 6",
+                    Title = "Class 6",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                 
-                    Fill = Brushes.PaleGreen,
+                    Foreground = Brushes.Black,
+                    Fill = Brushes.Gray,
                     StrokeThickness = 0,
                     PushOut = 0
                 }
@@ -4315,17 +4316,21 @@ namespace systemapps
 
         private void refreshcart_Click(object sender, RoutedEventArgs e)
         {
-            getvalueforgraphing();
+            if (checkapplyfilter == true)
+            {
+                getvalueafterfilter();
 
-            // SeriesCollection[0].Values.Clear();
-            SeriesCollection2[1].Values = arraygapavg.AsChartValues();
-            //Labels = timespeedstatsarray;
 
-            SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
-            Labels2 = timespeedstatsarray;
+                dothisafterfilter();
+            }
 
-            //cartchartdb.Update(true, true);
-            speedchartcart.Update(true, true);
+            else
+            {
+
+                getvalueforgraphing();
+
+                dothis();
+            }
 
         }
 
@@ -4405,6 +4410,11 @@ namespace systemapps
 
                 Labelscountingnclass = timespeedstatsarray;
                 DataContext = Labelscountingnclass;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    piechart1.Series[i].Values = new ChartValues<int> { vehicledistributionarray[i] };
+                }
 
                 DataContext = this;
 
@@ -4640,6 +4650,13 @@ namespace systemapps
         {
             try
             {
+                if(cbbanalyticfiltersearch.Text == "")
+                {
+                    MessageBox.Show("Please select the analytic ID!");
+                }
+
+                else { 
+                checkapplyfilter = true;
                 dt.Stop();
                 getvalueafterfilter();
                 dothisafterfilter();
@@ -4653,12 +4670,13 @@ namespace systemapps
 
                 datedatafilterdashboardtext.Text = datesearchfilter.Text;
                 analyticidtextdashboard.Text = cbbanalyticfiltersearch.Text;
-
+                }
 
             }
 
             catch(Exception ex)
             {
+                checkapplyfilter = false;
                 MessageBox.Show("Fill in all field.");
             }
             
@@ -4720,21 +4738,21 @@ namespace systemapps
                 getvaluegapstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
                 getvaluetimespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
 
-                getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluetotalvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluetotalvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
 
-                getvaluespeedvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluespeedvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluespeedvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluespeedvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluespeedvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluespeedvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
 
-                getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
 
                 for (int i = 0; i < 6; i++)
                 {
-                    getvaluevehicledailydis(i, datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluevehicledailydis(i, datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
                 }
 
 
@@ -4775,11 +4793,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ;", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + " ;", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4829,11 +4847,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4883,11 +4901,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4943,11 +4961,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_speed) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4997,11 +5015,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_speed) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5051,11 +5069,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5111,11 +5129,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_gap) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5165,11 +5183,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5219,11 +5237,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_gap) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5283,14 +5301,14 @@ namespace systemapps
             connection.Close();
         }
 
-        private void getvaluevehicledailydis(int index, string date, int analyticid, string timefrom, string timeto)
+        private void getvaluevehicledailydis(int index, string date, int analyticid)
         {
 
             int vehiclevalue = index + 1;
             string vehicleno = vehiclevalue.ToString();
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT SUM(`vehi_" + vehicleno + "`) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT SUM(`vehi_" + vehicleno + "`) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5320,7 +5338,7 @@ namespace systemapps
 
         #region //region for counting and class
 
-        private void getcountandclass()
+        private void getcountandclassvalue()
         {
 
           
