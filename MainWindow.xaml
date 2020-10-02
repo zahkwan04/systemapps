@@ -70,7 +70,7 @@
             <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="8" Width="60" FontFamily="Verdana" Margin="0,-16,72,0" Height="10"  />
             <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="8" Width="16" FontFamily="Verdana" Margin="0,-28,70,679" Height="10" />
             <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="8" Width="60" FontFamily="Verdana" Height="10" Margin="0,-28,74,679" />
-            <TabControl x:Name="biggesttabinthisapps" Margin="0,-76,0,-1" Background="Black">
+            <TabControl x:Name="biggesttabinthisapps" Margin="0,-76,0,-1" Background="Black" BorderBrush="White">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -97,7 +97,7 @@
                     </Style>
                 </TabControl.Resources>
 
-                <TabItem  x:Name="dasboardtab" Background="#FFEBEBEC"  Height="70" VerticalAlignment="Top" >
+                <TabItem  Visibility="Collapsed" x:Name="dasboardtab" Background="#FFEBEBEC"  Height="70" VerticalAlignment="Top" Foreground="Black" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60" >
                             <Grid.RowDefinitions>
@@ -108,7 +108,7 @@
                             <TextBlock Grid.Row="1" Text="DASHBOARD" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </TabItem.Header>
-                    <Grid Background="Wheat" Margin="-2,2,2,3" >
+                    <Grid Background="White" Margin="-2,2,2,3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
@@ -244,12 +244,12 @@
 
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="810,348,10.8,280" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="540" Height="27" Text="Daily Class Distribution" TextAlignment="Center" Background="Black" Foreground="White"/>
 
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource caricon}"  Height="59" Width="70" Margin="1279,391,11,205"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource vansicon}"  Height="54" Width="89" Margin="1271,425,0,176"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 2axlestruck}"  Height="53" Width="92" Margin="1267,464,1,138"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 3axlestruck}"  Height="37" Width="67" Margin="1282,509,11,109"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource busicon}"  Height="71" Width="84" Margin="1272,531,4,53"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource motoricon}"  Height="58" Width="77" Margin="1275,566,8,31"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource caricon}"  Height="59" Width="70" Margin="1222,391,68.8,205"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource vansicon}"  Height="54" Width="89" Margin="1214,425,57.8,176"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 2axlestruck}"  Height="53" Width="92" Margin="1210,464,58.8,138"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 3axlestruck}"  Height="37" Width="67" Margin="1225,509,68.8,109"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource busicon}"  Height="71" Width="84" Margin="1215,531,61.8,53"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource motoricon}"  Height="58" Width="77" Margin="1218,566,65.8,31"/>
 
 
                         <Rectangle Fill="#FF060505" Margin="796,16,563,7"/>
@@ -279,7 +279,7 @@
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1252,122,83.8,517" Foreground="Black"/>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1111,118,200.8,521" Foreground="#FF020101"/>
 
-                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,0,0,-5">
+                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,-4,0,-5">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="AntiqueWhite"/>
                             </Grid.Effect>
@@ -293,7 +293,7 @@
                                             <TranslateTransform/>
                                         </TransformGroup>
                                     </Grid.RenderTransform>
-                                    <Button x:Name="ButtonOpenMenu" Height="40" Width="26"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonOpenMenu_Click" Margin="-1,-5,0.2,10">
+                                    <Button x:Name="ButtonOpenMenu" Height="40" Width="26"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonOpenMenu_Click" Margin="0,0,0.8,4">
                                         <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
                                     </Button>
                                     <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="60" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonCloseMenu_Click">
@@ -390,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem  x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem Visibility="Collapsed" x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -1252,7 +1252,11 @@
                         </Grid>
                     </TabItem.Header>
                     <Grid>
-                        <TextBlock Text=" Contact us at 012356789 " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="Consolas"/>
+                        <Grid Background="White">
+
+                            <TextBlock Text=" Contact us at 012356789 " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="Consolas"/>
+
+                        </Grid>
 
 
 
