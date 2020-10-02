@@ -3949,7 +3949,7 @@ namespace systemapps
 
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER by TIME(time);", connection);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER by TIME(time);", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -3984,7 +3984,7 @@ namespace systemapps
 
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER by TIME(time);", connection);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER by TIME(time);", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4019,7 +4019,7 @@ namespace systemapps
 
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER by TIME(time);", connection);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER by TIME(time);", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4189,7 +4189,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER by TIME(time) ASC;", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER by TIME(time) ASC;", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -4245,7 +4245,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER by TIME(time) ASC;", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER by TIME(time) ASC;", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -4300,7 +4300,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER by TIME(time) ASC;", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER by TIME(time) ASC;", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -4483,7 +4483,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -4539,7 +4539,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -4595,7 +4595,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -5870,7 +5870,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -5932,7 +5932,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -5994,7 +5994,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6180,7 +6180,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6241,7 +6241,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6302,7 +6302,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6488,7 +6488,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6550,7 +6550,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6612,7 +6612,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6798,7 +6798,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6860,7 +6860,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:30:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
@@ -6922,7 +6922,7 @@ namespace systemapps
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' ORDER BY TIME(time);", connection);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
                 int ColumnCount = datareader.FieldCount;
