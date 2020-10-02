@@ -47,7 +47,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(352, 288);
+            this.pictureBox1.Size = new System.Drawing.Size(361, 295);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
@@ -89,7 +89,7 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(2, 67);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(587, 303);
+            this.panel1.Size = new System.Drawing.Size(638, 303);
             this.panel1.TabIndex = 14;
             // 
             // materialLabel1
@@ -101,7 +101,7 @@
             this.materialLabel1.Location = new System.Drawing.Point(367, 175);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(210, 57);
+            this.materialLabel1.Size = new System.Drawing.Size(259, 72);
             this.materialLabel1.TabIndex = 4;
             this.materialLabel1.Text = "Instruction: Click once on the \r\nimage and double click to \r\nenclosed the ROI poi" +
     "nts.";
@@ -122,9 +122,9 @@
             this.labelCopyright.AutoSize = true;
             this.labelCopyright.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelCopyright.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.labelCopyright.Location = new System.Drawing.Point(109, 390);
+            this.labelCopyright.Location = new System.Drawing.Point(87, 373);
             this.labelCopyright.Name = "labelCopyright";
-            this.labelCopyright.Size = new System.Drawing.Size(388, 12);
+            this.labelCopyright.Size = new System.Drawing.Size(436, 13);
             this.labelCopyright.TabIndex = 17;
             this.labelCopyright.Text = "Copyright © 2010 - MIMOS Berhad - All rights reserved - Version 1.0 Build 1";
             // 
@@ -132,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(591, 382);
+            this.ClientSize = new System.Drawing.Size(652, 393);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelCopyright);

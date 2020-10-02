@@ -592,7 +592,7 @@ namespace systemapps
                 //string thumb = openFileDialog1.FileName;
                 Image oriimage = Image.FromFile(readimgpath);
                // newimage = new Bitmap(oriimage, 352, 288);
-                newimage = new Bitmap(oriimage, 465, 350);
+                newimage = new Bitmap(oriimage, 361, 295);
 
 
 
