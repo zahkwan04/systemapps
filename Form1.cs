@@ -48,6 +48,8 @@ namespace systemapps
             }
         }
 
+        public int returnvalueflag { get; set; }
+
         void Form1_SizeChanged(object sender, EventArgs e)
         {
             pictureBox1.Image = pictureBox1.Image;
@@ -495,7 +497,6 @@ namespace systemapps
             }
 
             this.Hide();
-
         }
 
 
@@ -592,7 +593,7 @@ namespace systemapps
                 //string thumb = openFileDialog1.FileName;
                 Image oriimage = Image.FromFile(readimgpath);
                // newimage = new Bitmap(oriimage, 352, 288);
-                newimage = new Bitmap(oriimage, 361, 295);
+                newimage = new Bitmap(oriimage, 480, 360);
 
 
 
@@ -656,6 +657,8 @@ namespace systemapps
         {
 
         }
+
+      
     }
 }
 

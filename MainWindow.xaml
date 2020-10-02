@@ -279,7 +279,7 @@
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1252,122,83.8,517" Foreground="Black"/>
                         <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1111,118,200.8,521" Foreground="#FF020101"/>
 
-                        <Grid x:Name="GridMenu" Width="205" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,0,0,-5">
+                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,0,0,-5">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="AntiqueWhite"/>
                             </Grid.Effect>
@@ -390,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem Visibility="Collapsed" x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem  x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -569,8 +569,8 @@
                                     <Label  Content="Camera URL:" Margin="19,365,1207.2,235.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
                                     <TextBox x:Name="cameraurltxtbox" IsReadOnly="True" VerticalAlignment="Top" Height="28" Background="White" Margin="153,361,886.2,0" FontFamily="Consolas" FontSize="16" />
 
-                                    <Label  Content="Camera Mask:" Margin="20,441,1207.2,160.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
-                                    <TextBox IsReadOnly="True" x:Name="cameramasktxtbox" VerticalAlignment="Top" Height="28" Background="White" Margin="153,441,886.2,0" FontFamily="Consolas" FontSize="16" />
+                                    <Label Visibility="Hidden"  Content="Camera Mask:" Margin="20,441,1207.2,160.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox IsReadOnly="True" Visibility="Hidden" x:Name="cameramasktxtbox" VerticalAlignment="Top" Height="28" Background="White" Margin="153,441,886.2,0" FontFamily="Consolas" FontSize="16" />
                                     <Button x:Name="drawroibutton" IsEnabled="False" Height="28" VerticalAlignment="Top" Content="Draw ROI" HorizontalAlignment="Center" Margin="466,441,764.4,0" Click="Button_Click" Width="108" FontSize="16" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black"/>
 
                                     <Button x:Name="ResetAllFieldcamera" Height="30" VerticalAlignment="Top" Content="Reset All Fields" HorizontalAlignment="Center" Margin="21,497,1184.4,0"  FontSize="16" Width="133" Click="ResetAllField_Click" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black" />

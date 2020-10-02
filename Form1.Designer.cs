@@ -45,7 +45,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.LightGray;
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pictureBox1.Location = new System.Drawing.Point(4, 5);
+            this.pictureBox1.Location = new System.Drawing.Point(4, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(361, 295);
             this.pictureBox1.TabIndex = 0;
@@ -89,7 +89,7 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(2, 67);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(638, 303);
+            this.panel1.Size = new System.Drawing.Size(623, 314);
             this.panel1.TabIndex = 14;
             // 
             // materialLabel1
@@ -132,7 +132,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(652, 393);
+            this.ClientSize = new System.Drawing.Size(637, 393);
             this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelCopyright);
