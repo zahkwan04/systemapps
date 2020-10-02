@@ -6723,6 +6723,7 @@ namespace systemapps
             }
 
         }
+        #region //gap vehicle min avg max for char
 
         private void getcountandclass6value(string date, int analyticid, string timefrom, string timeto)
         {
