@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-\\DPTPM-0801\systemapps\obj\Debug\
+C:\Zahkwan\systemapps bkup2\systemapps\obj\Debug\
 systemapps
 none
 false
 DEBUG;TRACE
-\\DPTPM-0801\systemapps\App.xaml
+C:\Zahkwan\systemapps bkup2\systemapps\App.xaml
 101056488865
 
-21-890104425
-32-1322593987
+211113005509
+178976058223
 2instancecharttest.xaml;adddatadialog.xaml;custonipaddress.xaml;datatemplatetest.xaml;DrawROI.xaml;ErrorDialog.xaml;MainWindow.xaml;Ok_Cancel_Dialog.xaml;videoscreenshot.xaml;vlcwpf.xaml;
 
 True

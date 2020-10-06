@@ -67,9 +67,9 @@
 
         <Grid Grid.Row="1" Margin="0,77,0,0" Background="Black">
             <Image VerticalAlignment="Top" Source="{StaticResource MIMOSLOGO}"  Margin="1292,-76,-2,0" Height="72"/>
-            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="8" Width="60" FontFamily="Verdana" Margin="0,-16,72,0" Height="10"  />
-            <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="8" Width="16" FontFamily="Verdana" Margin="0,-28,70,679" Height="10" />
-            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="8" Width="60" FontFamily="Verdana" Height="10" Margin="0,-28,74,679" />
+            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="aaa" Foreground="#FFF0F0F0"  FontSize="10" Width="74" FontFamily="Verdana" Margin="0,-20,72.4,0" Height="14"  />
+            <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="10" Width="16" FontFamily="Verdana" Margin="0,-31,70.4,678.6" Height="13" />
+            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="10" Width="72" FontFamily="Verdana" Height="13" Margin="0,-31,74.4,678.6" />
             <TabControl x:Name="biggesttabinthisapps" Margin="0,-76,0,-1" Background="Black" BorderBrush="White">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">

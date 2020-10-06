@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Zahkwan\systemapps\obj\Release\
+C:\Zahkwan\systemapps bkup2\systemapps\obj\Release\
 systemapps
 none
 false
 TRACE
-C:\Zahkwan\systemapps\App.xaml
+C:\Zahkwan\systemapps bkup2\systemapps\App.xaml
 101056488865
 
 201955364876
-31-1473391186
+1782108354205
 2instancecharttest.xaml;adddatadialog.xaml;custonipaddress.xaml;datatemplatetest.xaml;DrawROI.xaml;ErrorDialog.xaml;MainWindow.xaml;Ok_Cancel_Dialog.xaml;videoscreenshot.xaml;vlcwpf.xaml;
 
-True
+False
 
