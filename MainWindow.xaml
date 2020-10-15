@@ -67,7 +67,7 @@
 
         <Grid Grid.Row="1" Margin="0,77,0,0" Background="Black">
             <Image VerticalAlignment="Top" Source="{StaticResource MIMOSLOGO}"  Margin="1292,-76,-2,0" Height="72"/>
-            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="aaa" Foreground="#FFF0F0F0"  FontSize="10" Width="74" FontFamily="Verdana" Margin="0,-20,72.4,0" Height="14"  />
+            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="10" Width="74" FontFamily="Verdana" Margin="0,-20,72.4,0" Height="14"  />
             <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="10" Width="16" FontFamily="Verdana" Margin="0,-31,70.4,678.6" Height="13" />
             <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="10" Width="72" FontFamily="Verdana" Height="13" Margin="0,-31,74.4,678.6" />
             <TabControl x:Name="biggesttabinthisapps" Margin="0,-76,0,-1" Background="Black" BorderBrush="White">
@@ -390,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem Visibility="Collapsed" x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -779,16 +779,16 @@
                                     <Label Content="Pred. Device ID:" Height="30" Margin="20,221,1201.2,361" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="preddevidtxtbox" Background="White" Height="25" Margin="159,221,1096.2,366" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Skip Outer:" Width="100" Height="30" Margin="21,260,1234.2,322" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Skip Outer:" Width="100" Height="30" Margin="21,262,1233,318" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="skipoutertxtbox" Background="White" Margin="159,265,1096.2,322" RenderTransformOrigin="0.438,0.576" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Skip Inner:" Width="100" Margin="21,308,1234.2,276" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="skipinnertxtbox" Background="White" Width="100" Height="25" Margin="159,308,1096.2,279" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Start:" Margin="20,350,1284.2,237" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Start:" Margin="20,348,1284,237" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="inittxtbox" Background="White" Width="100" Height="25" Margin="159,350,1096.2,237" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Stop:" Margin="21,387,1275.2,197" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Stop:" Margin="21,388,1275,194" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="lasttxtbox" Background="White" Width="100" Height="25" Margin="159,390,1096.2,197" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Process Duration:" Height="30" Margin="20,430,1169.2,152" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
@@ -855,10 +855,10 @@
 
                                     <TextBlock  Text="PARAMETER FOR STATISTICS" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,47,1043.2,557.6" FontFamily="Microsoft JhengHei UI" Grid.Column="1" />
 
-                                    <Label Content="ID:" Grid.Column="1" Margin="0.2,103,1281.2,501.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="ID:" Grid.Column="1" Margin="0,99,1281,496" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox IsReadOnly="True" x:Name="statisticsidtxtbox" Background="White" Grid.Column="1" Width="100" Height="25" Margin="115.2,103,1119.2,501.6" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Analytic ID:" Grid.Column="1" Margin="0.2,141,1234.2,460.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Analytic ID:" Grid.Column="1" Margin="0,140,1234,461" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <ComboBox IsReadOnly="True" Background="White" x:Name="comboboxanalyticidstat" Height="28"  Margin="115.2,141,1119.2,460.6" FontFamily="Consolas" FontSize="16" Grid.Column="1" />
 
                                     <Button Height="24" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,20,757.2,585.6" Width="71" Click="datagridaddrowbutton_Click" Grid.Column="1">
@@ -906,10 +906,10 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
 
-                                    <Label Content="Date:"  Margin="0.2,184,1248.2,420.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
+                                    <Label Content="Date:"  Margin="0,182,1248,421" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
                                     <TextBox IsReadOnly="True" x:Name="statsdatetxtbox" Background="White" Height="25" Margin="115.2,184,1041.2,420.6" Grid.Column="1" />
 
-                                    <Label Content="Time:" Grid.Column="1" Width="100" Margin="0.2,222,1234.2,381.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Time:" Grid.Column="1" Width="100" Margin="0,218,1233,386" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox IsReadOnly="True" x:Name="timestatstxtbox" Background="White" Grid.Column="1" Width="100" Margin="115.2,222,1119.2,381.6" FontFamily="Consolas" FontSize="16"/>
 
 
