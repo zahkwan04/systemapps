@@ -47,7 +47,7 @@
             this.pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pictureBox1.Location = new System.Drawing.Point(4, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(361, 295);
+            this.pictureBox1.Size = new System.Drawing.Size(395, 313);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
@@ -60,7 +60,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.AliceBlue;
-            this.button3.Location = new System.Drawing.Point(489, 52);
+            this.button3.Location = new System.Drawing.Point(532, 52);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(88, 32);
             this.button3.TabIndex = 3;
@@ -71,7 +71,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.AliceBlue;
-            this.button2.Location = new System.Drawing.Point(371, 52);
+            this.button2.Location = new System.Drawing.Point(419, 52);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(88, 32);
             this.button2.TabIndex = 2;
@@ -96,20 +96,21 @@
             // 
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(367, 175);
+            this.materialLabel1.Location = new System.Drawing.Point(405, 179);
             this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(259, 72);
+            this.materialLabel1.Size = new System.Drawing.Size(203, 54);
             this.materialLabel1.TabIndex = 4;
             this.materialLabel1.Text = "Instruction: Click once on the \r\nimage and double click to \r\nenclosed the ROI poi" +
     "nts.";
+            this.materialLabel1.Click += new System.EventHandler(this.materialLabel1_Click);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.AliceBlue;
-            this.button1.Location = new System.Drawing.Point(371, 104);
+            this.button1.Location = new System.Drawing.Point(419, 103);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(88, 32);
             this.button1.TabIndex = 1;

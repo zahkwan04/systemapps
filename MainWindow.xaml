@@ -97,7 +97,7 @@
                     </Style>
                 </TabControl.Resources>
 
-                <TabItem  Visibility="Collapsed" x:Name="dasboardtab" Background="#FFEBEBEC"  Height="70" VerticalAlignment="Top" Foreground="Black" >
+                <TabItem Visibility="Collapsed"   x:Name="dasboardtab" Background="#FFEBEBEC"  Height="70" VerticalAlignment="Top" Foreground="Black" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60" >
                             <Grid.RowDefinitions>
@@ -327,7 +327,7 @@
                                         <ComboBoxItem Content="1 hour"/>
                                     </ComboBox>
 
-                                    <TextBlock Text="DASHBOARD OPTIONS" Foreground="White" Margin="25,434,21.2,-414" FontSize="14" TextDecorations="Underline" FontWeight="Bold"/>
+                                    <TextBlock Visibility="Collapsed" Text="DASHBOARD OPTIONS" Foreground="White" Margin="25,434,21.2,-414" FontSize="14" TextDecorations="Underline" FontWeight="Bold"/>
 
 
                                 </Grid>
@@ -390,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem Visibility="Collapsed"   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -811,20 +811,20 @@
                                     <Label Content="*Server ID:" Margin="329,307,926.2,275" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 
                                     <Label Content="Det. Debug:" Margin="26,475,1229.2,109" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="det_debugtrue" GroupName="det_debug" Content="True" Margin="159,478,1145.2,113"/>
-                                    <RadioButton x:Name="det_debugfalse" GroupName="det_debug" Content="False" Margin="233,478,1069.2,113"/>
+                                    <RadioButton x:Name="det_debugtrue" GroupName="det_debug" Content="true" Margin="159,478,1145.2,113"/>
+                                    <RadioButton x:Name="det_debugfalse" GroupName="det_debug" Content="false" Margin="233,478,1069.2,113"/>
 
                                     <Label Content="Trk. Debug:" Height="30" Margin="26,503,1234.2,79" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="trkdebugtrue" GroupName="Trk_debug" Content="True" Margin="159,507,1145.2,86"/>
-                                    <RadioButton x:Name="trkdebugfalse" GroupName="Trk_debug" Content="False" Margin="233,507,1069.2,86" RenderTransformOrigin="0.491,0.42"/>
+                                    <RadioButton x:Name="trkdebugtrue" GroupName="Trk_debug" Content="true" Margin="159,507,1145.2,86"/>
+                                    <RadioButton x:Name="trkdebugfalse" GroupName="Trk_debug" Content="false" Margin="233,507,1069.2,86" RenderTransformOrigin="0.491,0.42"/>
 
                                     <Label Content="Pred. Enable:" Margin="26,532,1217.2,54" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="predenabletrue" GroupName="Pred_Enable" Content="True" Margin="159,535,1145.2,56"/>
-                                    <RadioButton x:Name="predenablefalse" GroupName="Pred_Enable" Content="False" Margin="234,535,1068.2,56"/>
+                                    <RadioButton x:Name="predenabletrue" GroupName="Pred_Enable" Content="true" Margin="159,535,1145.2,56"/>
+                                    <RadioButton x:Name="predenablefalse" GroupName="Pred_Enable" Content="false" Margin="234,535,1068.2,56"/>
 
                                     <Label Content="Status:" Margin="26,558,1263.2,28" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="statustrue" GroupName="status" Content="True" Margin="159,562,1144.2,31"/>
-                                    <RadioButton x:Name="statusfalse" GroupName="status" Content="False" Margin="234,563,1067.2,29"/>
+                                    <RadioButton x:Name="statustrue" GroupName="status" Content="true" Margin="159,562,1144.2,31"/>
+                                    <RadioButton x:Name="statusfalse" GroupName="status" Content="false" Margin="234,563,1067.2,29"/>
 
                                     <Label Content="*Camera ID:" Margin="329,343,910.2,240" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 

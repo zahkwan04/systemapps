@@ -895,6 +895,8 @@ namespace systemapps
 
         private void ResetAllField_Click(object sender, RoutedEventArgs e)
         {
+            cameraidtxtbox.Text = "";
+            comboboxsourceoption.Text = "";
             imgfoldertxtbox.Text = "";
             videofoldertxtbox.Text = "";
             filesextensiontxtbox.Text = "";
@@ -1265,8 +1267,8 @@ namespace systemapps
 
             Size dpi = new Size(96, 96);
             RenderTargetBitmap bmp =
-              new RenderTargetBitmap(480, 360,
-                dpi.Width, dpi.Height, PixelFormats.Pbgra32);
+              new RenderTargetBitmap(640,480,
+                dpi.Width, dpi.Height, PixelFormats.Pbgra32); //480,360 
             bmp.Render(videocameratab);
 
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -2061,7 +2063,7 @@ namespace systemapps
 
                         if (lasttxtbox.Text == "")
                         {
-                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = 0;
+                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = -1;
 
                         }
                         else
@@ -2217,7 +2219,7 @@ namespace systemapps
 
                         if (lasttxtbox.Text == "")
                         {
-                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = 0;
+                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = -1;
 
                         }
                         else
@@ -3640,7 +3642,7 @@ namespace systemapps
                                 string newmask = camitems[2];
                                 newmask = newmask.Replace("\r\n", "");
 
-                                string trimmedmask = newmask + ".txt";
+                                string trimmedmask = newmask ;
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -3650,18 +3652,18 @@ namespace systemapps
 
                                 if (camitems[0] == "1")
                                 {
-                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else if (camitems[0] == "2")
                                 {
-                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else
                                 {
 
-                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
                                 
@@ -3681,7 +3683,7 @@ namespace systemapps
 
                                 string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
 
-                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask);
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask +".txt");
                                 writer.Write(text2write);
                                 writer.Close();
                                 /*
@@ -4878,7 +4880,7 @@ namespace systemapps
                                 string trimmedmask = camitems[2];
                                 trimmedmask = trimmedmask.Replace("\r\n", "");
 
-                                string path = trimmedmask + ".txt";
+                                string path = trimmedmask ;
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -4891,19 +4893,19 @@ namespace systemapps
 
                                 if (camitems[0] == "1")
                                 {
-                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
 
                                 else if (camitems[0] == "2")
                                 {
-                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" +  " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" +  " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else
                                 {
 
-                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
 
@@ -4937,8 +4939,8 @@ namespace systemapps
                                string strCmdText;
                                // strCmdText = "/K cd " + scriptpath + " & cd  & " + currentscriptname + " &  Echo Running Script.........  & timeout 10 & exit";
                                 strCmdText = "/K cd " + savedirectory + " & cd  & " + currentscriptname + " &  timeout 10 & exit";
-
-                                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+                                Debug.WriteLine(strCmdText);
+                                System.Diagnostics.Process.Start("CMD.exe",  strCmdText);
 
                                
                             }
