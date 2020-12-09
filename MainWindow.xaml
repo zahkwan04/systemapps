@@ -390,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem Visibility="Collapsed"   x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem    x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>

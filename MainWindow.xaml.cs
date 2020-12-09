@@ -3642,7 +3642,7 @@ namespace systemapps
                                 string newmask = camitems[2];
                                 newmask = newmask.Replace("\r\n", "");
 
-                                string trimmedmask = newmask ;
+                                string trimmedmask = newmask +".txt" ;
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -4880,7 +4880,7 @@ namespace systemapps
                                 string trimmedmask = camitems[2];
                                 trimmedmask = trimmedmask.Replace("\r\n", "");
 
-                                string path = trimmedmask ;
+                                string path = trimmedmask + ".txt";
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
