@@ -3642,7 +3642,7 @@ namespace systemapps
                                 string newmask = camitems[2];
                                 newmask = newmask.Replace("\r\n", "");
 
-                                string trimmedmask = newmask +".txt" ;
+                                string trimmedmask = newmask+".txt"  ;
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -3683,7 +3683,7 @@ namespace systemapps
 
                                 string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
 
-                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask +".txt");
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask );
                                 writer.Write(text2write);
                                 writer.Close();
                                 /*
@@ -4928,7 +4928,7 @@ namespace systemapps
                                 string savedfile = sfd.FileName;
                                 string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
 
-                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory + "\\" + trimmedmask);
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory + "\\" + path);
                                 writer.Write(text2write);
                                 writer.Close();
 
