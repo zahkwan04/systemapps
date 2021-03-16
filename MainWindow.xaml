@@ -33,7 +33,7 @@
         </EventTrigger>
     </Window.Triggers>
 
-    <Grid Background="Gray">
+    <Grid Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1366"/>
         </Grid.ColumnDefinitions>
@@ -66,7 +66,11 @@
         </StackPanel>
 
         <Grid Grid.Row="1" Margin="0,77,0,0" Background="Black">
-            <TabControl x:Name="biggesttabinthisapps" Margin="0,-80,0.4,2.6" Background="White">
+            <Image VerticalAlignment="Top" Source="{StaticResource MIMOSLOGO}"  Margin="1292,-76,-2,0" Height="72"/>
+            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="10" Width="74" FontFamily="Verdana" Margin="0,-20,72.4,0" Height="14"  />
+            <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="10" Width="16" FontFamily="Verdana" Margin="0,-31,70.4,678.6" Height="13" />
+            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="10" Width="72" FontFamily="Verdana" Height="13" Margin="0,-31,74.4,678.6" />
+            <TabControl x:Name="biggesttabinthisapps" Margin="0,-76,0,-1" Background="Black" BorderBrush="White">
                 <TabControl.Resources>
                     <Style TargetType="TabItem">
                         <Setter Property="Template">
@@ -93,7 +97,7 @@
                     </Style>
                 </TabControl.Resources>
 
-                <TabItem  x:Name="dasboardtab"   Height="70" VerticalAlignment="Top" >
+                <TabItem Visibility="Collapsed"   x:Name="dasboardtab" Background="#FFEBEBEC"  Height="70" VerticalAlignment="Top" Foreground="Black" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60" >
                             <Grid.RowDefinitions>
@@ -104,84 +108,62 @@
                             <TextBlock Grid.Row="1" Text="DASHBOARD" Grid.RowSpan="2" FontSize="10" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         </Grid>
                     </TabItem.Header>
-                    <Grid Background="White" >
+                    <Grid Background="White" Margin="-2,2,2,3" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
+                        <TextBlock VerticalAlignment="Center"  Text="MIMOS MI-TRAFFIC DASHBOARD" Foreground="#FFF0F0F0" Margin="466,-69,186,664" FontSize="42" FontFamily="Verdana" Height="60"/>
 
-                        <Grid Height="45" Background="Black" Margin="0,0,-0.2,615.8">
-                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"  Text="MIMOS MI-TRAFFIC DASHBOARD" Foreground="#FFF0F0F0" Margin="461,0,218,2" FontSize="35" Width="682" FontFamily="Verdana" />
-                            <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource MIMOSLOGO}"  Height="45" Width="52" Margin="395,0,914,0.8"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H) and Gap (Meter)" Margin="48,372,586,255" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="726" TextAlignment="Center" Background="Black" Foreground="White" Height="28"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="50,15,586,614" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Foreground="White" Background="Black" Width="724" TextAlignment="Center"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="826,35,451.8,560" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="83" Foreground="Black" Height="60" TextAlignment="Center"><Run Text="Total "/><LineBreak/><Run Text="Vehicle"/></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="823,160,446.8,435" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="91" Height="60" TextAlignment="Center"><Run Text="Speed "/><LineBreak/><Run Text="(KM/H)"/></TextBlock>
+                        <lvc:Gauge x:Name="speedchartmin" HighFontSize="20" GaugeActiveFill="DarkSalmon" Value="40" Margin="942,142,302.8,438" From="0" To="150" GaugeBackground="#FFEBEBEC">
 
-                            <TextBlock x:Name="datedatafilterdashboardtext" VerticalAlignment="Top" HorizontalAlignment="Right"   Text="" Foreground="#FFF0F0F0"  FontSize="18" Width="126" FontFamily="Verdana"  />
-                            <TextBlock x:Name="analyticidtextdashboard" VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="00" Foreground="#FFF0F0F0"  FontSize="18" Width="27" FontFamily="Verdana" />
-                            <TextBlock  VerticalAlignment="Bottom" HorizontalAlignment="Right"   Text="Analytic ID:" Foreground="#FFF0F0F0"  FontSize="18" Width="135" FontFamily="Verdana" />
-
-
-                        </Grid>
-                        <Rectangle RadiusX="10" RadiusY="10" Fill="White" Margin="28,50,578.8,394.8"/>
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H) and Gap (Meter)" Margin="238,375,795.8,259.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="327"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Counting and Classification" Margin="257,50,827.8,584.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Foreground="Black"/>
-
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Total Vehicle:" Margin="798,91,423.8,543.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="139" Foreground="Black"/>
-
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Speed (KM/H):" Margin="795,210,409.8,424.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="156"/>
-                        <lvc:Gauge x:Name="speedchartmin" HighFontSize="20" GaugeActiveFill="#FFF9A586" Value="40" Margin="944,179,297.8,408.8" From="0" To="150" >
-                            <lvc:Gauge.GaugeBackground>
-                                <SolidColorBrush Color="#FF3E3E40" Opacity="0.1"/>
-                            </lvc:Gauge.GaugeBackground>
                         </lvc:Gauge>
-                        <lvc:Gauge x:Name="speedchartavg" HighFontSize="30" GaugeActiveFill="#FFF9A586"  Value="50" Margin="1071,174,149.8,410.8" From="0" To="150" />
-                        <lvc:Gauge x:Name="speedchartmax" HighFontSize="20" GaugeActiveFill="#FFF9A586" Value="71" Margin="1220,178,9.8,408.8" From="0" To="150" />
+                        <lvc:Gauge x:Name="speedchartavg" HighFontSize="30" GaugeActiveFill="DarkSalmon"  Value="50" Margin="1073,142,171.8,438" From="0" To="150" GaugeBackground="#FFEBEBEC"/>
+                        <lvc:Gauge x:Name="speedchartmax" HighFontSize="20" GaugeActiveFill="DarkSalmon" Value="71" Margin="1203,142,41.8,438" From="0" To="150" GaugeBackground="#FFEBEBEC"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="990,256,347.8,388.8"/>
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1272,256,62.8,388.8"/>
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1113,256,197.8,388.8"/>
-
-
-
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Gap (Meter):" Margin="796,307,432.8,327.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="132" Foreground="Black"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="983,368,354.8,276.8" Foreground="Black"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1274,368,60.8,276.8" Foreground="Black"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1115,368,195.8,276.8" Foreground="#FF030303"/>
-                        <lvc:Gauge x:Name="gapchartmin"  Margin="928,277,297.8,286.8"
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="987,218,349.8,421"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1254,218,81.8,421"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1110,218,201.8,421"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="828,252,444.8,343" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="88" Foreground="Black" Height="60" TextAlignment="Center"><Run Text="Gap "/><LineBreak/><Run Text="(Meter)"/></TextBlock>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="986,322,350.8,317" Foreground="Black" RenderTransformOrigin="1.478,0.5"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1255,323,80.8,316" Foreground="Black"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1109,323,202.8,316" Foreground="#FF030303"/>
+                        <lvc:Gauge x:Name="gapchartmin"  Margin="941,246,303.8,347"
                    Uses360Mode="False"
                    From="0" To="20" Value="5"
                    HighFontSize="30" Foreground="Black"
                    
-                   InnerRadius="0" GaugeBackground="White" GaugeActiveFill="#FFF6A6FF" BorderBrush="Black"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" GaugeActiveFill="PaleVioletRed" BorderBrush="Black"/>
 
-                        <lvc:Gauge x:Name="gapchartavg"  Margin="1068,280,142.8,296.8"
+                        <lvc:Gauge x:Name="gapchartavg"  Margin="1070,246,173.8,347"
                    Uses360Mode="False"
                    From="0" To="20" Value="8"
                    HighFontSize="30" Foreground="Black"
                   
-                   InnerRadius="0" GaugeBackground="White" GaugeActiveFill="#FFF6A6FF" BorderBrush="Black"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" GaugeActiveFill="PaleVioletRed" BorderBrush="Black"/>
 
-                        <lvc:Gauge x:Name="gapchartmax"  Margin="1223,281,12.8,284.8"
+                        <lvc:Gauge x:Name="gapchartmax"  Margin="1201,246,43.8,347"
                    Uses360Mode="False"
                    From="0" To="20" Value="17"
                    HighFontSize="30" Foreground="Black"
                   
-                   InnerRadius="0" GaugeBackground="#FFFFFDFD" GaugeActiveFill="#FFF6A6FF"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" GaugeActiveFill="PaleVioletRed"/>
 
 
-                        <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1275,636,9.8,0.8" Click="refreshcart_Click" FontSize="12" Height="Auto"/>
+                        <Button IsEnabled="False" Content="Refresh" x:Name="refreshcart" Margin="1278,625,7,7" Click="refreshcart_Click" FontSize="12" Height="Auto" Background="Black" BorderBrush="White"/>
                         <Button Visibility="Collapsed" Content="Pause" x:Name="pause" Margin="1093,636,199.8,0.8" Click="pause_Click" Height="Auto" FontSize="12"/>
-                        <Button IsEnabled="False" Content="Auto Refresh" x:Name="autoref" Margin="1166,636,90.8,0.8" Click="autoref_Click" Height="Auto" FontSize="12"/>
+                        <Button Visibility="Collapsed" IsEnabled="False" Content="Auto Refresh" x:Name="autoref" Margin="1166,636,90.8,0.8" Click="autoref_Click" Height="Auto" FontSize="12"/>
 
-                        <TextBlock x:Name="Connectionstatus" Text="Data Not Connected" Margin="302,643,935.8,-3.2"/>
+                        <TextBlock x:Name="Connectionstatus" Text="Data Not Connected" Margin="303,637,935,2"/>
 
-                        <TextBlock  Text="Last Update:" Margin="28,643,1263.8,-4.2" FontStyle="Italic"/>
-                        <TextBlock x:Name="lastupdateinfotext"  Text="" Margin="97,642,1073.8,-4.2" FontStyle="Italic"/>
+                        <TextBlock  Text="Last Update:" Margin="30,636,1262,2" FontStyle="Italic"/>
+                        <TextBlock x:Name="lastupdateinfotext"  Text="" Margin="101,636,1069,1" FontStyle="Italic"/>
 
 
-                        <materialDesign:PackIcon x:Name="dashboardsignalstatus" Foreground="Red" Kind="RssFeed" Margin="273,641,0,-0.2" Height="20" Width="29" >
+                        <materialDesign:PackIcon x:Name="dashboardsignalstatus" Foreground="Red" Kind="RssFeed" Margin="276,635,0,0" Height="20" Width="29" >
                             <materialDesign:PackIcon.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -192,7 +174,7 @@
                         </materialDesign:PackIcon>
 
 
-                        <lvc:CartesianChart  Series="{Binding SeriesCollectioncountingnclass}" Foreground="Black" LegendLocation="Right" Margin="30,76,578.8,284.8">
+                        <lvc:CartesianChart  Series="{Binding SeriesCollectioncountingnclass}" Foreground="Black" LegendLocation="Right" Margin="50,50,586,304" Background="White">
                             <lvc:CartesianChart.AxisX>
                                 <lvc:Axis Title="Time" 
                           Labels="{Binding Labelscountingnclass}" 
@@ -209,7 +191,7 @@
                         <Canvas Margin="0,0,-0.2,-0.2"/>
 
                         <Canvas Margin="0,0,-0.2,-0.2">
-                            <lvc:CartesianChart Foreground="Black" x:Name="speedchartcart" Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="30" Canvas.Top="402" Height="222" Width="745" >
+                            <lvc:CartesianChart Foreground="Black" x:Name="speedchartcart" Background="White" Series="{Binding SeriesCollection2}" LegendLocation="Right" Canvas.Left="48" Canvas.Top="411" Height="213" Width="727" >
                                 <lvc:CartesianChart.AxisY>
                                     <lvc:Axis Title="Speed (KM/H)" Foreground="Black" LabelFormatter="{Binding YFormatter2}"></lvc:Axis>
                                 </lvc:CartesianChart.AxisY>
@@ -226,8 +208,21 @@
 
 
                         <Grid x:Name="gridpiechart" Margin="789,392,59.8,8.8" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
                             <lvc:PieChart x:Name="piechart1"  Series="{Binding PiechartCollection}" 
-                      LegendLocation="Right"   InnerRadius="0" Foreground="Black" Margin="0,0,32,0">
+                      LegendLocation="Right"   InnerRadius="0" Foreground="Black" Margin="35,-5,0,0" HorizontalAlignment="Left" Width="372" Height="243" VerticalAlignment="Top">
+
+                                <lvc:PieChart.Resources>
+                                    <Style TargetType="lvc:PieSeries">
+                                        <Setter Property="DataLabels" Value="True"></Setter>
+
+                                        <Setter Property="Foreground" Value="#303030"></Setter>
+                                        <Setter Property="LabelPosition" Value="OutsideSlice"></Setter>
+
+                                    </Style>
+                                </lvc:PieChart.Resources>
                                 <lvc:PieChart.RenderTransform>
                                     <TransformGroup>
                                         <ScaleTransform/>
@@ -247,49 +242,49 @@
 
                         </Grid>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="Daily Class Distribution" Margin="1087,395,29.8,239.8" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="244"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="810,348,10.8,280" FontFamily="Microsoft YaHei UI" FontSize="20" TextDecorations="{x:Null}" FontWeight="Bold" Width="540" Height="27" Text="Daily Class Distribution" TextAlignment="Center" Background="Black" Foreground="White"/>
 
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource caricon}"  Height="45" Width="52" Margin="1281,416,27.8,199.8"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource vansicon}"  Height="45" Width="52" Margin="1281,450,27.8,165.8"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 2axlestruck}"  Height="47" Width="59" Margin="1274,486,27.8,127.8"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 3axlestruck}"  Height="29" Width="52" Margin="1281,527,27.8,104.8"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource busicon}"  Height="55" Width="67" Margin="1272,550,21.8,55.8"/>
-                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource motoricon}"  Height="45" Width="52" Margin="1281,585,27.8,30.8"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource caricon}"  Height="59" Width="70" Margin="1222,391,68.8,205"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource vansicon}"  Height="54" Width="89" Margin="1214,425,57.8,176"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 2axlestruck}"  Height="53" Width="92" Margin="1210,464,58.8,138"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource 3axlestruck}"  Height="37" Width="67" Margin="1225,509,68.8,109"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource busicon}"  Height="71" Width="84" Margin="1215,531,61.8,53"/>
+                        <Image VerticalAlignment="Center" HorizontalAlignment="Center" Source="{StaticResource motoricon}"  Height="58" Width="77" Margin="1218,566,65.8,31"/>
 
 
-                        <Rectangle Fill="#FF060505" Margin="787,51,571.8,9.8"/>
+                        <Rectangle Fill="#FF060505" Margin="796,16,563,7"/>
                         <Rectangle Fill="#FF060505" Margin="798,163,6.8,496.8"/>
                         <Rectangle Fill="#FF060505" Margin="798,390,9.8,269.8"/>
                         <Rectangle Fill="#FF060505" Margin="802,279,6.8,380.8"/>
 
-                        <lvc:Gauge x:Name="totalvehiclechartmin" Grid.Column="0" Margin="937,63,266.8,511.8"
+                        <lvc:Gauge x:Name="totalvehiclechartmin" Grid.Column="0" Margin="913,4,276.8,541"
                    Uses360Mode="True"
                    From="0" FromColor="White" ToColor="Black" To="2000" Value="1000"
                    HighFontSize="30" Foreground="Black"
-                   InnerRadius="0" GaugeBackground="White" Stroke="White" GaugeActiveFill="#FFA0E4FF"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" Stroke="Black" GaugeActiveFill="DarkSeaGreen" BorderThickness="4"/>
 
-                        <lvc:Gauge x:Name="totalvehiclechartavg" Grid.Column="0" Margin="1076,53,135.8,510.8"
+                        <lvc:Gauge x:Name="totalvehiclechartavg" Grid.Column="0" Margin="1044,3,145.8,542"
                    Uses360Mode="True"
                    From="0" FromColor="White" ToColor="Black" To="2000" Value="20"
                    HighFontSize="30" Foreground="Black"
-                   InnerRadius="0" GaugeBackground="White" GaugeActiveFill="#FFA0E4FF"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" GaugeActiveFill="DarkSeaGreen"/>
 
-                        <lvc:Gauge x:Name="totalvehiclechartmax" Grid.Column="0" Margin="1222,59,5.8,511.8"
+                        <lvc:Gauge x:Name="totalvehiclechartmax" Grid.Column="0" Margin="1174,4,15.8,541"
                    Uses360Mode="True"
                    From="0" FromColor="White" ToColor="Black" To="2000" Value="150"
                    HighFontSize="30" Foreground="Black"
-                   InnerRadius="0" GaugeBackground="White" GaugeActiveFill="#FFA0E4FF"/>
+                   InnerRadius="0" GaugeBackground="#FFEBEBEC" GaugeActiveFill="DarkSeaGreen"/>
 
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="1003,142,334.8,502.8" Foreground="Black"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1275,141,59.8,503.8" Foreground="Black"/>
-                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1127,142,183.8,502.8" Foreground="#FF020101"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MIN" Margin="986,120,350.8,519" Foreground="Black"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="MAX" Margin="1252,122,83.8,517" Foreground="Black"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="AVERAGE" Margin="1111,118,200.8,521" Foreground="#FF020101"/>
 
-                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,0,0,-0.2">
+                        <Grid x:Name="GridMenu" Width="25" HorizontalAlignment="Left" Background="#FFA2A2A2" Margin="0,-4,0,-5">
                             <Grid.Effect>
                                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="AntiqueWhite"/>
                             </Grid.Effect>
                             <StackPanel>
-                                <Grid Height="45" Background="Black" RenderTransformOrigin="0.5,0.5" Margin="0,0,-0.2,0">
+                                <Grid Height="45" Background="Black" RenderTransformOrigin="0.5,0.5" Margin="-2,0,0,0">
                                     <Grid.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -298,7 +293,7 @@
                                             <TranslateTransform/>
                                         </TransformGroup>
                                     </Grid.RenderTransform>
-                                    <Button x:Name="ButtonOpenMenu" Height="60" Width="25"  HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonOpenMenu_Click">
+                                    <Button x:Name="ButtonOpenMenu" Height="40" Width="26"  HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonOpenMenu_Click" Margin="0,0,0.8,4">
                                         <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
                                     </Button>
                                     <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="60" Width="25" HorizontalAlignment="Right" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="White" Click="ButtonCloseMenu_Click">
@@ -322,7 +317,7 @@
 
                                     <TextBlock Text="Analytic ID" FontSize="15" Margin="30,241,95.2,-217" Foreground="White"/>
                                     <ComboBox x:Name="cbbanalyticfiltersearch" Margin="29,262,89.2,-243" Background="LightGray" Height="26"/>
-                                    <Button x:Name="applyfiltersetting" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Apply"  Margin="32,367,103.2,-349" Height="Auto" FontSize="11" Background="#FF6610FF" Click="applyfiltersetting_Click" />
+                                    <Button x:Name="applyfiltersetting" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Apply"  Margin="32,367,103.2,-349" Height="Auto" FontSize="11" Background="Black" Click="applyfiltersetting_Click" BorderBrush="White" />
 
                                     <TextBlock Text="Analysis Period" FontSize="15" Margin="30,297,56.2,-273" Foreground="White"/>
                                     <ComboBox x:Name="cbbanalysisperiod" Margin="30,319,89.2,-303" Background="LightGray" Height="29">
@@ -332,7 +327,7 @@
                                         <ComboBoxItem Content="1 hour"/>
                                     </ComboBox>
 
-                                    <TextBlock Text="DASHBOARD OPTIONS" Foreground="White" Margin="25,434,21.2,-414" FontSize="14" TextDecorations="Underline" FontWeight="Bold"/>
+                                    <TextBlock Visibility="Collapsed" Text="DASHBOARD OPTIONS" Foreground="White" Margin="25,434,21.2,-414" FontSize="14" TextDecorations="Underline" FontWeight="Bold"/>
 
 
                                 </Grid>
@@ -345,7 +340,7 @@
 
                 </TabItem>
 
-                <TabItem Height="70" VerticalAlignment="Top" >
+                <TabItem Height="70" Background="#FFEBEBEC" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60">
                             <Grid.RowDefinitions>
@@ -379,13 +374,13 @@
                         <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="0,315,1017.8,310" FontFamily="Microsoft JhengHei UI" />
                         <PasswordBox x:Name="Dbpasswordtestconn" Grid.Column="1" Background="White" LostFocus="DBConnect_TextChanged" Margin="0,350,1017.8,282" FontSize="16" FontFamily="Consolas"/>
 
-                        <Button x:Name="TestConnButton" Content="Test Connection" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,123,712.8,496" Click="TestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+                        <Button x:Name="TestConnButton" Content="Test Connection" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,123,712.8,496" Click="TestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" BorderBrush="White" />
 
-                        <Button x:Name="SaveTestDbConnButton" Content="Save" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,189,712.8,430" Click="SaveTestDbConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+                        <Button x:Name="SaveTestDbConnButton" Content="Save" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,189,712.8,430" Click="SaveTestDbConnButton_Click" Height="41" FontFamily="Yu Gothic UI" BorderBrush="White" />
 
-                        <Button x:Name="disconnectandreset"  Content="Disconnect" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="645,123,529.8,496" Click="disconnectandreset_Click" Height="41" FontFamily="Yu Gothic UI" />
+                        <Button x:Name="disconnectandreset"  Content="Disconnect" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="645,123,529.8,496" Click="disconnectandreset_Click" Height="41" FontFamily="Yu Gothic UI" BorderBrush="White" />
 
-                        <Button x:Name="ResetTestConnButton" Content="Reset All Fields" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,262,712.8,357" Click="ResetTestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" />
+                        <Button x:Name="ResetTestConnButton" Content="Reset All Fields" Grid.Column="1" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="434,262,712.8,357" Click="ResetTestConnButton_Click" Height="41" FontFamily="Yu Gothic UI" BorderBrush="White" />
 
 
 
@@ -395,7 +390,7 @@
 
                 </TabItem>
 
-                <TabItem Visibility="Collapsed" x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
+                <TabItem    x:Name="configparameterenabled"  Height="70" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="65" >
                             <Grid.RowDefinitions>
@@ -464,7 +459,7 @@
                                         </TextBox.RenderTransform>
                                     </TextBox>
 
-                                    <Button x:Name="resetallfieldbuttonparameterbuttong" Content="Reset All Fields" Margin="21,213,1172.2,380.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="16"/>
+                                    <Button x:Name="resetallfieldbuttonparameterbuttong" Content="Reset All Fields" Margin="21,213,1172.2,380.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="16" Background="Black" BorderBrush="White"/>
 
                                     <DataGrid ItemsSource="{Binding Path=server_info}" AutoGenerateColumns="False" x:Name="serverinfodatagrid" IsReadOnly="True" Grid.Row="0" BorderThickness="2" SelectionChanged="serverinfodatagrid_SelectionChanged" Margin="606,0,0.2,-0.4" >
                                         <DataGrid.Columns>
@@ -560,11 +555,11 @@
 
                                     <Label  Content="Images Folder:" Margin="19,200,1194.2,401.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
                                     <TextBox x:Name="imgfoldertxtbox" IsReadOnly="True"  VerticalAlignment="Top" Height="28" Background="White" Margin="153,200,927.2,0" FontFamily="Consolas" FontSize="16" RenderTransformOrigin="0.503,0.928" />
-                                    <Button x:Name="browseimagefolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browseimagefolderbutton_Click" FontSize="16" Margin="433,198,786.2,0" Width="136" FontFamily="Yu Gothic UI"/>
+                                    <Button x:Name="browseimagefolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browseimagefolderbutton_Click" FontSize="16" Margin="433,198,786.2,0" Width="136" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black"/>
 
                                     <Label  Content="Video Folder:" Margin="21,254,1201.2,347.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
                                     <TextBox x:Name="videofoldertxtbox" IsReadOnly="True"  VerticalAlignment="Top" Height="28" Background="White" Margin="154,254,927.2,0" FontFamily="Consolas" FontSize="16" />
-                                    <Button x:Name="browsevideofolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browsevideofolderbutton_Click" Margin="433,251,786.2,0" FontSize="16" Width="136" FontFamily="Yu Gothic UI"/>
+                                    <Button x:Name="browsevideofolderbutton" IsEnabled="False" Height="31"  VerticalAlignment="Top" Content="Browse Folder" HorizontalAlignment="Center" Click="browsevideofolderbutton_Click" Margin="433,251,786.2,0" FontSize="16" Width="136" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black"/>
 
                                     <Label  Content="Files Extension:" Margin="19,307,1207.2,294.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
                                     <TextBox  x:Name="filesextensiontxtbox" VerticalAlignment="Top" Height="28" Background="White" Margin="153,307,939.4,0" FontFamily="Consolas" FontSize="16" />
@@ -574,13 +569,13 @@
                                     <Label  Content="Camera URL:" Margin="19,365,1207.2,235.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
                                     <TextBox x:Name="cameraurltxtbox" IsReadOnly="True" VerticalAlignment="Top" Height="28" Background="White" Margin="153,361,886.2,0" FontFamily="Consolas" FontSize="16" />
 
-                                    <Label  Content="Camera Mask:" Margin="20,441,1207.2,160.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
-                                    <TextBox IsReadOnly="True" x:Name="cameramasktxtbox" VerticalAlignment="Top" Height="28" Background="White" Margin="153,441,886.2,0" FontFamily="Consolas" FontSize="16" />
-                                    <Button x:Name="drawroibutton" IsEnabled="False" Height="28" VerticalAlignment="Top" Content="Draw ROI" HorizontalAlignment="Center" Margin="466,441,764.4,0" Click="Button_Click" Width="108" FontSize="16" FontFamily="Yu Gothic UI"/>
+                                    <Label Visibility="Hidden"  Content="Camera Mask:" Margin="20,441,1207.2,160.6" FontFamily="Microsoft JhengHei UI" FontSize="16" />
+                                    <TextBox IsReadOnly="True" Visibility="Hidden" x:Name="cameramasktxtbox" VerticalAlignment="Top" Height="28" Background="White" Margin="153,441,886.2,0" FontFamily="Consolas" FontSize="16" />
+                                    <Button x:Name="drawroibutton" IsEnabled="False" Height="28" VerticalAlignment="Top" Content="Draw ROI" HorizontalAlignment="Center" Margin="466,441,764.4,0" Click="Button_Click" Width="108" FontSize="16" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black"/>
 
-                                    <Button x:Name="ResetAllFieldcamera" Height="30" VerticalAlignment="Top" Content="Reset All Fields" HorizontalAlignment="Center" Margin="21,497,1184.4,0"  FontSize="16" Width="133" Click="ResetAllField_Click" FontFamily="Yu Gothic UI" />
+                                    <Button x:Name="ResetAllFieldcamera" Height="30" VerticalAlignment="Top" Content="Reset All Fields" HorizontalAlignment="Center" Margin="21,497,1184.4,0"  FontSize="16" Width="133" Click="ResetAllField_Click" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black" />
 
-                                    <Button x:Name="checkcam"  IsEnabled="False" Height="29" VerticalAlignment="Top" Content="Check Cam" HorizontalAlignment="Center" Margin="474,361,765.2,0" Width="116" FontSize="16" Click="checkcam_Click" FontFamily="Yu Gothic UI"/>
+                                    <Button x:Name="checkcam"  IsEnabled="False" Height="29" VerticalAlignment="Top" Content="Check Cam" HorizontalAlignment="Center" Margin="474,361,765.2,0" Width="116" FontSize="16" Click="checkcam_Click" FontFamily="Yu Gothic UI" BorderBrush="White" Background="Black"/>
 
                                     <!--
                                         <Button Visibility="Collapsed"  x:Name="nextimgeprevbuttton" VerticalAlignment="Top" Content="Next Image" Grid.Row="10" Grid.Column="5" Background="#FF631E83" Click="nextimgeprevbuttton_Click" Margin="63,37,74,0" Grid.ColumnSpan="3" />
@@ -659,7 +654,7 @@
                                     <Label Content="Source Name:" Height="30" Margin="21,150,1213.2,431.2" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox  x:Name="inputsourcesourcetextbox" Background="White" Height="25" Margin="148,154,1048.2,432.2" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Button Content="Reset All Fields" Margin="21,213,1213.2,362.2" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click"/>
+                                    <Button Content="Reset All Fields" Margin="21,213,1213.2,362.2" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Background="#FF010102" BorderBrush="White"/>
 
 
                                     <Button Visibility="Collapsed" Height="20" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,23,762.2,568.2" Width="71" Click="datagridaddrowbutton_Click">
@@ -784,16 +779,16 @@
                                     <Label Content="Pred. Device ID:" Height="30" Margin="20,221,1201.2,361" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="preddevidtxtbox" Background="White" Height="25" Margin="159,221,1096.2,366" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Skip Outer:" Width="100" Height="30" Margin="21,260,1234.2,322" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Skip Outer:" Width="100" Height="30" Margin="21,262,1233,318" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="skipoutertxtbox" Background="White" Margin="159,265,1096.2,322" RenderTransformOrigin="0.438,0.576" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Skip Inner:" Width="100" Margin="21,308,1234.2,276" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="skipinnertxtbox" Background="White" Width="100" Height="25" Margin="159,308,1096.2,279" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Start:" Margin="20,350,1284.2,237" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Start:" Margin="20,348,1284,237" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="inittxtbox" Background="White" Width="100" Height="25" Margin="159,350,1096.2,237" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Stop:" Margin="21,387,1275.2,197" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Stop:" Margin="21,388,1275,194" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="lasttxtbox" Background="White" Width="100" Height="25" Margin="159,390,1096.2,197" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Process Duration:" Height="30" Margin="20,430,1169.2,152" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
@@ -807,8 +802,8 @@
 
                                     <Label Content="*Det. Model ID:" Margin="329,225,888.2,357" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 
-                                    <ComboBox x:Name="cbbdetmodelid" IsReadOnly="True" Background="#FFE6CECE" Height="27" Margin="480,225,775.2,360" FontFamily="Consolas" FontSize="16"/>
-                                    <ComboBox x:Name="cbbpredmodelid" IsReadOnly="True" Background="#FFE6CECE" Height="27" Margin="480,267,775.2,315" FontFamily="Consolas" FontSize="16"/>
+                                    <ComboBox x:Name="cbbdetmodelid" IsReadOnly="True" Background="White" Height="27" Margin="480,225,775.2,360" FontFamily="Consolas" FontSize="16" BorderBrush="#89000000"/>
+                                    <ComboBox x:Name="cbbpredmodelid" IsReadOnly="True" Background="White" Height="27" Margin="480,267,775.2,315" FontFamily="Consolas" FontSize="16" BorderBrush="#89000000"/>
 
 
                                     <Label Content="*Pred. Model ID:" Margin="329,267,888.2,315" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
@@ -816,31 +811,31 @@
                                     <Label Content="*Server ID:" Margin="329,307,926.2,275" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 
                                     <Label Content="Det. Debug:" Margin="26,475,1229.2,109" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="det_debugtrue" GroupName="det_debug" Content="True" Margin="159,478,1145.2,113"/>
-                                    <RadioButton x:Name="det_debugfalse" GroupName="det_debug" Content="False" Margin="233,478,1069.2,113"/>
+                                    <RadioButton x:Name="det_debugtrue" GroupName="det_debug" Content="true" Margin="159,478,1145.2,113"/>
+                                    <RadioButton x:Name="det_debugfalse" GroupName="det_debug" Content="false" Margin="233,478,1069.2,113"/>
 
                                     <Label Content="Trk. Debug:" Height="30" Margin="26,503,1234.2,79" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="trkdebugtrue" GroupName="Trk_debug" Content="True" Margin="159,507,1145.2,86"/>
-                                    <RadioButton x:Name="trkdebugfalse" GroupName="Trk_debug" Content="False" Margin="233,507,1069.2,86" RenderTransformOrigin="0.491,0.42"/>
+                                    <RadioButton x:Name="trkdebugtrue" GroupName="Trk_debug" Content="true" Margin="159,507,1145.2,86"/>
+                                    <RadioButton x:Name="trkdebugfalse" GroupName="Trk_debug" Content="false" Margin="233,507,1069.2,86" RenderTransformOrigin="0.491,0.42"/>
 
                                     <Label Content="Pred. Enable:" Margin="26,532,1217.2,54" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="predenabletrue" GroupName="Pred_Enable" Content="True" Margin="159,535,1145.2,56"/>
-                                    <RadioButton x:Name="predenablefalse" GroupName="Pred_Enable" Content="False" Margin="234,535,1068.2,56"/>
+                                    <RadioButton x:Name="predenabletrue" GroupName="Pred_Enable" Content="true" Margin="159,535,1145.2,56"/>
+                                    <RadioButton x:Name="predenablefalse" GroupName="Pred_Enable" Content="false" Margin="234,535,1068.2,56"/>
 
                                     <Label Content="Status:" Margin="26,558,1263.2,28" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <RadioButton x:Name="statustrue" GroupName="status" Content="True" Margin="159,562,1144.2,31"/>
-                                    <RadioButton x:Name="statusfalse" GroupName="status" Content="False" Margin="234,563,1067.2,29"/>
+                                    <RadioButton x:Name="statustrue" GroupName="status" Content="true" Margin="159,562,1144.2,31"/>
+                                    <RadioButton x:Name="statusfalse" GroupName="status" Content="false" Margin="234,563,1067.2,29"/>
 
                                     <Label Content="*Camera ID:" Margin="329,343,910.2,240" FontStyle="Italic" FontWeight="Bold" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
 
 
-                                    <Button Content="Reset All Fields" Margin="447,427,775.2,151" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI"/>
-                                    <ComboBox x:Name="cbbserverid" IsReadOnly="True" Background="#FFE6CECE" Height="27" Margin="480,310,775.2,275" FontFamily="Consolas" FontSize="16"/>
-                                    <ComboBox x:Name="cbbcameraid" IsReadOnly="True" Background="#FFE6CECE" Height="27" Margin="480,349,775.2,237" FontFamily="Consolas" FontSize="16"/>
+                                    <Button Content="Reset All Fields" Margin="447,427,775.2,151" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" Background="Black" BorderBrush="White"/>
+                                    <ComboBox x:Name="cbbserverid" IsReadOnly="True" Background="White" Height="27" Margin="480,310,775.2,275" FontFamily="Consolas" FontSize="16" BorderBrush="#89000000"/>
+                                    <ComboBox x:Name="cbbcameraid" IsReadOnly="True" Background="White" Height="27" Margin="480,349,775.2,237" FontFamily="Consolas" FontSize="16" BorderBrush="#89000000"/>
                                     <Label Content="* =  Required " Width="100" Margin="329,388,926.2,194" FontStyle="Italic" FontWeight="Bold"/>
                                     <Label Content="Minutes" Margin="263,434,1046.2,156" FontSize="11" FontStyle="Italic"/>
-                                    <Button x:Name="Exportscriptbutton" Content="Export script" Margin="447,491,775.2,81" Height="Auto" Click="Exportscriptbutton_Click" FontFamily="Yu Gothic UI" />
-                                    <Button x:Name="exportandrunscript"  Content="Export and Run" Margin="447,548,775.2,24" Height="Auto" FontFamily="Yu Gothic UI" Click="exportandrunscript_Click" Background="#FF351966" />
+                                    <Button x:Name="Exportscriptbutton" Content="Export script" Margin="447,491,775.2,81" Height="Auto" Click="Exportscriptbutton_Click" FontFamily="Yu Gothic UI" Background="Black" BorderBrush="White" />
+                                    <Button x:Name="exportandrunscript"  Content="Export and Run" Margin="447,548,775.2,24" Height="Auto" FontFamily="Yu Gothic UI" Click="exportandrunscript_Click" Background="Black" BorderBrush="White" />
 
 
                                 </Grid>
@@ -860,10 +855,10 @@
 
                                     <TextBlock  Text="PARAMETER FOR STATISTICS" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,47,1043.2,557.6" FontFamily="Microsoft JhengHei UI" Grid.Column="1" />
 
-                                    <Label Content="ID:" Grid.Column="1" Margin="0.2,103,1281.2,501.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="ID:" Grid.Column="1" Margin="0,99,1281,496" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox IsReadOnly="True" x:Name="statisticsidtxtbox" Background="White" Grid.Column="1" Width="100" Height="25" Margin="115.2,103,1119.2,501.6" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Label Content="Analytic ID:" Grid.Column="1" Margin="0.2,141,1234.2,460.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Analytic ID:" Grid.Column="1" Margin="0,140,1234,461" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <ComboBox IsReadOnly="True" Background="White" x:Name="comboboxanalyticidstat" Height="28"  Margin="115.2,141,1119.2,460.6" FontFamily="Consolas" FontSize="16" Grid.Column="1" />
 
                                     <Button Height="24" HorizontalAlignment="Right" Background="#FFEAD9D9" VerticalAlignment="Center" Margin="0,20,757.2,585.6" Width="71" Click="datagridaddrowbutton_Click" Grid.Column="1">
@@ -911,10 +906,10 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
 
-                                    <Label Content="Date:"  Margin="0.2,184,1248.2,420.6" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
+                                    <Label Content="Date:"  Margin="0,182,1248,421" FontFamily="Microsoft JhengHei UI" FontSize="16" Grid.Column="1"/>
                                     <TextBox IsReadOnly="True" x:Name="statsdatetxtbox" Background="White" Height="25" Margin="115.2,184,1041.2,420.6" Grid.Column="1" />
 
-                                    <Label Content="Time:" Grid.Column="1" Width="100" Margin="0.2,222,1234.2,381.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
+                                    <Label Content="Time:" Grid.Column="1" Width="100" Margin="0,218,1233,386" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox IsReadOnly="True" x:Name="timestatstxtbox" Background="White" Grid.Column="1" Width="100" Margin="115.2,222,1119.2,381.6" FontFamily="Consolas" FontSize="16"/>
 
 
@@ -949,7 +944,7 @@
                                     <Label Content="Vehicle 6:" Grid.Column="1" Height="30" Margin="333.2,356,915.2,243.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox Text="0" x:Name="vehi6stats" Background="White" Grid.Column="1" Height="25" Margin="424.2,359,823.2,245.6" PreviewTextInput="totalvehiclestatstxtbox_PreviewTextInput" FontFamily="Consolas" FontSize="16" />
 
-                                    <Button Content="Reset All Fields"  Margin="0.2,391,1220.2,210.4" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Grid.Column="1" FontFamily="Yu Gothic UI" FontSize="12"/>
+                                    <Button Content="Reset All Fields"  Margin="0.2,391,1220.2,210.4" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" Grid.Column="1" FontFamily="Yu Gothic UI" FontSize="12" Background="#FF020202" BorderBrush="White"/>
                                     <Label Content="Metre" Grid.Column="1" Margin="207.2,302,1086.2,304.4" FontSize="11"/>
                                     <Label Content="KM/H" Grid.Column="1" Margin="202.2,340,1094.2,264.4" FontSize="11"/>
 
@@ -990,7 +985,7 @@
                                     <Label Content="Pred. Label Mapper:" Grid.Column="1" Height="30" Margin="2.2,340,1172.2,259.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
                                     <TextBox x:Name="predlabelmappertxtbox"  Background="White" Grid.Column="1" Height="25" Margin="167.2,345,860.2,260.4" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="10.2,399,1210.2,194.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12"/>
+                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="10.2,399,1210.2,194.6" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12" BorderBrush="White" Background="Black"/>
 
                                     <DataGrid x:Name="predictionmoduledatagrid" ItemsSource="{Binding Path=prediction}" AutoGenerateColumns="False"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="2" SelectionChanged="predictionmoduledatagrid_SelectionChanged" Margin="585.2,0,0.2,-0.4" >
                                         <DataGrid.Columns>
@@ -1051,27 +1046,27 @@
                                     <TextBlock Grid.Row="0" Grid.Column="1" Text="PARAMETER FOR DETECTION MODULE" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" TextDecorations="Underline" Margin="0.2,48,944.2,556.6" FontFamily="Microsoft JhengHei UI" />
 
                                     <Label Content="Det. ID:" Grid.Column="1" Width="100" Height="30" Margin="0.2,101,1234.2,498.6" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detidtxtbox" IsReadOnly="True" Background="White" Grid.Column="1" Height="25" Margin="154.2,98,1086.2,507.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detidtxtbox" IsReadOnly="True" Background="White" Grid.Column="1" Height="25" Margin="154.2,98,1091.2,507.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Framework:" Grid.Column="1" Height="30" Margin="0.2,137,1180.2,463.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detframeworktxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,134,1022.2,471.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detframeworktxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,134,1023.2,471.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Source:" Grid.Column="1" Width="100" Height="30" Margin="0.2,172,1234.2,428.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detsourcetxtbox" Background="White" Grid.Column="1" Height="25" Margin="154.2,170,994.2,435.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detsourcetxtbox" Background="White" Grid.Column="1" Height="25" Margin="154.2,170,995.2,435.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Size:" Grid.Column="1" Width="100" Height="30" Margin="0.2,208,1234.2,392.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detsizetxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,206,957.2,399.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detsizetxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,206,958.2,399.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Model:" Grid.Column="1" Width="100" Height="30" Margin="0.2,246,1234.2,354.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detmodeltxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,244,925.2,361.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detmodeltxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,244,927.2,361.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Label:" Grid.Column="1" Width="100" Height="30" Margin="0.2,285,1234.2,315.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detlabeltxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,283,902.2,322.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detlabeltxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,283,904.2,322.4" FontFamily="Consolas" FontSize="16"/>
 
                                     <Label Content="Det. Label Mapper:" Grid.Column="1" Height="30" Margin="0.2,318,1146.2,282.4" FontFamily="Microsoft JhengHei UI" FontSize="16"/>
-                                    <TextBox x:Name="detlabelmappertxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,318,871.2,287.4" FontFamily="Consolas" FontSize="16"/>
+                                    <TextBox x:Name="detlabelmappertxtbox"  Background="White" Grid.Column="1" Height="25" Margin="154.2,318,874.2,287.4" FontFamily="Consolas" FontSize="16"/>
 
-                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="10.2,368,1206.2,230.4" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12"/>
+                                    <Button Content="Reset All Fields" Grid.Column="1" Margin="10.2,368,1206.2,230.4" Height="Auto" Click="resetallfieldbuttonparameterbuttong_Click" FontFamily="Yu Gothic UI" FontSize="12" Background="Black" BorderBrush="White"/>
 
                                     <DataGrid x:Name="detectionmoduledatagrid" ItemsSource="{Binding Path=detection}" AutoGenerateColumns="False"  IsReadOnly="True" Grid.Row="0" Grid.Column="1" BorderThickness="2" SelectionChanged="detectionmoduledatagrid_SelectionChanged" Margin="585.2,0,0.2,-0.4" >
                                         <DataGrid.Columns>
@@ -1127,7 +1122,7 @@
 
                 </TabItem>
 
-                <TabItem Height="70" VerticalAlignment="Top" >
+                <TabItem Height="70" Background="#FFEBEBEC" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60">
                             <Grid.RowDefinitions>
@@ -1194,9 +1189,9 @@
                                     <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="2,310,109.2,281.4" FontFamily="Microsoft JhengHei UI" Grid.ColumnSpan="2" />
                                     <PasswordBox x:Name="newdbpassword" Background="White" Margin="1,340,111.2,255.4" FontFamily="Consolas" FontSize="16" Grid.ColumnSpan="2" Grid.Column="1" />
 
-                                    <Button x:Name="createnewdbbutton"  Content="CREATE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,124,0.4,473.6" Click="createnewdbbutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI"  />
+                                    <Button x:Name="createnewdbbutton"  Content="CREATE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,124,0.4,473.6" Click="createnewdbbutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" BorderBrush="White"  />
 
-                                    <Button x:Name="resetnewdbfields"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,186,0.4,410.6" Click="resetnewdbfields_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="33" />
+                                    <Button x:Name="resetnewdbfields"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,186,0.4,410.6" Click="resetnewdbfields_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="33" BorderBrush="White" />
                                     <Label Grid.Column="4" Content="Note: Creating new database may take some times." FontSize="16" Margin="39.6,125,214.2,445.6" />
 
                                 </Grid>
@@ -1231,9 +1226,9 @@
                                     <Label Grid.Column="1" Content="Database Password" FontSize="16" Margin="0,334,0.2,261.4" FontFamily="Microsoft JhengHei UI" />
                                     <PasswordBox x:Name="dropdbpassword" Grid.Column="1" Background="White" Margin="0,368,0.2,224.4" FontFamily="Consolas" FontSize="16" />
 
-                                    <Button x:Name="dropdbdeletebutton"  Content="DELETE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,128,0.4,466.6" Click="dropdbdeletebutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="35"  />
+                                    <Button x:Name="dropdbdeletebutton"  Content="DELETE" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,128,0.4,466.6" Click="dropdbdeletebutton_Click" Grid.ColumnSpan="2" FontFamily="Yu Gothic UI" Height="35" BorderBrush="White"  />
 
-                                    <Button x:Name="resetdropdbbutton"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,191,2.4,406.6" Click="resetdropdbbutton_Click" FontFamily="Yu Gothic UI" Grid.ColumnSpan="2" />
+                                    <Button x:Name="resetdropdbbutton"  Content="RESET ALL" Grid.Column="2" VerticalAlignment="Center" FontSize="14" Background="Black" Margin="111.8,191,2.4,406.6" Click="resetdropdbbutton_Click" FontFamily="Yu Gothic UI" Grid.ColumnSpan="2" BorderBrush="White" />
 
                                 </Grid>
 
@@ -1245,7 +1240,7 @@
 
                 </TabItem>
 
-                <TabItem Height="70" VerticalAlignment="Top" >
+                <TabItem Height="70" Background="#FFEBEBEC" VerticalAlignment="Top" >
                     <TabItem.Header>
                         <Grid Height="70" Width="60">
                             <Grid.RowDefinitions>
@@ -1257,7 +1252,11 @@
                         </Grid>
                     </TabItem.Header>
                     <Grid>
-                        <TextBlock Text=" Contact us at 012356789 " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="Consolas"/>
+                        <Grid Background="White">
+
+                            <TextBlock Text=" Contact us at 012356789 " VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" FontFamily="Consolas"/>
+
+                        </Grid>
 
 
 

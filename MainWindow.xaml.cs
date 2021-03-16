@@ -37,6 +37,7 @@ namespace systemapps
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool checkapplyfilter = false;
 
         #region  //variables declaration region
         string currentscriptname;
@@ -75,6 +76,11 @@ namespace systemapps
         double[] arrayspeedavg = new double[] {};
         double[] arraygapavg = new double[] {};
         string[] timespeedstatsarray = new string[] {};
+
+        double[] valueclass1and2 = new double[] { };
+        double[] valueclass3and4 = new double[] { };
+        double[] valueclass5 = new double[] { };
+        double[] valueclass6 = new double[] { };
  
         string detdebug;
         string trkdebug;
@@ -117,7 +123,8 @@ namespace systemapps
             datesearchfilter.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
             timerangefrom.Text = "0:00";
             timerangeto.Text = "23:00";
-            cbbanalyticfiltersearch.SelectedIndex = 1;
+            cbbanalyticfiltersearch.SelectedIndex = 0;
+            cbbanalysisperiod.SelectedIndex = 0;
 
             Dbipaddresstestconn.Text = Settings.Default.dbipaddresstestconn;
             Dbnametestconn.Text = Settings.Default.dbnametestconn;
@@ -152,7 +159,7 @@ namespace systemapps
                 new StackedColumnSeries //vehicle1
                 {
                     Title = "Class 1 & Class 2",
-                    Values = new ChartValues<double> {1322,1662,2001,1823},
+                    Values = new ChartValues<double> {0},
                     Fill = Brushes.IndianRed,
                     MaxColumnWidth = 25,
                     StackMode = StackMode.Values,
@@ -166,7 +173,7 @@ namespace systemapps
                 {
                     Title = "Class 3 & Class 4",
                     Fill = Brushes.LightPink,
-                    Values = new ChartValues<double> {324,112,88,423,500},
+                    Values = new ChartValues<double> {0},
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
@@ -178,7 +185,7 @@ namespace systemapps
                 {
                     Title = "Class 5 ",
                     Fill = Brushes.Orange,
-                    Values = new ChartValues<double> {900,80,100,424,69},
+                    Values = new ChartValues<double> {0},
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
@@ -191,45 +198,17 @@ namespace systemapps
 
                     Title = "Class 6",
                     Fill = Brushes.RoyalBlue,
-                    Values = new ChartValues<double> {23,42,77,88,99},
+                    Values = new ChartValues<double> {0},
                     MaxColumnWidth = 25,
                     DataLabels = true,
                     StackMode = StackMode.Values
                   
 
                 },
-
-              /*     new StackedColumnSeries //vehicle5
-                {
-                    Title = "Vehicle 5",
-                    Fill = Brushes.PaleGreen,
-                    Values = new ChartValues<double> {12,33,9,6,22},
-                    MaxColumnWidth = 25,
-                    DataLabels = true,
-                    StackMode = StackMode.Values
-                  
-
-                },
-
-                    new StackedColumnSeries //vehicle 6
-                {
-                    Title = "Vehicle 6",
-                    Fill = Brushes.Gray,
-                    Values = new ChartValues<double> {100,32,99,123,78},
-                    MaxColumnWidth = 25,
-                    DataLabels = true,
-                    StackMode = StackMode.Values
-                  
-
-                },*/
-
-              
-
+       
 
             };
 
-           
-           
 
             Labelscountingnclass = null;  //time x axis
             Formattercountingnclass = value => value +"" ; //y axis
@@ -315,15 +294,14 @@ namespace systemapps
         private void piechartinit()
         {
             piechart1.Series = new SeriesCollection
-            { 
+            {
                 new PieSeries
                 {
-                    Title = "Vehicle 1",
-                   
+                    Title = "Class 1",
+                    Foreground = Brushes.Black,
                     Values = new ChartValues<ObservableValue> { new ObservableValue(8) },
                     Fill = Brushes.Pink,
-                    DataLabels = true,
-                   
+                    DataLabels = true,                   
                     StrokeThickness = 0,
                     PushOut = 0
 
@@ -331,30 +309,30 @@ namespace systemapps
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 2",
+                    Title = "Class 2",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(6) },
                     DataLabels = true,
-                    
+                    Foreground = Brushes.Black,
                     Fill = Brushes.LightBlue,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 3",
+                    Title = "Class 3",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
                     DataLabels = true,
-                    
-                    Fill = Brushes.MediumVioletRed,
+                    Foreground = Brushes.Black,
+                    Fill = Brushes.Orchid,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
                 new PieSeries
                 {
-                    Title = "Vehicle 4",
+                    Title = "Class 4",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                    
+                    Foreground = Brushes.Black,
                     Fill = Brushes.LightGreen,
                     StrokeThickness = 0,
                     PushOut = 0
@@ -362,22 +340,23 @@ namespace systemapps
 
                 new PieSeries
                 {
-                    Title = "Vehicle 5",
+                    Title = "Class 5",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                  
-                    Fill = Brushes.LightGoldenrodYellow,
+                    
+                    Foreground = Brushes.Black,
+                    Fill = Brushes.Coral,
                     StrokeThickness = 0,
                     PushOut = 0
                 },
 
                 new PieSeries
                 {
-                    Title = "Vehicle 6",
+                    Title = "Class 6",
                     Values = new ChartValues<ObservableValue> { new ObservableValue(4) },
                     DataLabels = true,
-                 
-                    Fill = Brushes.PaleGreen,
+                    Foreground = Brushes.Black,
+                    Fill = Brushes.Gray,
                     StrokeThickness = 0,
                     PushOut = 0
                 }
@@ -487,13 +466,11 @@ namespace systemapps
 
 
                     updatealldatagrid();
-                   // cartchartinit();
                     cartinit2();
                     stackedbarchartcountandclass();
 
                     dothis();
                     cbbanalyticfiltersearch.SelectedIndex = 0;
-                   // DataContext = Labels;
                     DataContext = Labels2;
                     DataContext = this;
 
@@ -608,6 +585,7 @@ namespace systemapps
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Form1 form = new Form1();
+           
             WindowInteropHelper wih = new WindowInteropHelper(this);
             wih.Owner = form.Handle;
 
@@ -626,6 +604,8 @@ namespace systemapps
             Debug.WriteLine(visible);
 
             form.Show();
+
+            
 
 
         }
@@ -676,6 +656,8 @@ namespace systemapps
 
             try
             {
+
+                
                 if (result == Winforms.DialogResult.OK)
                 {
                     string fpath = FolderDialog.SelectedPath;
@@ -913,6 +895,8 @@ namespace systemapps
 
         private void ResetAllField_Click(object sender, RoutedEventArgs e)
         {
+            cameraidtxtbox.Text = "";
+            comboboxsourceoption.Text = "";
             imgfoldertxtbox.Text = "";
             videofoldertxtbox.Text = "";
             filesextensiontxtbox.Text = "";
@@ -1283,8 +1267,8 @@ namespace systemapps
 
             Size dpi = new Size(96, 96);
             RenderTargetBitmap bmp =
-              new RenderTargetBitmap(480, 360,
-                dpi.Width, dpi.Height, PixelFormats.Pbgra32);
+              new RenderTargetBitmap(640,480,
+                dpi.Width, dpi.Height, PixelFormats.Pbgra32); //480,360 
             bmp.Render(videocameratab);
 
             JpegBitmapEncoder encoder = new JpegBitmapEncoder();
@@ -1675,6 +1659,8 @@ namespace systemapps
             }
 
 
+            cbbanalyticfiltersearch.SelectedIndex = 0;
+            cbbanalysisperiod.SelectedIndex = 0;
             //adddata();
             //adddatadialog adddata = new adddatadialog();
             //adddata.Owner = this;  
@@ -2077,7 +2063,7 @@ namespace systemapps
 
                         if (lasttxtbox.Text == "")
                         {
-                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = 0;
+                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = -1;
 
                         }
                         else
@@ -2233,7 +2219,7 @@ namespace systemapps
 
                         if (lasttxtbox.Text == "")
                         {
-                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = 0;
+                            cmd.Parameters.Add("last", MySqlDbType.Int32, 6).Value = -1;
 
                         }
                         else
@@ -2368,8 +2354,8 @@ namespace systemapps
                         string time = DateTime.Now.ToString("hh:mm:ss tt");
                         cmd.Parameters.Add("id", MySqlDbType.Int32, 6).Value = Int32.Parse(statisticsidtxtbox.Text);
                         cmd.Parameters.Add("analytic_id", MySqlDbType.Int32, 6).Value = Int32.Parse(comboboxanalyticidstat.Text);
-                        cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = date;
-                        cmd.Parameters.Add("time", MySqlDbType.VarChar).Value = time;
+                        cmd.Parameters.Add("date", MySqlDbType.VarChar).Value = statsdatetxtbox.Text;
+                        cmd.Parameters.Add("time", MySqlDbType.VarChar).Value = timestatstxtbox.Text;
 
                         cmd.Parameters.Add("total_vehicle", MySqlDbType.Int32, 6).Value = Int32.Parse(totalvehiclestatstxtbox.Text);
                         cmd.Parameters.Add("vehi_1", MySqlDbType.Int32, 6).Value = Int32.Parse(vehi1stats.Text);
@@ -3179,6 +3165,9 @@ namespace systemapps
                         }
                         break;
                 }
+
+                cbbanalyticfiltersearch.SelectedIndex = 0;
+                cbbanalysisperiod.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -3385,6 +3374,9 @@ namespace systemapps
                         }
                         break;
                 }
+
+                cbbanalyticfiltersearch.SelectedIndex = 0;
+                cbbanalysisperiod.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -3516,31 +3508,6 @@ namespace systemapps
                 MessageBox.Show(ex.Message);
             }
         }
-
-     /*   public void bindcomboboxcamidstat()
-        {
-
-            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-
-            try
-            {
-                MySqlConnection con = new MySqlConnection(myConnectionString);
-                MySqlCommand cmd = new MySqlCommand("select * from camera", con);
-                con.Open();
-                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                comboboxcameraidstatt.ItemsSource = dt.DefaultView;
-                comboboxcameraidstatt.DisplayMemberPath = "cam_id";
-                comboboxcameraidstatt.SelectedValuePath = "cam_id";
-                cmd.Dispose();
-                con.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }*/
 
         public void bindcbbdetmodelidanalytics()
         {
@@ -3675,7 +3642,7 @@ namespace systemapps
                                 string newmask = camitems[2];
                                 newmask = newmask.Replace("\r\n", "");
 
-                                string trimmedmask = newmask + ".txt";
+                                string trimmedmask = newmask+".txt"  ;
                                 string text2write = camitems[2];
                                 Debug.WriteLine(camitems[2]);
 
@@ -3685,18 +3652,18 @@ namespace systemapps
 
                                 if (camitems[0] == "1")
                                 {
-                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else if (camitems[0] == "2")
                                 {
-                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else
                                 {
 
-                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + trimmedmask + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
                                 
@@ -3716,7 +3683,7 @@ namespace systemapps
 
                                 string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
 
-                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask);
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory+"\\" + trimmedmask );
                                 writer.Write(text2write);
                                 writer.Close();
                                 /*
@@ -3979,7 +3946,112 @@ namespace systemapps
             connection.Close();
         }
 
-    
+        private void getvaluetimespeedstats15(string date, int analyticid, string timefrom, string timeto)
+        {
+            string longchar;
+
+
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER by TIME(time);", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                }
+
+                ListOfColumns = ListOfColumns + System.Environment.NewLine;
+            }
+            longchar = ListOfColumns;
+
+            string[] exampleArray = longchar.Split('\n');
+
+            for (int i = 0; i < exampleArray.Length; i++)
+            {
+                exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+            }
+
+            timespeedstatsarray = exampleArray;
+
+            connection.Close();
+        }
+
+        private void getvaluetimespeedstats30(string date, int analyticid, string timefrom, string timeto)
+        {
+            string longchar;
+
+
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER by TIME(time);", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                }
+
+                ListOfColumns = ListOfColumns + System.Environment.NewLine;
+            }
+            longchar = ListOfColumns;
+
+            string[] exampleArray = longchar.Split('\n');
+
+            for (int i = 0; i < exampleArray.Length; i++)
+            {
+                exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+            }
+
+            timespeedstatsarray = exampleArray;
+
+            connection.Close();
+        }
+
+        private void getvaluetimespeedstats60(string date, int analyticid, string timefrom, string timeto)
+        {
+            string longchar;
+
+
+            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+            MySqlConnection connection = new MySqlConnection(myConnectionString);
+            MySqlCommand command = new MySqlCommand("SELECT time FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER by TIME(time);", connection);
+            connection.Open();
+            MySqlDataReader datareader = command.ExecuteReader();
+            int ColumnCount = datareader.FieldCount;
+            string ListOfColumns = string.Empty;
+            while (datareader.Read())
+            {
+                for (int i = 0; i <= ColumnCount - 1; i++)
+                {
+                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                }
+
+                ListOfColumns = ListOfColumns + System.Environment.NewLine;
+            }
+            longchar = ListOfColumns;
+
+            string[] exampleArray = longchar.Split('\n');
+
+            for (int i = 0; i < exampleArray.Length; i++)
+            {
+                exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+            }
+
+            timespeedstatsarray = exampleArray;
+
+            connection.Close();
+        }
+
+
         private void getvaluespeedstats()
         {
 
@@ -4062,9 +4134,7 @@ namespace systemapps
 
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-                // SqlConnection connection = new SqlConnection("Your Connection String Here");
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
                 MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('"+timefrom+"') AND TIME('"+timeto+"') and date= '" + date+"' and analytic_id ="+analyticid+ " ORDER by TIME(time) ASC;", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
@@ -4079,12 +4149,10 @@ namespace systemapps
 
                     ListOfColumns = ListOfColumns + System.Environment.NewLine;
                 }
-                //Debug.WriteLine(ListOfColumns);
                 longchar = ListOfColumns;
 
                 string[] exampleArray = longchar.Split('\n');
                 double[] valuespeed = new double[exampleArray.Length - 1];
-                Debug.WriteLine(exampleArray.Length);
 
 
 
@@ -4100,14 +4168,116 @@ namespace systemapps
                 }
 
 
-                foreach (string value in exampleArray)
+
+                arrayspeedavg = valuespeed;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluespeedstats15(string date, int analyticid, string timefrom, string timeto)
+        {
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
                 {
-                    Debug.WriteLine(value);
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+    
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
                 }
 
-                foreach (double value in valuespeed)
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
                 {
-                    Debug.WriteLine(value);
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+   
+
+                arrayspeedavg = valuespeed;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluespeedstats30(string date, int analyticid, string timefrom, string timeto)
+        {
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
                 }
 
                 arrayspeedavg = valuespeed;
@@ -4124,7 +4294,61 @@ namespace systemapps
             }
 
         }
-    
+
+        private void getvaluespeedstats60(string date, int analyticid, string timefrom, string timeto)
+        {
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_speed FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+            
+                arrayspeedavg = valuespeed;
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
         private void getvaluegapstats()
         {
 
@@ -4206,9 +4430,7 @@ namespace systemapps
 
 
                 string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-                // SqlConnection connection = new SqlConnection("Your Connection String Here");
                 MySqlConnection connection = new MySqlConnection(myConnectionString);
-                // SqlCommand command = new SqlCommand("Your Select Statement Here",connection);
                 MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ORDER BY TIME(time);", connection);
                 connection.Open();
                 MySqlDataReader datareader = command.ExecuteReader();
@@ -4223,14 +4445,10 @@ namespace systemapps
 
                     ListOfColumns = ListOfColumns + System.Environment.NewLine;
                 }
-                //Debug.WriteLine(ListOfColumns);
                 longchar = ListOfColumns;
 
                 string[] exampleArray = longchar.Split('\n');
                 double[] valuegap = new double[exampleArray.Length - 1];
-                Debug.WriteLine(exampleArray.Length);
-
-
 
                 for (int i = 0; i < exampleArray.Length; i++)
                 {
@@ -4244,15 +4462,173 @@ namespace systemapps
                 }
 
 
-                foreach (string value in exampleArray)
+                arraygapavg = valuegap;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluegapstats15(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
                 {
-                    Debug.WriteLine(value);
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuegap = new double[exampleArray.Length - 1];
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
                 }
 
-                foreach (double value in valuegap)
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
                 {
-                    Debug.WriteLine(value);
+                    valuegap[i] = double.Parse(exampleArray[i]);
                 }
+
+
+                arraygapavg = valuegap;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluegapstats30(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuegap = new double[exampleArray.Length - 1];
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuegap[i] = double.Parse(exampleArray[i]);
+                }
+
+
+                arraygapavg = valuegap;
+
+
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getvaluegapstats60(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT avg_vehicle_gap FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuegap = new double[exampleArray.Length - 1];
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuegap[i] = double.Parse(exampleArray[i]);
+                }
+
 
                 arraygapavg = valuegap;
 
@@ -4315,17 +4691,21 @@ namespace systemapps
 
         private void refreshcart_Click(object sender, RoutedEventArgs e)
         {
-            getvalueforgraphing();
+            if (checkapplyfilter == true)
+            {
+                getvalueafterfilter();
 
-            // SeriesCollection[0].Values.Clear();
-            SeriesCollection2[1].Values = arraygapavg.AsChartValues();
-            //Labels = timespeedstatsarray;
 
-            SeriesCollection2[0].Values = arrayspeedavg.AsChartValues();
-            Labels2 = timespeedstatsarray;
+                dothisafterfilter();
+            }
 
-            //cartchartdb.Update(true, true);
-            speedchartcart.Update(true, true);
+            else
+            {
+
+                getvalueforgraphing();
+
+                dothis();
+            }
 
         }
 
@@ -4344,19 +4724,25 @@ namespace systemapps
                 DataContext = Labels2;
 
                 totalvehiclechartmin.Value = totalvehiclemin;
-                totalvehiclechartavg.Value = totalvehicleavg;
+                totalvehiclechartavg.Value = Math.Round(totalvehicleavg,0);
                 totalvehiclechartmax.Value = totalvehiclemax;
 
-                speedchartmin.Value = speedmin;
-                speedchartavg.Value = speedavg;
-                speedchartmax.Value = speedmax;
+                speedchartmin.Value = Math.Round(speedmin,2);
+                speedchartavg.Value = Math.Round(speedavg,2);
+                speedchartmax.Value = Math.Round(speedmax,2);
 
-                gapchartmin.Value = gapmin;
-                gapchartmax.Value = gapmax;
-                gapchartavg.Value = gapavg;
+                gapchartmin.Value = Math.Round(gapmin,2);
+                gapchartmax.Value = Math.Round(gapmax,2);
+                gapchartavg.Value = Math.Round(gapavg,2);
 
                 Labelscountingnclass = timespeedstatsarray;
                 DataContext = Labelscountingnclass;
+
+                SeriesCollectioncountingnclass[0].Values = valueclass1and2.AsChartValues();
+                SeriesCollectioncountingnclass[1].Values = valueclass3and4.AsChartValues();
+                SeriesCollectioncountingnclass[2].Values = valueclass5.AsChartValues();
+                SeriesCollectioncountingnclass[3].Values = valueclass6.AsChartValues();
+
 
 
                 for (int i = 0; i < 6; i++)
@@ -4391,20 +4777,29 @@ namespace systemapps
                 DataContext = Labels2;
 
                 totalvehiclechartmin.Value = totalvehiclemin;
-                totalvehiclechartavg.Value = totalvehicleavg;
+                totalvehiclechartavg.Value = Math.Round(totalvehicleavg, 0);
                 totalvehiclechartmax.Value = totalvehiclemax;
 
-                speedchartmin.Value = speedmin;
-                speedchartavg.Value = speedavg;
-                speedchartmax.Value = speedmax;
+                speedchartmin.Value = Math.Round(speedmin, 2);
+                speedchartavg.Value = Math.Round(speedavg, 2);
+                speedchartmax.Value = Math.Round(speedmax, 2);
 
-                gapchartmin.Value = gapmin;
-                gapchartmax.Value = gapmax;
-                gapchartavg.Value = gapavg;
+                gapchartmin.Value = Math.Round(gapmin, 2);
+                gapchartmax.Value = Math.Round(gapmax, 2);
+                gapchartavg.Value = Math.Round(gapavg, 2);
 
+                SeriesCollectioncountingnclass[0].Values = valueclass1and2.AsChartValues();
+                SeriesCollectioncountingnclass[1].Values = valueclass3and4.AsChartValues();
+                SeriesCollectioncountingnclass[2].Values = valueclass5.AsChartValues();
+                SeriesCollectioncountingnclass[3].Values = valueclass6.AsChartValues();
 
                 Labelscountingnclass = timespeedstatsarray;
                 DataContext = Labelscountingnclass;
+
+                for (int i = 0; i < 6; i++)
+                {
+                    piechart1.Series[i].Values = new ChartValues<int> { vehicledistributionarray[i] };
+                }
 
                 DataContext = this;
 
@@ -4498,19 +4893,19 @@ namespace systemapps
 
                                 if (camitems[0] == "1")
                                 {
-                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --img=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
 
                                 else if (camitems[0] == "2")
                                 {
-                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" +  " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --vid=\"" + camitems[1] + "\"  --ext=\"mp4\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" +  " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
                                 }
 
                                 else
                                 {
 
-                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[3] + " --det_model=" + detmodelitems[2] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug + "  --trk_loss=4 –-trk_debug=" + trkdebug + " --pre_enable=" + predenable + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[2] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[3] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
+                                    roiscript = "OfflineTest.exe --cam=\"" + camitems[1] + "\"  --ext=\"\" --mask=" + path + " --label=vehicle2.txt --det_enable=true --det_deviceid=0 --det_framework=" + detmodelitems[0] + " --det_source=" + detmodelitems[1] + " --det_target=GPU --det_async=false --det_size=" + detmodelitems[2] + " --det_model=" + detmodelitems[3] + "  --det_input=data --det_label=" + detmodelitems[4] + " --det_labelmap=" + detmodelitems[5] + " --det_conf=" + det_conftxtblock.Text + " --det_debug=" + detdebug.ToLower() + "  --trk_loss=4 –-trk_debug=" + trkdebug.ToLower() + " --pre_enable=" + predenable.ToLower() + " --pre_deviceid=" + preddevidtxtbox.Text + " --pre_framework=" + predmodelitems[0] + " --pre_source=" + predmodelitems[1] + " --pre_target=GPU --pre_model=" + predmodelitems[3] + " --pre_input=data --pre_output=softmax --pre_outnum=6 --pre_label=" + predmodelitems[4] + " --pre_labelmap=" + predmodelitems[5] + " --pre_size=" + predmodelitems[2] + " --pre_batch=10 --pre_det=false --pre_conf=0.7 --pre_offset=0.0 --pre_boost=false --pre_overconf=0.5 --pre_topk=1 --pre_debug=false --init=" + inittxtbox.Text + " --last=" + lasttxtbox.Text + " --skip_outer=" + skipoutertxtbox.Text + " --skip_inner=" + skipinnertxtbox.Text + " --delay=1 --initVideo=" + initvidtxtbox.Text + " --lastVideo=" + lastvidtxtbox.Text + " --processDuration=" + procdurtxtbox.Text + " --count_line=55" + " --dbip=" + Dbipaddresstestconn.Text + " --dbname=" + Dbnametestconn.Text + " --dbusername=" + Dbusernametestconn.Text + " --dbpswd=" + Dbpasswordtestconn.Password;
 
                                 }
 
@@ -4533,7 +4928,7 @@ namespace systemapps
                                 string savedfile = sfd.FileName;
                                 string savedirectory = System.IO.Path.GetDirectoryName(sfd.FileName);
 
-                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory + "\\" + trimmedmask);
+                                System.IO.StreamWriter writer = new System.IO.StreamWriter(savedirectory + "\\" + path);
                                 writer.Write(text2write);
                                 writer.Close();
 
@@ -4544,61 +4939,10 @@ namespace systemapps
                                string strCmdText;
                                // strCmdText = "/K cd " + scriptpath + " & cd  & " + currentscriptname + " &  Echo Running Script.........  & timeout 10 & exit";
                                 strCmdText = "/K cd " + savedirectory + " & cd  & " + currentscriptname + " &  timeout 10 & exit";
+                                Debug.WriteLine(strCmdText);
+                                System.Diagnostics.Process.Start("CMD.exe",  strCmdText);
 
-                                System.Diagnostics.Process.Start("CMD.exe", strCmdText);
-
-                                /*
-                                Winforms.FolderBrowserDialog FolderDialog = new Winforms.FolderBrowserDialog();
-                                FolderDialog.ShowNewFolderButton = false;
-                                FolderDialog.SelectedPath = System.AppDomain.CurrentDomain.BaseDirectory;
-                                Winforms.DialogResult result = FolderDialog.ShowDialog();
-
-
-                                if (result == Winforms.DialogResult.OK)
-                                {
-                                    string fpath = FolderDialog.SelectedPath;
-                                    scriptpath = fpath;
-                                    DirectoryInfo folder = new DirectoryInfo(fpath);
-
-
-                                    if (folder.Exists)
-                                    {
-
-                                        string chars = "2346789ABCDEFGHJKLMNPQRTUVWXYZabcdefghjkmnpqrtuvwxyz";
-
-                                        // create random generator
-                                        Random rnd = new Random();
-                                        string name;
-
-                                        name = string.Empty;
-                                        while (name.Length < 5)
-                                        {
-                                            name += chars.Substring(rnd.Next(chars.Length), 1);
-                                        }
-
-                                        // add extension
-                                        name += ".cmd";
-                                        currentscriptname = "demoscript-" +name +".cmd";
-
-                                        // check against files in the folder
-                                        File.WriteAllText(fpath + "\\demoscript-" + name, roiscript);
-                                        System.IO.StreamWriter writer = new System.IO.StreamWriter(fpath + "\\" + path);
-                                        writer.Write(text2write);
-                                        writer.Close();
-
-                                        MessageBox.Show("Running demoscript-"+name);
-
-                                        //runscript previous generated script in command prompt
-
-                                        string strCmdText;
-                                        strCmdText = "/K cd " + scriptpath + " & cd  & "+ currentscriptname +" &  Echo Running Script.........  & timeout 10 & exit";
-                                        System.Diagnostics.Process.Start("CMD.exe", strCmdText);
-
-
-                                    }
-
-
-                                }*/
+                               
                             }
                         }
                         break;
@@ -4640,25 +4984,30 @@ namespace systemapps
         {
             try
             {
+                if(cbbanalyticfiltersearch.Text == "" || cbbanalysisperiod.Text =="")
+                {
+                    MessageBox.Show("Please select the analytic ID and analysis period first!");
+                }
+
+                else { 
+                checkapplyfilter = true;
                 dt.Stop();
                 getvalueafterfilter();
                 dothisafterfilter();
 
                 dt2.Interval = TimeSpan.FromSeconds(900);
-                dt2.Tick += Dt2_Tick;
-                
+                dt2.Tick += Dt2_Tick;  
                 dt2.Start();
-
-                Debug.WriteLine(datesearchfilter.Text.Replace('/', '-') + " " + timerangefrom.Text + " " + timerangeto.Text + " " + cbbanalyticfiltersearch.Text);
 
                 datedatafilterdashboardtext.Text = datesearchfilter.Text;
                 analyticidtextdashboard.Text = cbbanalyticfiltersearch.Text;
-
+                }
 
             }
 
             catch(Exception ex)
             {
+                checkapplyfilter = false;
                 MessageBox.Show("Fill in all field.");
             }
             
@@ -4688,6 +5037,13 @@ namespace systemapps
                 getvaluegapvehiclemax();
                 getvaluegapvehiclemin();
 
+                getcountandclass1and2value();
+                getcountandclass3and4value();
+                getcountandclass5value();
+                getcountandclass6value();
+
+                
+
                 for(int i = 0; i<6; i++)
                 {
                     getvaluevehicledailydis(i);
@@ -4716,25 +5072,77 @@ namespace systemapps
         {
             try
             {
-                getvaluespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluegapstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluetimespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
 
-                getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluetotalvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                lastupdateinfotext.Text = DateTime.Now.ToString();
+                dashboardsignalstatus.Foreground = new SolidColorBrush(Colors.Green);
+                Connectionstatus.Text = "Data Connected";
 
-                getvaluespeedvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluespeedvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluespeedvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                if (cbbanalysisperiod.SelectedIndex == 1) {
 
-                getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
-                getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluespeedstats15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluegapstats15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluetimespeedstats15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                    getcountandclass1and2value15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass3and4value15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass5value15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass6value15(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                }
+
+                else if (cbbanalysisperiod.SelectedIndex == 2) {
+
+                    getvaluespeedstats30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluegapstats30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluetimespeedstats30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                    getcountandclass1and2value30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass3and4value30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass5value30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass6value30(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                }
+
+                else if (cbbanalysisperiod.SelectedIndex == 3) {
+
+                    getvaluespeedstats60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluegapstats60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluetimespeedstats60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                    getcountandclass1and2value60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass3and4value60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass5value60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass6value60(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                }
+
+                else
+                {
+                    getvaluespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluegapstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluetimespeedstats(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+
+                    getcountandclass1and2value(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass3and4value(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass5value(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getcountandclass6value(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                }
+
+                getvaluetotalvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluetotalvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluetotalvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+
+                getvaluespeedvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluespeedvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluespeedvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+
+                getvaluegapvehicleavg(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluegapvehiclemin(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
+                getvaluegapvehiclemax(datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
 
                 for (int i = 0; i < 6; i++)
                 {
-                    getvaluevehicledailydis(i, datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text), timerangefrom.Text, timerangeto.Text);
+                    getvaluevehicledailydis(i, datesearchfilter.Text, Int32.Parse(cbbanalyticfiltersearch.Text));
                 }
 
 
@@ -4742,7 +5150,17 @@ namespace systemapps
 
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                dashboardsignalstatus.Foreground = new SolidColorBrush(Colors.Red);
+                Connectionstatus.Text = "Data Not Connected";
+                refreshcart.IsEnabled = false;
+                pause.IsEnabled = false;
+                autoref.IsEnabled = false;
+                configparameterenabled.Visibility = Visibility.Collapsed;
+
+                dt.Stop();
+                packicondbconnectionstatus.Kind = PackIconKind.DatabaseRemove;
+                packicondbconnectionstatus.Foreground = new SolidColorBrush(Colors.Red);
+                MessageBox.Show("Connection to Database lost! Graph will not update "+ex.Message);
             }
         }
 
@@ -4775,11 +5193,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ;", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + " ;", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4829,11 +5247,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4883,11 +5301,11 @@ namespace systemapps
 
         }
 
-        private void getvaluetotalvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluetotalvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(total_vehicle) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4943,11 +5361,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_speed) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -4997,11 +5415,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_speed) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5051,11 +5469,11 @@ namespace systemapps
 
         }
 
-        private void getvaluespeedvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluespeedvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_speed) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5082,7 +5500,7 @@ namespace systemapps
         //end region for speed min avg max
 
 
-        #region //gap vehicle min avg max for char
+        #region //gap vehicle min avg max for chartaaaa
 
         private void getvaluegapvehiclemin()
         {
@@ -5111,11 +5529,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehiclemin(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehiclemin(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MIN(avg_vehicle_gap) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5165,11 +5583,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehicleavg(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehicleavg(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT AVG(avg_vehicle_gap) FROM statistics WHERE  date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5219,11 +5637,11 @@ namespace systemapps
 
         }
 
-        private void getvaluegapvehiclemax(string date, int analyticid, string timefrom, string timeto)
+        private void getvaluegapvehiclemax(string date, int analyticid)
         {
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_gap) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT MAX(avg_vehicle_gap) FROM statistics WHERE date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5283,14 +5701,14 @@ namespace systemapps
             connection.Close();
         }
 
-        private void getvaluevehicledailydis(int index, string date, int analyticid, string timefrom, string timeto)
+        private void getvaluevehicledailydis(int index, string date, int analyticid)
         {
 
             int vehiclevalue = index + 1;
             string vehicleno = vehiclevalue.ToString();
             string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
             MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("SELECT SUM(`vehi_" + vehicleno + "`) FROM statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
+            MySqlCommand command = new MySqlCommand("SELECT SUM(`vehi_" + vehicleno + "`) FROM statistics WHERE TIME(time) BETWEEN TIME('0:00:00') AND TIME('23:00:00') and date= '" + date + "' and analytic_id =" + analyticid + ";", connection);
             connection.Open();
             MySqlDataReader datareader = command.ExecuteReader();
             int ColumnCount = datareader.FieldCount;
@@ -5320,30 +5738,1245 @@ namespace systemapps
 
         #region //region for counting and class
 
-        private void getcountandclass()
+        private void getcountandclass1and2value()
         {
 
-          
-            string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
-            MySqlConnection connection = new MySqlConnection(myConnectionString);
-            MySqlCommand command = new MySqlCommand("", connection);
-            connection.Open();
-            MySqlDataReader datareader = command.ExecuteReader();
-            int ColumnCount = datareader.FieldCount;
-            string ListOfColumns = string.Empty;
-            while (datareader.Read())
+            try
             {
-                for (int i = 0; i <= ColumnCount - 1; i++)
-                {
-                    ListOfColumns = ListOfColumns + datareader[i].ToString();
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
 
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+   
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
                 }
 
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+                
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
-       
+        }
 
-            connection.Close();
+        private void getcountandclass1and2value(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass1and2value15(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass1and2value30(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass1and2value60(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_1+vehi_2 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass1and2 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
+
+        private void getcountandclass3and4value()
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass3and4 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass3and4value(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass3and4 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass3and4value15(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass3and4 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass3and4value30(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass3and4 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass3and4value60(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_3 + vehi_4 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass3and4 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
+        private void getcountandclass5value()
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass5 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass5value(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:00%' or TIME Like'%:15:00%' or TIME Like'%:45:00%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass5 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass5value15(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass5 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass5value30(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass5 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass5value60(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_5 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass5 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass6value()
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE date= '" + DateTime.UtcNow.ToString("dd-MMM-yyyy") + "' and analytic_id = 1 order by TIME(time) ASC;", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass6 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        #endregion
+        #region //gap vehicle min avg max for char
+
+        private void getcountandclass6value(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass6 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass6value15(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:15:%' or TIME Like'%:45:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass6 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass6value30(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' or TIME Like'%:30:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass6 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void getcountandclass6value60(string date, int analyticid, string timefrom, string timeto)
+        {
+
+            try
+            {
+                datedatafilterdashboardtext.Text = DateTime.UtcNow.ToString("dd-MMM-yyyy");
+                analyticidtextdashboard.Text = "1";
+                string longchar;
+
+
+                string myConnectionString = "server=" + Dbipaddresstestconn.Text + ";database=" + Dbnametestconn.Text + ";uid=" + Dbusernametestconn.Text + ";pwd=" + Dbpasswordtestconn.Password;
+                MySqlConnection connection = new MySqlConnection(myConnectionString);
+                MySqlCommand command = new MySqlCommand("SELECT vehi_6 FROM systemapps.statistics WHERE TIME(time) BETWEEN TIME('" + timefrom + "') AND TIME('" + timeto + "') and date= '" + date + "' and analytic_id =" + analyticid + " and TIME Like'%:00:%' ORDER BY TIME(time);", connection);
+                connection.Open();
+                MySqlDataReader datareader = command.ExecuteReader();
+                int ColumnCount = datareader.FieldCount;
+                string ListOfColumns = string.Empty;
+                while (datareader.Read())
+                {
+                    for (int i = 0; i <= ColumnCount - 1; i++)
+                    {
+                        ListOfColumns = ListOfColumns + datareader[i].ToString();
+                    }
+
+                    ListOfColumns = ListOfColumns + System.Environment.NewLine;
+                }
+
+                longchar = ListOfColumns;
+
+                string[] exampleArray = longchar.Split('\n');
+                double[] valuespeed = new double[exampleArray.Length - 1];
+                Debug.WriteLine(exampleArray.Length);
+
+
+
+                for (int i = 0; i < exampleArray.Length; i++)
+                {
+                    exampleArray[i] = exampleArray[i].Replace("\n", "").Replace("\r", "");
+                }
+
+
+                for (int i = 0; i < exampleArray.Length - 1; i++)
+                {
+                    valuespeed[i] = double.Parse(exampleArray[i]);
+                }
+
+
+
+
+                valueclass6 = valuespeed;
+
+
+
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         #endregion

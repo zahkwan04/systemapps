@@ -48,6 +48,8 @@ namespace systemapps
             }
         }
 
+        public int returnvalueflag { get; set; }
+
         void Form1_SizeChanged(object sender, EventArgs e)
         {
             pictureBox1.Image = pictureBox1.Image;
@@ -427,7 +429,7 @@ namespace systemapps
 
                     string orisize;
                     orisize = string.Concat(oriWidth.ToString(), ",", oriHeight.ToString(), ";");
-                    sw.Write(orisize);
+                    sw.WriteLine(orisize);
                 }
 
                 else
@@ -435,7 +437,7 @@ namespace systemapps
                     string mytext;
                     //mytext = string.Concat(refWidth.ToString(), ",", refHeight.ToString(), ";");
                     mytext = string.Concat(oriimage.Width.ToString(), ",", oriimage.Height.ToString(), ";");
-                    sw.Write(mytext);
+                    sw.WriteLine(mytext);
                 }
 
                 //3
@@ -495,7 +497,6 @@ namespace systemapps
             }
 
             this.Hide();
-
         }
 
 
@@ -592,11 +593,11 @@ namespace systemapps
                 //string thumb = openFileDialog1.FileName;
                 Image oriimage = Image.FromFile(readimgpath);
                // newimage = new Bitmap(oriimage, 352, 288);
-                newimage = new Bitmap(oriimage, 465, 350);
+                newimage = new Bitmap(oriimage, 640, 480);
 
 
 
-                if (oriimage.Width <= 800 && oriimage.Height <= 600)
+                if (oriimage.Width <= 640 && oriimage.Height <= 480)
                 {
                     // newimage = new Bitmap(oriimage, oriimage.Width, oriimage.Height);
                     //  Graphics g = pictureBox1.CreateGraphics();
@@ -653,6 +654,11 @@ namespace systemapps
         }
 
         private void openFileDialog1_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void materialLabel1_Click(object sender, EventArgs e)
         {
 
         }
